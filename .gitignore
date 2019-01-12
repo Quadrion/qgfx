@@ -17,4 +17,6 @@
 *.vcxproj.user
 .vs
 
+*.user
+
 !dependencies/Premake/premake5.exe

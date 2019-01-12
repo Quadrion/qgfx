@@ -1,0 +1,135 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW", "dependencies\GLFW\GLFW.vcxproj", "{154B857C-0182-860D-AA6E-6C109684020F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Glad", "dependencies\Glad\Glad.vcxproj", "{BDD6857C-A90D-870D-52FA-6C103E10030F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qgfx", "projects\qgfx\qgfx.vcxproj", "{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BDD6857C-A90D-870D-52FA-6C103E10030F} = {BDD6857C-A90D-870D-52FA-6C103E10030F}
+		{154B857C-0182-860D-AA6E-6C109684020F} = {154B857C-0182-860D-AA6E-6C109684020F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qgfx-test", "projects\qgfx-test\qgfx-test.vcxproj", "{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F} = {1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		OpenGLDebug|Win32 = OpenGLDebug|Win32
+		OpenGLDebug|x64 = OpenGLDebug|x64
+		OpenGLDistribution|Win32 = OpenGLDistribution|Win32
+		OpenGLDistribution|x64 = OpenGLDistribution|x64
+		OpenGLRelease|Win32 = OpenGLRelease|Win32
+		OpenGLRelease|x64 = OpenGLRelease|x64
+		VulkanDebug|Win32 = VulkanDebug|Win32
+		VulkanDebug|x64 = VulkanDebug|x64
+		VulkanDistribution|Win32 = VulkanDistribution|Win32
+		VulkanDistribution|x64 = VulkanDistribution|x64
+		VulkanRelease|Win32 = VulkanRelease|Win32
+		VulkanRelease|x64 = VulkanRelease|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{154B857C-0182-860D-AA6E-6C109684020F}.OpenGLDebug|Win32.ActiveCfg = OpenGLDebug|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.OpenGLDebug|Win32.Build.0 = OpenGLDebug|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.OpenGLDebug|x64.ActiveCfg = OpenGLDebug|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.OpenGLDebug|x64.Build.0 = OpenGLDebug|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.OpenGLDistribution|Win32.ActiveCfg = OpenGLDistribution|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.OpenGLDistribution|Win32.Build.0 = OpenGLDistribution|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.OpenGLDistribution|x64.ActiveCfg = OpenGLDistribution|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.OpenGLDistribution|x64.Build.0 = OpenGLDistribution|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.OpenGLRelease|Win32.ActiveCfg = OpenGLRelease|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.OpenGLRelease|Win32.Build.0 = OpenGLRelease|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.OpenGLRelease|x64.ActiveCfg = OpenGLRelease|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.OpenGLRelease|x64.Build.0 = OpenGLRelease|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.VulkanDebug|Win32.ActiveCfg = VulkanDebug|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.VulkanDebug|Win32.Build.0 = VulkanDebug|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.VulkanDebug|x64.ActiveCfg = VulkanDebug|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.VulkanDebug|x64.Build.0 = VulkanDebug|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.VulkanDistribution|Win32.ActiveCfg = VulkanDistribution|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.VulkanDistribution|Win32.Build.0 = VulkanDistribution|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.VulkanDistribution|x64.ActiveCfg = VulkanDistribution|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.VulkanDistribution|x64.Build.0 = VulkanDistribution|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.VulkanRelease|Win32.ActiveCfg = VulkanRelease|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.VulkanRelease|Win32.Build.0 = VulkanRelease|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.VulkanRelease|x64.ActiveCfg = VulkanRelease|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.VulkanRelease|x64.Build.0 = VulkanRelease|x64
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.OpenGLDebug|Win32.ActiveCfg = OpenGLDebug|Win32
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.OpenGLDebug|Win32.Build.0 = OpenGLDebug|Win32
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.OpenGLDebug|x64.ActiveCfg = OpenGLDebug|x64
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.OpenGLDebug|x64.Build.0 = OpenGLDebug|x64
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.OpenGLDistribution|Win32.ActiveCfg = OpenGLDistribution|Win32
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.OpenGLDistribution|Win32.Build.0 = OpenGLDistribution|Win32
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.OpenGLDistribution|x64.ActiveCfg = OpenGLDistribution|x64
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.OpenGLDistribution|x64.Build.0 = OpenGLDistribution|x64
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.OpenGLRelease|Win32.ActiveCfg = OpenGLRelease|Win32
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.OpenGLRelease|Win32.Build.0 = OpenGLRelease|Win32
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.OpenGLRelease|x64.ActiveCfg = OpenGLRelease|x64
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.OpenGLRelease|x64.Build.0 = OpenGLRelease|x64
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.VulkanDebug|Win32.ActiveCfg = VulkanDebug|Win32
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.VulkanDebug|Win32.Build.0 = VulkanDebug|Win32
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.VulkanDebug|x64.ActiveCfg = VulkanDebug|x64
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.VulkanDebug|x64.Build.0 = VulkanDebug|x64
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.VulkanDistribution|Win32.ActiveCfg = VulkanDistribution|Win32
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.VulkanDistribution|Win32.Build.0 = VulkanDistribution|Win32
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.VulkanDistribution|x64.ActiveCfg = VulkanDistribution|x64
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.VulkanDistribution|x64.Build.0 = VulkanDistribution|x64
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.VulkanRelease|Win32.ActiveCfg = VulkanRelease|Win32
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.VulkanRelease|Win32.Build.0 = VulkanRelease|Win32
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.VulkanRelease|x64.ActiveCfg = VulkanRelease|x64
+		{BDD6857C-A90D-870D-52FA-6C103E10030F}.VulkanRelease|x64.Build.0 = VulkanRelease|x64
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.OpenGLDebug|Win32.ActiveCfg = OpenGLDebug|Win32
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.OpenGLDebug|Win32.Build.0 = OpenGLDebug|Win32
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.OpenGLDebug|x64.ActiveCfg = OpenGLDebug|x64
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.OpenGLDebug|x64.Build.0 = OpenGLDebug|x64
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.OpenGLDistribution|Win32.ActiveCfg = OpenGLDistribution|Win32
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.OpenGLDistribution|Win32.Build.0 = OpenGLDistribution|Win32
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.OpenGLDistribution|x64.ActiveCfg = OpenGLDistribution|x64
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.OpenGLDistribution|x64.Build.0 = OpenGLDistribution|x64
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.OpenGLRelease|Win32.ActiveCfg = OpenGLRelease|Win32
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.OpenGLRelease|Win32.Build.0 = OpenGLRelease|Win32
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.OpenGLRelease|x64.ActiveCfg = OpenGLRelease|x64
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.OpenGLRelease|x64.Build.0 = OpenGLRelease|x64
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.VulkanDebug|Win32.ActiveCfg = VulkanDebug|Win32
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.VulkanDebug|Win32.Build.0 = VulkanDebug|Win32
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.VulkanDebug|x64.ActiveCfg = VulkanDebug|x64
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.VulkanDebug|x64.Build.0 = VulkanDebug|x64
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.VulkanDistribution|Win32.ActiveCfg = VulkanDistribution|Win32
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.VulkanDistribution|Win32.Build.0 = VulkanDistribution|Win32
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.VulkanDistribution|x64.ActiveCfg = VulkanDistribution|x64
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.VulkanDistribution|x64.Build.0 = VulkanDistribution|x64
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.VulkanRelease|Win32.ActiveCfg = VulkanRelease|Win32
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.VulkanRelease|Win32.Build.0 = VulkanRelease|Win32
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.VulkanRelease|x64.ActiveCfg = VulkanRelease|x64
+		{1BCA9C7C-0701-9E0D-B0ED-83109C031A0F}.VulkanRelease|x64.Build.0 = VulkanRelease|x64
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.OpenGLDebug|Win32.ActiveCfg = OpenGLDebug|Win32
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.OpenGLDebug|Win32.Build.0 = OpenGLDebug|Win32
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.OpenGLDebug|x64.ActiveCfg = OpenGLDebug|x64
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.OpenGLDebug|x64.Build.0 = OpenGLDebug|x64
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.OpenGLDistribution|Win32.ActiveCfg = OpenGLDistribution|Win32
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.OpenGLDistribution|Win32.Build.0 = OpenGLDistribution|Win32
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.OpenGLDistribution|x64.ActiveCfg = OpenGLDistribution|x64
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.OpenGLDistribution|x64.Build.0 = OpenGLDistribution|x64
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.OpenGLRelease|Win32.ActiveCfg = OpenGLRelease|Win32
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.OpenGLRelease|Win32.Build.0 = OpenGLRelease|Win32
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.OpenGLRelease|x64.ActiveCfg = OpenGLRelease|x64
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.OpenGLRelease|x64.Build.0 = OpenGLRelease|x64
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.VulkanDebug|Win32.ActiveCfg = VulkanDebug|Win32
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.VulkanDebug|Win32.Build.0 = VulkanDebug|Win32
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.VulkanDebug|x64.ActiveCfg = VulkanDebug|x64
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.VulkanDebug|x64.Build.0 = VulkanDebug|x64
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.VulkanDistribution|Win32.ActiveCfg = VulkanDistribution|Win32
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.VulkanDistribution|Win32.Build.0 = VulkanDistribution|Win32
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.VulkanDistribution|x64.ActiveCfg = VulkanDistribution|x64
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.VulkanDistribution|x64.Build.0 = VulkanDistribution|x64
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.VulkanRelease|Win32.ActiveCfg = VulkanRelease|Win32
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.VulkanRelease|Win32.Build.0 = VulkanRelease|Win32
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.VulkanRelease|x64.ActiveCfg = VulkanRelease|x64
+		{88FA9532-F464-4AA9-3DA3-FB4EA94C28FE}.VulkanRelease|x64.Build.0 = VulkanRelease|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -29,11 +29,14 @@ workspace "qgfx"
 
     IncludeDir = {}
     IncludeDir["Glad"] = "dependencies/Glad/includes"
+    IncludeDir["GLFW"] = "dependencies/GLFW/include"
 
 project "qgfx"
     location "projects/%{prj.name}"
     kind "SharedLib"
     language "C++"
+
+    dependson {"Glad", "GLFW"}
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("intermediates/" .. outputdir .. "/%{prj.name}")
@@ -71,13 +74,16 @@ project "qgfx"
         optimize "Full"
 
     filter "configurations:OpenGLDebug or OpenGLRelease or OpenGLDistribution"
+    	include "dependencies/GLFW"
         include "dependencies/Glad"
         includedirs
         {
-            "%{IncludeDir.Glad}"
+            "%{IncludeDir.Glad}",
+            "%{IncludeDir.GLFW}"
         }
         links
         {
+        	"GLFW",
             "Glad",
             "opengl32.lib"
         }
@@ -88,6 +94,8 @@ project "qgfx-test"
     location "projects/%{prj.name}"
     kind "ConsoleApp"
     language "C++"
+
+    dependson { "qgfx" }
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("intermediates/" .. outputdir .. "/%{prj.name}")
