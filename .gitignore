@@ -1,0 +1,20 @@
+# Compiled binaries
+*.lib
+*.exe
+*.dll
+*.a
+*.o
+*.so
+
+# Folders
+*intermediates*
+*bin*
+
+# Visual Studio
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+.vs
+
+!dependencies/Premake/premake5.exe
