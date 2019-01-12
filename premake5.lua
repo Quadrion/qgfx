@@ -25,21 +25,25 @@ workspace "qgfx"
     
     filter {}
 
+    include "dependencies/GLFW"
+    include "dependencies/Glad"
+
     outputdir = "%{cfg.buildcfg}/%{cfg.system}/%{cfg.architecture}"
 
     IncludeDir = {}
     IncludeDir["Glad"] = "dependencies/Glad/includes"
     IncludeDir["GLFW"] = "dependencies/GLFW/include"
+    IncludeDir["Vulkan"] = "dependencies/Vulkan/include"
 
 project "qgfx"
     location "projects/%{prj.name}"
     kind "SharedLib"
     language "C++"
 
-    dependson {"Glad", "GLFW"}
-
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("intermediates/" .. outputdir .. "/%{prj.name}")
+
+    dependson { "Glad", "GLFW" }
 
     files
     {
@@ -74,8 +78,6 @@ project "qgfx"
         optimize "Full"
 
     filter "configurations:OpenGLDebug or OpenGLRelease or OpenGLDistribution"
-    	include "dependencies/GLFW"
-        include "dependencies/Glad"
         includedirs
         {
             "%{IncludeDir.Glad}",
@@ -87,6 +89,41 @@ project "qgfx"
             "Glad",
             "opengl32.lib"
         }
+
+    filter "configurations:VulkanDebug"
+        runtime "Debug"
+        symbols "On"
+
+    filter "configurations:VulkanRelease"
+        runtime "Release"
+        optimize "On"
+
+    filter "configurations:VulkanDistribution"
+        runtime "Release"
+        optimize "Full"
+
+    filter "configurations:VulkanDebug or VulkanRelease or VulkanDistribution"
+    	includedirs
+    	{
+    		"%{IncludeDir.Vulkan}"
+    	}
+
+    	links
+    	{
+    		"vulkan-1"
+    	}
+
+    filter { "configurations:VulkanDebug or VulkanRelease or VulkanDistribution", "platforms:x86" }
+    	libdirs
+    	{
+    		"dependencies/Vulkan/lib32"
+    	}
+
+    filter { "configurations:VulkanDebug or VulkanRelease or VulkanDistribution", "platforms:x64" }
+    	libdirs
+    	{
+    		"dependencies/Vulkan/lib"
+    	}
 
     filter {} 
     
@@ -136,5 +173,29 @@ project "qgfx-test"
     filter "configurations:OpenGLDistribution"
         runtime "Release"
         optimize "Full"
+
+    filter "configurations:VulkanDebug"
+        runtime "Debug"
+        symbols "On"
+
+    filter "configurations:VulkanRelease"
+        runtime "Release"
+        optimize "On"
+
+    filter "configurations:VulkanDistribution"
+        runtime "Release"
+        optimize "Full"
+
+    filter { "configurations:VulkanDebug or VulkanRelease or VulkanDistribution", "platforms:x86" }
+    	bindirs
+    	{
+    		"dependencies/Vulkan/bin32"
+   		}
+
+    filter { "configurations:VulkanDebug or VulkanRelease or VulkanDistribution", "platforms:x64" }
+    	bindirs
+    	{
+    		"dependencies/Vulkan/bin"
+   		}
 
     filter {}

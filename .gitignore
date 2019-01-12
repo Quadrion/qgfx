@@ -5,6 +5,9 @@
 *.a
 *.o
 *.so
+*.obj
+*.tlog
+*.buildstate
 
 # Folders
 *intermediates*
