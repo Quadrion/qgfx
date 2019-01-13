@@ -47,7 +47,7 @@ int main()
 		return -1;
 	}
 
-	ContextHandle* contextHandle = new ContextHandle();
+	ContextHandle* contextHandle = new ContextHandle(window);
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
