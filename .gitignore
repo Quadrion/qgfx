@@ -10,8 +10,8 @@
 *.buildstate
 
 # Folders
-*intermediates*
-*bin*
+intermediates/
+bin/
 
 # Visual Studio
 *.sln
