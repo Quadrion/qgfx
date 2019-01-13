@@ -9,6 +9,8 @@
 *.tlog
 *.buildstate
 
+*.idea/
+
 # Folders
 intermediates/
 bin/
