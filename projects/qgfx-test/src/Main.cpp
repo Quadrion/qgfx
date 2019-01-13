@@ -3,7 +3,9 @@
 #include <iostream>
 
 #include <GLFW/glfw3.h>
+#if defined (QGFX_VULKAN)
 #include <vulkan/vulkan.h>
+#endif
 #include <cassert>
 #include "qassert.h"
 #include <vector>
@@ -149,7 +151,7 @@ int main()
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
-
+		glfwPollEvents();
 	}
 
 	vkDestroyInstance(instance, nullptr);
