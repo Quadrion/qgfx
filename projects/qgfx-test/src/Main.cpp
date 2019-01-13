@@ -1,15 +1,5 @@
 #include "qgfx/qgfx.h"
-
-#include <iostream>
-
-#include <GLFW/glfw3.h>
-#if defined (QGFX_VULKAN)
-#endif
-#include <cassert>
-#include "qgfx/qassert.h"
-#include <vector>
-
-#include "qgfx/context_handle.h"
+#include "GLFW/glfw3.h"
 
 int main()
 {
@@ -57,7 +47,6 @@ int main()
 		return -1;
 	}
 
-	// init vulkan
 	ContextHandle* contextHandle = new ContextHandle();
 
 	/* Loop until the user closes the window */

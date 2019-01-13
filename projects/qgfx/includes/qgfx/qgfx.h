@@ -16,4 +16,7 @@
 #ifndef qgfx_h__
 #define qgfx_h__
 
+#include "context_handle.h"
+#include "qassert.h"
+
 #endif // qgfx_h__

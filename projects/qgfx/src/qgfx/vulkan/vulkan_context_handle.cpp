@@ -71,11 +71,6 @@ std::vector<const char*> getRequiredExtensions()
 	return extensions;
 }
 
-bool isDeviceSuitable(VkPhysicalDevice device)
-{
-	return true;
-}
-
 int32_t rateDeviceSuitability(VkPhysicalDevice device)
 {
 	VkPhysicalDeviceProperties deviceProperties;
@@ -110,6 +105,7 @@ VulkanContextHandle::VulkanContextHandle()
 	_createInstance();
 	_setupDebugCallback();
 	_pickPhysicalDevice();
+	_createLogicalDevice();
 }
 
 VulkanContextHandle::~VulkanContextHandle()
@@ -125,13 +121,26 @@ VulkanContextHandle::~VulkanContextHandle()
 		}
 	}
 
+	vkDestroyDevice(mDevice, nullptr);
+
 	vkDestroyInstance(mInstance, nullptr);
 	mInstance = nullptr;
+	mDevice = nullptr;
 }
 
 VkInstance VulkanContextHandle::getInstance() const
 {
 	return mInstance;
+}
+
+VkPhysicalDevice VulkanContextHandle::getPhysicalDevice() const
+{
+	return mPhysicalDevice;
+}
+
+VkDevice VulkanContextHandle::getLogicalDevice() const
+{
+	return mDevice;
 }
 
 void VulkanContextHandle::_createInstance()
@@ -147,8 +156,6 @@ void VulkanContextHandle::_createInstance()
 	VkInstanceCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 	createInfo.pApplicationInfo = &appInfo;
-
-	uint32_t glfwExtensionCount = 0;
 
 	auto extensions = getRequiredExtensions();
 
@@ -215,7 +222,7 @@ void VulkanContextHandle::_pickPhysicalDevice()
 	for(const auto& device : devices)
 	{
 		int32_t score = rateDeviceSuitability(device);
-		if(isDeviceSuitable(device))
+		if(_isDeviceSuitable(device))
 		{
 			candidates.insert(std::make_pair(score, device));
 		}
@@ -227,6 +234,81 @@ void VulkanContextHandle::_pickPhysicalDevice()
 	}
 
 	QGFX_ASSERT_MSG(mPhysicalDevice != nullptr, "Failed to find a suitable GPU!");
+
+	VkPhysicalDeviceProperties props;
+	vkGetPhysicalDeviceProperties(mPhysicalDevice, &props);
+	std::cout << "Running Vulkan on: " << props.deviceName << std::endl;
+}
+
+void VulkanContextHandle::_createLogicalDevice()
+{
+	QueueFamilyIndices indices = _findQueueFamilies(mPhysicalDevice);
+
+	VkDeviceQueueCreateInfo queueCreateInfo = {};
+	queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+	queueCreateInfo.queueFamilyIndex = indices.graphicsFamily.value();
+	queueCreateInfo.queueCount = 1;
+	float queuePriority = 1.0f;
+	queueCreateInfo.pQueuePriorities = &queuePriority;
+
+	VkPhysicalDeviceFeatures deviceFeatures = {};
+	VkDeviceCreateInfo createInfo = {};
+	createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+	createInfo.pQueueCreateInfos = &queueCreateInfo;
+	createInfo.queueCreateInfoCount = 1;
+	createInfo.pEnabledFeatures = &deviceFeatures;
+	createInfo.enabledExtensionCount = 0;
+
+	if(enableValidationLayers)
+	{
+		createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
+		createInfo.ppEnabledLayerNames = validationLayers.data();
+	}
+	else
+	{
+		createInfo.enabledLayerCount = 0;
+	}
+
+	const VkResult result = vkCreateDevice(mPhysicalDevice, &createInfo, nullptr, &mDevice);
+	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create logical device!");
+
+	vkGetDeviceQueue(mDevice, indices.graphicsFamily.value(), 0, &mGraphicsQueue);
+}
+
+VulkanContextHandle::QueueFamilyIndices VulkanContextHandle::_findQueueFamilies(const VkPhysicalDevice device) const
+{
+	QueueFamilyIndices indices;
+
+	uint32_t queueFamilyCount = 0;
+	vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
+
+	std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
+	vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data());
+
+	int32_t i = 0;
+	for(const auto& queueFamily : queueFamilies)
+	{
+		if(queueFamily.queueCount > 0 && queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT)
+		{
+			indices.graphicsFamily = i;
+		}
+
+		if(indices.isComplete())
+		{
+			break;
+		}
+
+		i++;
+	}
+
+	return indices;
+}
+
+bool VulkanContextHandle::_isDeviceSuitable(const VkPhysicalDevice device) const
+{
+	QueueFamilyIndices indices = _findQueueFamilies(device);
+
+	return indices.isComplete();
 }
 
 #endif // QGFX_VULKAN
