@@ -7,6 +7,8 @@
 *.so
 *.obj
 *.tlog
+*.log
+*.pdb
 *.buildstate
 
 
@@ -17,10 +19,10 @@ intermediates/
 bin/
 
 # Visual Studio
-# *.sln
-# *.vcxproj
-# *.vcxproj.filters
-# *.vcxproj.user
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
 .vs
 
 *.user
