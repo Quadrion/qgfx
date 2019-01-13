@@ -9,6 +9,7 @@
 *.tlog
 *.buildstate
 
+
 *.idea/
 
 # Folders
@@ -16,10 +17,10 @@ intermediates/
 bin/
 
 # Visual Studio
-*.sln
-*.vcxproj
-*.vcxproj.filters
-*.vcxproj.user
+# *.sln
+# *.vcxproj
+# *.vcxproj.filters
+# *.vcxproj.user
 .vs
 
 *.user

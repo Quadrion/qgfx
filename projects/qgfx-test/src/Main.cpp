@@ -1,4 +1,4 @@
-#include "qgfx.h"
+#include "qgfx/qgfx.h"
 
 #include <iostream>
 
@@ -7,7 +7,7 @@
 #include <vulkan/vulkan.h>
 #endif
 #include <cassert>
-#include "qassert.h"
+#include "qgfx/qassert.h"
 #include <vector>
 
 const std::vector<const char*> validationLayers = {
