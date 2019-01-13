@@ -92,7 +92,7 @@ project "qgfx"
 
         defines
         {
-        	QGFX_OPENGL
+        	"QGFX_OPENGL"
     	}
 
     filter "configurations:VulkanDebug"
@@ -122,7 +122,7 @@ project "qgfx"
 
     	defines
         {
-        	QGFX_VULKAN
+        	"QGFX_VULKAN"
     	}
 
     filter { "configurations:VulkanDebug or VulkanRelease or VulkanDistribution", "platforms:x86" }
@@ -136,6 +136,24 @@ project "qgfx"
     	{
     		"dependencies/Vulkan/lib"
     	}
+
+   	filter { "configurations:VulkanDebug or OpenGLDebug" }
+   		defines
+   		{
+   			"_DEBUG"
+   		}
+
+   	filter { "configurations:VulkanRelease or OpenGLRelease" }
+   		defines
+   		{
+   			"_RELEASE"
+   		}
+
+   	filter { "configurations:VulkanDistribution or OpenGLDistribution" }
+   		defines
+   		{
+   			"_DIST"
+   		}
 
     filter {} 
     
@@ -204,7 +222,7 @@ project "qgfx-test"
 
         defines
         {
-        	QGFX_OPENGL
+        	"QGFX_OPENGL"
     	}
 
     filter "configurations:VulkanDebug"
@@ -234,7 +252,7 @@ project "qgfx-test"
 
     	defines
         {
-        	QGFX_VULKAN
+        	"QGFX_VULKAN"
     	}
 
     filter { "configurations:VulkanDebug or VulkanRelease or VulkanDistribution", "platforms:x86" }
