@@ -37,8 +37,6 @@ src/wayland-pointer-constraints-unstable-v1-protocol.c
 src/wayland-relative-pointer-unstable-v1-client-protocol.h
 src/wayland-relative-pointer-unstable-v1-protocol.c
 
-intermediate/*
-
 # Compiled binaries
 src/libglfw.so
 src/libglfw.so.3
@@ -83,3 +81,4 @@ tests/timeout
 tests/title
 tests/vulkan
 tests/windows
+

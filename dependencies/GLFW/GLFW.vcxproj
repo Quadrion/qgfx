@@ -433,11 +433,13 @@
     <ClCompile Include="src\init.c" />
     <ClCompile Include="src\input.c" />
     <ClCompile Include="src\monitor.c" />
+    <ClCompile Include="src\osmesa_context.c" />
     <ClCompile Include="src\vulkan.c" />
     <ClCompile Include="src\wgl_context.c" />
     <ClCompile Include="src\win32_init.c" />
     <ClCompile Include="src\win32_joystick.c" />
     <ClCompile Include="src\win32_monitor.c" />
+    <ClCompile Include="src\win32_thread.c" />
     <ClCompile Include="src\win32_time.c" />
     <ClCompile Include="src\win32_window.c" />
     <ClCompile Include="src\window.c" />

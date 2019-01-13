@@ -38,6 +38,9 @@
     <ClCompile Include="src\monitor.c">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\osmesa_context.c">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\vulkan.c">
       <Filter>src</Filter>
     </ClCompile>
@@ -51,6 +54,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\win32_monitor.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\win32_thread.c">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\win32_time.c">

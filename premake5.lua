@@ -37,7 +37,7 @@ workspace "qgfx"
 
 project "qgfx"
     location "projects/%{prj.name}"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
@@ -47,13 +47,13 @@ project "qgfx"
 
     files
     {
-        "%{prj.name}/includes/**.h",
-        "%{prj.name}/src/**.cpp"
+        "projects/%{prj.name}/includes/**.h",
+        "projects/%{prj.name}/src/**.cpp"
     }
 
     includedirs
     {
-        "%{prj.name}/includes/**.h"
+        "projects/%{prj.name}/includes"
     }
 
     filter "system:windows"
@@ -90,6 +90,11 @@ project "qgfx"
             "opengl32.lib"
         }
 
+        defines
+        {
+        	QGFX_OPENGL
+    	}
+
     filter "configurations:VulkanDebug"
         runtime "Debug"
         symbols "On"
@@ -105,12 +110,19 @@ project "qgfx"
     filter "configurations:VulkanDebug or VulkanRelease or VulkanDistribution"
     	includedirs
     	{
-    		"%{IncludeDir.Vulkan}"
+    		"%{IncludeDir.Vulkan}",
+    		"%{IncludeDir.GLFW}"
     	}
 
     	links
     	{
+    		"GLFW",
     		"vulkan-1"
+    	}
+
+    	defines
+        {
+        	QGFX_VULKAN
     	}
 
     filter { "configurations:VulkanDebug or VulkanRelease or VulkanDistribution", "platforms:x86" }
@@ -137,10 +149,12 @@ project "qgfx-test"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("intermediates/" .. outputdir .. "/%{prj.name}")
 
+    ignoredefaultlibraries {"LIBCMT"}
+
     files
     {
-        "%{prj.name}/includes/**.h",
-        "%{prj.name}/src/**.cpp"
+        "projects/%{prj.name}/includes/**.h",
+        "projects/%{prj.name}/src/**.cpp"
     }
 
     links
@@ -174,6 +188,25 @@ project "qgfx-test"
         runtime "Release"
         optimize "Full"
 
+    filter "configurations:OpenGLDebug or OpenGLRelease or OpenGLDistribution"
+    	includedirs
+        {
+            "%{IncludeDir.Glad}",
+            "%{IncludeDir.GLFW}"
+        }
+
+        links
+        {
+        	"GLFW",
+            "Glad",
+            "opengl32.lib"
+        }
+
+        defines
+        {
+        	QGFX_OPENGL
+    	}
+
     filter "configurations:VulkanDebug"
         runtime "Debug"
         symbols "On"
@@ -186,16 +219,44 @@ project "qgfx-test"
         runtime "Release"
         optimize "Full"
 
+    filter "configurations:VulkanDebug or VulkanRelease or VulkanDistribution"
+    	includedirs
+        {
+            "%{IncludeDir.Vulkan}",
+            "%{IncludeDir.GLFW}"
+        }
+
+        links
+    	{
+    		"GLFW",
+    		"vulkan-1"
+    	}
+
+    	defines
+        {
+        	QGFX_VULKAN
+    	}
+
     filter { "configurations:VulkanDebug or VulkanRelease or VulkanDistribution", "platforms:x86" }
     	bindirs
     	{
     		"dependencies/Vulkan/bin32"
    		}
 
+   		libdirs
+    	{
+    		"dependencies/Vulkan/lib32"
+    	}
+
     filter { "configurations:VulkanDebug or VulkanRelease or VulkanDistribution", "platforms:x64" }
     	bindirs
     	{
     		"dependencies/Vulkan/bin"
    		}
+
+   		libdirs
+    	{
+    		"dependencies/Vulkan/lib"
+    	}
 
     filter {}
