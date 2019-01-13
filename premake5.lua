@@ -31,7 +31,7 @@ workspace "qgfx"
     outputdir = "%{cfg.buildcfg}/%{cfg.system}/%{cfg.architecture}"
 
     IncludeDir = {}
-    IncludeDir["Glad"] = "dependencies/Glad/includes"
+    IncludeDir["Glad"] = "dependencies/Glad/include"
     IncludeDir["GLFW"] = "dependencies/GLFW/include"
     IncludeDir["Vulkan"] = "dependencies/Vulkan/include"
 

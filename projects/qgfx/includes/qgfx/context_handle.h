@@ -2,7 +2,8 @@
 #define context_handle_h__
 
 #if defined(QGFX_OPENGL)
-using ContextHandle = void*;
+#include "qgfx/opengl/opengl_context_handle.h"
+using ContextHandle = OpenGLContextHandle;
 #elif defined(QGFX_VULKAN)
 #include "qgfx/vulkan/vulkan_context_handle.h"
 using ContextHandle = VulkanContextHandle;
