@@ -7,10 +7,21 @@
 #include <vulkan/vulkan.h>
 #include "GLFW/glfw3.h"
 
+/// <summary>
+/// Represents an Vulkan Context Handle. Contains all the initialization objects
+/// that Vulkan needs to bind to a window and render.
+/// </summary>
 class VulkanContextHandle
 {
 	public:
+		/// <summary>
+		/// Constructs a new OpenGLVulkanContextHandleContextHandle.
+		/// </summary>
 		explicit VulkanContextHandle(GLFWwindow* window);
+
+		/// <summary>
+		/// Default destructor
+		/// </summary>
 		~VulkanContextHandle();
 
 		VulkanContextHandle(const VulkanContextHandle&) = delete;
@@ -19,8 +30,28 @@ class VulkanContextHandle
 		VulkanContextHandle& operator = (const VulkanContextHandle&) = delete;
 		VulkanContextHandle& operator = (VulkanContextHandle&&) noexcept = delete;
 
+		/// <summary>
+		/// Returns the current Vulkan Instance
+		/// </summary>
+		/// <returns>
+		/// Returns the current VkInstance
+		/// </returns>
 		VkInstance getInstance() const;
+
+		/// <summary>
+		/// Returns the current Vulkan Physical Device
+		/// </summary>
+		/// <returns>
+		/// Returns the current VkPhysicalDevice
+		/// </returns>
 		VkPhysicalDevice getPhysicalDevice() const;
+
+		/// <summary>
+		/// Returns the current Vulkan Device
+		/// </summary>
+		/// <returns>
+		/// Returns the current VkDevice
+		/// </returns>
 		VkDevice getLogicalDevice() const;
 
 	private:

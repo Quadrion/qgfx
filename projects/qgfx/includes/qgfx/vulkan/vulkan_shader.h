@@ -5,15 +5,33 @@
 
 #include <vulkan/vulkan.h>
 #include "qgfx/context_handle.h"
+#include "qgfx/api/ishader.h"
 
-class VulkanShader
+class VulkanShader : public IShader
 {
 	public:
-		explicit VulkanShader(ContextHandle* handle, const std::string& aSource);
+		explicit VulkanShader(ContextHandle* handle);
 		~VulkanShader();
 
+		bool attachVertexShader(const std::string& source) override;
+		bool attachFragmentShader(const std::string& source) override;
+		bool attachGeometryShader(const std::string& source) override;
+		bool attachTesselationControlShader(const std::string& source) override;
+		bool attachTesselationEvaluationShader(const std::string& source) override;
+
+		bool compile() override;
+
+		bool bind() override;
+		bool unbind() override;
+
 	private:
-		VkShaderModule mModule;
+		VkShaderModule mVertexModule;
+		VkShaderModule mFragmentModule;
+		VkShaderModule mGeometryModule;
+		VkShaderModule mTesselationControlModule;
+		VkShaderModule mTesselationEvaluationModule;
+
+		std::vector<VkPipelineShaderStageCreateInfo> mShaderStages;
 };
 
 #endif // vulkan_shader_h__

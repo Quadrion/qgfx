@@ -14,7 +14,7 @@ public:
 	/// Constructs a new OpenGLContextHandle.  Matches VulkanContextHandle, but the
 	/// constructor is a no-op
 	/// </summary>
-	OpenGLContextHandle(GLFWwindow * window);
+	explicit OpenGLContextHandle(GLFWwindow * window);
 
 	/// <summary>
 	/// Default destructor
@@ -27,7 +27,7 @@ public:
 	/// <returns>
 	/// Null pointer
 	/// </returns>
-	void * getHandle() const;
+	void* getHandle() const;
 
 	/// <summary>
 	/// No-op
@@ -35,7 +35,7 @@ public:
 	/// <returns>
 	/// Null pointer
 	/// </returns>
-	void * getPhysicalDevice() const;
+	void* getPhysicalDevice() const;
 
 	/// <summary>
 	/// No-op
@@ -43,7 +43,7 @@ public:
 	/// <returns>
 	/// Null pointer
 	/// </returns>
-	void * getLogicalDevice() const;
+	void* getLogicalDevice() const;
 };
 
 #endif // opengl_context_handle_h__

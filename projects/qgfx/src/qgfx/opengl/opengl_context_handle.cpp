@@ -1,5 +1,4 @@
-#ifndef opengl_context_handle__
-#define opengl_context_handle__
+#if defined(QGFX_OPENGL)
 
 #include "qgfx/opengl/opengl_context_handle.h"
 
@@ -11,19 +10,19 @@ OpenGLContextHandle::~OpenGLContextHandle()
 {
 }
 
-void * OpenGLContextHandle::getHandle() const
+void* OpenGLContextHandle::getHandle() const
 {
 	return nullptr;
 }
 
-void * OpenGLContextHandle::getPhysicalDevice() const
+void* OpenGLContextHandle::getPhysicalDevice() const
 {
 	return nullptr;
 }
 
-void * OpenGLContextHandle::getLogicalDevice() const
+void* OpenGLContextHandle::getLogicalDevice() const
 {
 	return nullptr;
 }
 
-#endif
+#endif // QGFX_OPENGL
