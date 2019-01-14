@@ -457,7 +457,7 @@ VkExtent2D VulkanContextHandle::_chooseSwapExtent(const VkSurfaceCapabilitiesKHR
 	}
 	else
 	{
-		VkExtent2D actualExtent = { 1280, 720 }; // TODO (roderick) : Don't have this hardcoded.
+		VkExtent2D actualExtent = { 1280, 720 }; // TODO (Roderick) : Don't have this hardcoded.
 
 		actualExtent.width = std::max(capabilities.minImageExtent.width, std::min(capabilities.maxImageExtent.width, actualExtent.width));
 		actualExtent.height = std::max(capabilities.minImageExtent.height, std::min(capabilities.maxImageExtent.height, actualExtent.height));

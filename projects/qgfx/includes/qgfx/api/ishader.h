@@ -9,7 +9,7 @@ public:
 	IShader() = default;
 	virtual ~IShader() = 0;
 
-	IShader& operator=(const IShader&) = delete;
+	IShader& operator = (const IShader&) = delete;
 
 	virtual bool attachVertexShader(const std::string& source) = 0;
 	virtual bool attachGeometryShader(const std::string& source) = 0;

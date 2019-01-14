@@ -68,7 +68,7 @@ bool OpenGLShader::bind()
 
 bool OpenGLShader::unbind()
 {
-	// Todo (Nick): implement
+	// TODO (Nick): implement
 	return true;
 }
 
