@@ -7,7 +7,7 @@ ContextHandle* handle;
 
 VulkanShader::VulkanShader(ContextHandle* context)
 {
-	handle = context;
+	handle = handle;
 	mVertexModule = VK_NULL_HANDLE;
 	mFragmentModule = VK_NULL_HANDLE;
 	mGeometryModule = VK_NULL_HANDLE;

@@ -62,13 +62,15 @@ bool OpenGLShader::compile()
 
 bool OpenGLShader::bind()
 {
-	// TODO (Nick): implement
+	glUseProgram(mId);
+
 	return true;
 }
 
 bool OpenGLShader::unbind()
 {
-	// TODO (Nick): implement
+	glUseProgram(0);
+
 	return true;
 }
 
