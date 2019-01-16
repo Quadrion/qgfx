@@ -1,13 +1,76 @@
 #ifndef ivertexbuffer_h__
 #define ivertexbuffer_h__
 
-#include "qgfx/context_handle.h"
+#include <vector>
 
-// TODO (Roderick, Nick): Implement this
-struct VertexLayout
+#include "qgfx/context_handle.h"
+#include "qgfx/qassert.h"
+
+struct VertexBufferLayoutElement
 {
-	
+	std::string name;
+	uint32_t type;
+	size_t size;
+	uint32_t count;
+	size_t offset;
+	bool normalized;
 };
+
+class VertexBufferLayout
+{
+	public:
+		VertexBufferLayout() = default;
+		~VertexBufferLayout() = default;
+
+		const std::vector<VertexBufferLayoutElement>& getLayout() const { return mLayout; }
+		uint32_t getStride() const { return mSize; }
+
+		template<typename T>
+		void push(const std::string& name, const uint32_t count = 1, const bool normalize = false)
+		{
+			QGFX_ASSERT(false);
+		}
+
+	private:
+		size_t mSize;
+		std::vector<VertexBufferLayoutElement> mLayout;
+
+		void _push(const std::string& name, const uint32_t type, const size_t size, const uint32_t count, const bool normalized)
+		{
+			mLayout.push_back({ name, type, size, count, mSize, normalized });
+			mSize += size * count;
+		}
+};
+
+template<>
+inline void VertexBufferLayout::push<float>(const std::string& name, const uint32_t count, const bool normalized)
+{
+	#if defined(QGFX_OPENGL)
+	_push(name, GL_FLOAT, sizeof(float), count, normalized);
+	#elif defined(QGFX_VULKAN)
+	_push(name, VK_FORMAT_R32_SFLOAT, sizeof(float), count, normalized);
+	#endif
+}
+
+template<>
+inline void VertexBufferLayout::push<uint32_t>(const std::string& name, const uint32_t count, const bool normalized)
+{
+	#if defined(QGFX_OPENGL)
+		_push(name, GL_UNSIGNED_INT, sizeof(uint32_t), count, normalized);
+	#elif defined(QGFX_VULKAN)
+		_push(name, VK_FORMAT_R32_UINT, sizeof(uint32_t), count, normalized);
+	#endif
+}
+
+template<>
+inline void VertexBufferLayout::push<uint8_t>(const std::string& name, const uint32_t count, const bool normalized)
+{
+	#if defined(QGFX_OPENGL)
+		_push(name, GL_UNSIGNED_BYTE, sizeof(uint8_t), count, normalized);
+	#elif defined(QGFX_VULKAN)
+		_push(name, VK_FORMAT_R8_UINT, sizeof(uint8_t), count, normalized);
+	#endif
+}
 
 class IVertexBuffer
 {
@@ -18,11 +81,11 @@ class IVertexBuffer
 		IVertexBuffer& operator = (const IVertexBuffer&) = delete;
 
 		virtual void setData(void* data, const size_t size) = 0;
-		virtual void setLayout(const VertexLayout& layout) = 0;
+		virtual void setLayout(const VertexBufferLayout& layout) = 0;
 
 		virtual bool construct() = 0;
 
-		virtual VertexLayout& getLayout() = 0;
+		virtual VertexBufferLayout& getLayout() = 0;
 
 		virtual void bind() = 0;
 		virtual void unbind() = 0;

@@ -78,7 +78,7 @@ std::vector<const char*> getRequiredExtensions()
 	return extensions;
 }
 
-int32_t rateDeviceSuitability(VkPhysicalDevice device)
+int32_t rateDeviceSuitability(const VkPhysicalDevice device)
 {
 	VkPhysicalDeviceProperties deviceProperties;
 	VkPhysicalDeviceFeatures deviceFeatures;
@@ -163,6 +163,16 @@ VkPhysicalDevice VulkanContextHandle::getPhysicalDevice() const
 VkDevice VulkanContextHandle::getLogicalDevice() const
 {
 	return mDevice;
+}
+
+VkSwapchainKHR VulkanContextHandle::getSwapChain() const
+{
+	return mSwapChain;
+}
+
+VkExtent2D VulkanContextHandle::getSwapChainExtent() const
+{
+	return mSwapChainExtent;
 }
 
 void VulkanContextHandle::_createInstance()

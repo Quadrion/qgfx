@@ -54,6 +54,9 @@ class VulkanContextHandle
 		/// </returns>
 		VkDevice getLogicalDevice() const;
 
+		VkSwapchainKHR getSwapChain() const;
+		VkExtent2D getSwapChainExtent() const;
+
 	private:
 		GLFWwindow* mWindow;
 

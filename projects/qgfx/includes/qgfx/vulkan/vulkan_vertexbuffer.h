@@ -13,23 +13,27 @@ class VulkanVertexBuffer : public IVertexBuffer
 		~VulkanVertexBuffer();
 
 		void setData(void* data, const size_t size) override;
-		void setLayout(const VertexLayout& layout) override;
+		void setLayout(const VertexBufferLayout& layout) override;
 
 		bool construct() override;
 
-		VertexLayout& getLayout() override;
+		VertexBufferLayout& getLayout() override;
 
 		void bind() override;
 		void unbind() override;
 
 	private:
 		VkBuffer mBuffer;
-		VertexLayout mLayout;
+		VkDeviceMemory mMemory;
+		VertexBufferLayout mLayout;
 
 		VkVertexInputBindingDescription mBindingDescription;
 		std::vector<VkVertexInputAttributeDescription> mAttributeDescriptions;
 
 		uint32_t mSize;
+		void* mData;
+
+		uint32_t _findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) const;
 };
 
 #endif // vulkan_vertexbuffer_h__
