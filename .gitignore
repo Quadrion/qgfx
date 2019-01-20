@@ -4,6 +4,7 @@
 *.dll
 *.a
 *.o
+*.d
 *.so
 *.obj
 *.tlog

@@ -64,10 +64,14 @@ project "qgfx"
     filter "system:linux"
         buildoptions "-std=c++17"
         staticruntime "On"
+        linkoptions "-pthread"
+        linkoptions "-lX11"
+        linkoptions "-ldl"
 
-        defines
+        libdirs 
         {
-            "QGFX_VULKAN"
+            "/usr/lib", 
+            "usr/local/lib"
         }
 
     filter "configurations:OpenGLDebug"
@@ -108,7 +112,7 @@ project "qgfx"
     filter { "configurations:OpenGLDebug or OpenGLRelease or OpenGLDistribution", "system:linux" }
         links
         {
-            "gl"
+            "GL"
         }
 
     filter "configurations:VulkanDebug"
@@ -209,11 +213,15 @@ project "qgfx-test"
     filter "system:linux"
         buildoptions "-std=c++17"
         staticruntime "On"
+        linkoptions "-pthread"
+        linkoptions "-lX11"
+        linkoptions "-ldl"
 
-        defines
+        libdirs 
         {
-            "QGFX_VULKAN"
-        }
+            "/usr/lib", 
+            "usr/local/lib"
+        }  
 
     filter "configurations:OpenGLDebug"
         runtime "Debug"
@@ -252,9 +260,9 @@ project "qgfx-test"
         }
 
     filter { "configurations:OpenGLDebug or OpenGLRelease or OpenGLDistribution", "system:linux" }
-        links
+        links 
         {
-            "gl"
+            "GL"
         }
 
     filter "configurations:VulkanDebug"

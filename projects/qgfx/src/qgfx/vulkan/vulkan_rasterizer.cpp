@@ -1,3 +1,5 @@
+#if defined(QGFX_VULKAN)
+
 #include "qgfx/vulkan/vulkan_rasterizer.h"
 
 ContextHandle* handle;
@@ -77,3 +79,5 @@ void VulkanRasterizer::setLineWidth(const float lineWidth)
 {
 	rasterizer.lineWidth = lineWidth;
 }
+
+#endif // QGFX_VULKAN

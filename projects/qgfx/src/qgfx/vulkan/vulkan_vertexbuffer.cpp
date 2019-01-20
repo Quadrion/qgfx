@@ -1,3 +1,5 @@
+#if defined(QGFX_VULKAN)
+
 #include "qgfx/vulkan/vulkan_vertexbuffer.h"
 
 #include <array>
@@ -115,3 +117,5 @@ uint32_t VulkanVertexBuffer::_findMemoryType(const uint32_t typeFilter, const Vk
 	QGFX_ASSERT_MSG(false, "Failed to find suitable memory type");
 	return 0;
 }
+
+#endif // QGFX_VULKAN

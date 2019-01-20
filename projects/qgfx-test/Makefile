@@ -23,16 +23,16 @@ ifeq ($(config),opengldebug_x86)
   TARGETDIR = ../../bin/OpenGLDebug/linux/x86/qgfx-test
   TARGET = $(TARGETDIR)/qgfx-test
   OBJDIR = ../../intermediates/OpenGLDebug/linux/x86/qgfx-test
-  DEFINES += -DQGFX_VULKAN -DQGFX_OPENGL
+  DEFINES += -DQGFX_OPENGL
   INCLUDES += -I../qgfx/includes -I../../dependencies/Glad/include -I../../dependencies/GLFW/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -g -std=c++17
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -g -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/OpenGLDebug/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLDebug/linux/x86/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLDebug/linux/x86/Glad/libGlad.a -lgl
+  LIBS += ../../bin/OpenGLDebug/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLDebug/linux/x86/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLDebug/linux/x86/Glad/libGlad.a -lGL
   LDDEPS += ../../bin/OpenGLDebug/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLDebug/linux/x86/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLDebug/linux/x86/Glad/libGlad.a
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L/usr/lib32 -m32 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -58,16 +58,16 @@ ifeq ($(config),opengldebug_x64)
   TARGETDIR = ../../bin/OpenGLDebug/linux/x86_64/qgfx-test
   TARGET = $(TARGETDIR)/qgfx-test
   OBJDIR = ../../intermediates/OpenGLDebug/linux/x86_64/qgfx-test
-  DEFINES += -DQGFX_VULKAN -DQGFX_OPENGL
+  DEFINES += -DQGFX_OPENGL
   INCLUDES += -I../qgfx/includes -I../../dependencies/Glad/include -I../../dependencies/GLFW/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/OpenGLDebug/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLDebug/linux/x86_64/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLDebug/linux/x86_64/Glad/libGlad.a -lgl
+  LIBS += ../../bin/OpenGLDebug/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLDebug/linux/x86_64/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLDebug/linux/x86_64/Glad/libGlad.a -lGL
   LDDEPS += ../../bin/OpenGLDebug/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLDebug/linux/x86_64/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLDebug/linux/x86_64/Glad/libGlad.a
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L/usr/lib64 -m64 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -93,16 +93,16 @@ ifeq ($(config),openglrelease_x86)
   TARGETDIR = ../../bin/OpenGLRelease/linux/x86/qgfx-test
   TARGET = $(TARGETDIR)/qgfx-test
   OBJDIR = ../../intermediates/OpenGLRelease/linux/x86/qgfx-test
-  DEFINES += -DQGFX_VULKAN -DQGFX_OPENGL
+  DEFINES += -DQGFX_OPENGL
   INCLUDES += -I../qgfx/includes -I../../dependencies/Glad/include -I../../dependencies/GLFW/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O2 -std=c++17
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O2 -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/OpenGLRelease/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLRelease/linux/x86/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLRelease/linux/x86/Glad/libGlad.a -lgl
+  LIBS += ../../bin/OpenGLRelease/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLRelease/linux/x86/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLRelease/linux/x86/Glad/libGlad.a -lGL
   LDDEPS += ../../bin/OpenGLRelease/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLRelease/linux/x86/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLRelease/linux/x86/Glad/libGlad.a
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L/usr/lib32 -m32 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -128,16 +128,16 @@ ifeq ($(config),openglrelease_x64)
   TARGETDIR = ../../bin/OpenGLRelease/linux/x86_64/qgfx-test
   TARGET = $(TARGETDIR)/qgfx-test
   OBJDIR = ../../intermediates/OpenGLRelease/linux/x86_64/qgfx-test
-  DEFINES += -DQGFX_VULKAN -DQGFX_OPENGL
+  DEFINES += -DQGFX_OPENGL
   INCLUDES += -I../qgfx/includes -I../../dependencies/Glad/include -I../../dependencies/GLFW/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/OpenGLRelease/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLRelease/linux/x86_64/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLRelease/linux/x86_64/Glad/libGlad.a -lgl
+  LIBS += ../../bin/OpenGLRelease/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLRelease/linux/x86_64/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLRelease/linux/x86_64/Glad/libGlad.a -lGL
   LDDEPS += ../../bin/OpenGLRelease/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLRelease/linux/x86_64/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLRelease/linux/x86_64/Glad/libGlad.a
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L/usr/lib64 -m64 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -163,16 +163,16 @@ ifeq ($(config),opengldistribution_x86)
   TARGETDIR = ../../bin/OpenGLDistribution/linux/x86/qgfx-test
   TARGET = $(TARGETDIR)/qgfx-test
   OBJDIR = ../../intermediates/OpenGLDistribution/linux/x86/qgfx-test
-  DEFINES += -DQGFX_VULKAN -DQGFX_OPENGL
+  DEFINES += -DQGFX_OPENGL
   INCLUDES += -I../qgfx/includes -I../../dependencies/Glad/include -I../../dependencies/GLFW/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O3 -std=c++17
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O3 -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/OpenGLDistribution/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLDistribution/linux/x86/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLDistribution/linux/x86/Glad/libGlad.a -lgl
+  LIBS += ../../bin/OpenGLDistribution/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLDistribution/linux/x86/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLDistribution/linux/x86/Glad/libGlad.a -lGL
   LDDEPS += ../../bin/OpenGLDistribution/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLDistribution/linux/x86/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLDistribution/linux/x86/Glad/libGlad.a
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L/usr/lib32 -m32 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -198,16 +198,16 @@ ifeq ($(config),opengldistribution_x64)
   TARGETDIR = ../../bin/OpenGLDistribution/linux/x86_64/qgfx-test
   TARGET = $(TARGETDIR)/qgfx-test
   OBJDIR = ../../intermediates/OpenGLDistribution/linux/x86_64/qgfx-test
-  DEFINES += -DQGFX_VULKAN -DQGFX_OPENGL
+  DEFINES += -DQGFX_OPENGL
   INCLUDES += -I../qgfx/includes -I../../dependencies/Glad/include -I../../dependencies/GLFW/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O3 -std=c++17
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O3 -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/OpenGLDistribution/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLDistribution/linux/x86_64/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLDistribution/linux/x86_64/Glad/libGlad.a -lgl
+  LIBS += ../../bin/OpenGLDistribution/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLDistribution/linux/x86_64/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLDistribution/linux/x86_64/Glad/libGlad.a -lGL
   LDDEPS += ../../bin/OpenGLDistribution/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/OpenGLDistribution/linux/x86_64/GLFW/libGLFW.a ../../dependencies/Glad/bin/OpenGLDistribution/linux/x86_64/Glad/libGlad.a
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L/usr/lib64 -m64 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -242,7 +242,7 @@ ifeq ($(config),vulkandebug_x86)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += ../../bin/VulkanDebug/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDebug/linux/x86/GLFW/libGLFW.a -lvulkan-1
   LDDEPS += ../../bin/VulkanDebug/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDebug/linux/x86/GLFW/libGLFW.a
-  ALL_LDFLAGS += $(LDFLAGS) -L../../dependencies/Vulkan/lib32 -L/usr/lib32 -m32
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L../../dependencies/Vulkan/lib32 -L/usr/lib32 -m32 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   EXECUTABLE_PATHS = "../../dependencies/Vulkan/bin32"
   EXE_PATHS = export PATH=$(EXECUTABLE_PATHS):$$PATH;
@@ -279,7 +279,7 @@ ifeq ($(config),vulkandebug_x64)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += ../../bin/VulkanDebug/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDebug/linux/x86_64/GLFW/libGLFW.a -lvulkan-1
   LDDEPS += ../../bin/VulkanDebug/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDebug/linux/x86_64/GLFW/libGLFW.a
-  ALL_LDFLAGS += $(LDFLAGS) -L../../dependencies/Vulkan/lib -L/usr/lib64 -m64
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L../../dependencies/Vulkan/lib -L/usr/lib64 -m64 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   EXECUTABLE_PATHS = "../../dependencies/Vulkan/bin"
   EXE_PATHS = export PATH=$(EXECUTABLE_PATHS):$$PATH;
@@ -316,7 +316,7 @@ ifeq ($(config),vulkanrelease_x86)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += ../../bin/VulkanRelease/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanRelease/linux/x86/GLFW/libGLFW.a -lvulkan-1
   LDDEPS += ../../bin/VulkanRelease/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanRelease/linux/x86/GLFW/libGLFW.a
-  ALL_LDFLAGS += $(LDFLAGS) -L../../dependencies/Vulkan/lib32 -L/usr/lib32 -m32
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L../../dependencies/Vulkan/lib32 -L/usr/lib32 -m32 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   EXECUTABLE_PATHS = "../../dependencies/Vulkan/bin32"
   EXE_PATHS = export PATH=$(EXECUTABLE_PATHS):$$PATH;
@@ -353,7 +353,7 @@ ifeq ($(config),vulkanrelease_x64)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += ../../bin/VulkanRelease/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanRelease/linux/x86_64/GLFW/libGLFW.a -lvulkan-1
   LDDEPS += ../../bin/VulkanRelease/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanRelease/linux/x86_64/GLFW/libGLFW.a
-  ALL_LDFLAGS += $(LDFLAGS) -L../../dependencies/Vulkan/lib -L/usr/lib64 -m64
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L../../dependencies/Vulkan/lib -L/usr/lib64 -m64 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   EXECUTABLE_PATHS = "../../dependencies/Vulkan/bin"
   EXE_PATHS = export PATH=$(EXECUTABLE_PATHS):$$PATH;
@@ -390,7 +390,7 @@ ifeq ($(config),vulkandistribution_x86)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += ../../bin/VulkanDistribution/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDistribution/linux/x86/GLFW/libGLFW.a -lvulkan-1
   LDDEPS += ../../bin/VulkanDistribution/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDistribution/linux/x86/GLFW/libGLFW.a
-  ALL_LDFLAGS += $(LDFLAGS) -L../../dependencies/Vulkan/lib32 -L/usr/lib32 -m32
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L../../dependencies/Vulkan/lib32 -L/usr/lib32 -m32 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   EXECUTABLE_PATHS = "../../dependencies/Vulkan/bin32"
   EXE_PATHS = export PATH=$(EXECUTABLE_PATHS):$$PATH;
@@ -427,7 +427,7 @@ ifeq ($(config),vulkandistribution_x64)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += ../../bin/VulkanDistribution/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDistribution/linux/x86_64/GLFW/libGLFW.a -lvulkan-1
   LDDEPS += ../../bin/VulkanDistribution/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDistribution/linux/x86_64/GLFW/libGLFW.a
-  ALL_LDFLAGS += $(LDFLAGS) -L../../dependencies/Vulkan/lib -L/usr/lib64 -m64
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L../../dependencies/Vulkan/lib -L/usr/lib64 -m64 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   EXECUTABLE_PATHS = "../../dependencies/Vulkan/bin"
   EXE_PATHS = export PATH=$(EXECUTABLE_PATHS):$$PATH;

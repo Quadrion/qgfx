@@ -1,3 +1,5 @@
+#if defined(QGFX_VULKAN)
+
 #include "qgfx/vulkan/vulkan_pipeline.h"
 #include "qgfx/qassert.h"
 
@@ -71,3 +73,4 @@ void VulkanPipeline::setTopology(const Topology& topology)
 	inputAssembly.primitiveRestartEnable = VK_FALSE;
 }
 
+#endif // QGFX_VULKAN
