@@ -240,7 +240,7 @@ ifeq ($(config),vulkandebug_x86)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -g -std=c++17
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -g -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/VulkanDebug/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDebug/linux/x86/GLFW/libGLFW.a -lvulkan-1
+  LIBS += ../../bin/VulkanDebug/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDebug/linux/x86/GLFW/libGLFW.a -lvulkan
   LDDEPS += ../../bin/VulkanDebug/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDebug/linux/x86/GLFW/libGLFW.a
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L../../dependencies/Vulkan/lib32 -L/usr/lib32 -m32 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -277,7 +277,7 @@ ifeq ($(config),vulkandebug_x64)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/VulkanDebug/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDebug/linux/x86_64/GLFW/libGLFW.a -lvulkan-1
+  LIBS += ../../bin/VulkanDebug/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDebug/linux/x86_64/GLFW/libGLFW.a -lvulkan
   LDDEPS += ../../bin/VulkanDebug/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDebug/linux/x86_64/GLFW/libGLFW.a
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L../../dependencies/Vulkan/lib -L/usr/lib64 -m64 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -314,7 +314,7 @@ ifeq ($(config),vulkanrelease_x86)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O2 -std=c++17
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O2 -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/VulkanRelease/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanRelease/linux/x86/GLFW/libGLFW.a -lvulkan-1
+  LIBS += ../../bin/VulkanRelease/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanRelease/linux/x86/GLFW/libGLFW.a -lvulkan
   LDDEPS += ../../bin/VulkanRelease/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanRelease/linux/x86/GLFW/libGLFW.a
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L../../dependencies/Vulkan/lib32 -L/usr/lib32 -m32 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -351,7 +351,7 @@ ifeq ($(config),vulkanrelease_x64)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/VulkanRelease/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanRelease/linux/x86_64/GLFW/libGLFW.a -lvulkan-1
+  LIBS += ../../bin/VulkanRelease/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanRelease/linux/x86_64/GLFW/libGLFW.a -lvulkan
   LDDEPS += ../../bin/VulkanRelease/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanRelease/linux/x86_64/GLFW/libGLFW.a
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L../../dependencies/Vulkan/lib -L/usr/lib64 -m64 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -388,7 +388,7 @@ ifeq ($(config),vulkandistribution_x86)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O3 -std=c++17
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O3 -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/VulkanDistribution/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDistribution/linux/x86/GLFW/libGLFW.a -lvulkan-1
+  LIBS += ../../bin/VulkanDistribution/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDistribution/linux/x86/GLFW/libGLFW.a -lvulkan
   LDDEPS += ../../bin/VulkanDistribution/linux/x86/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDistribution/linux/x86/GLFW/libGLFW.a
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L../../dependencies/Vulkan/lib32 -L/usr/lib32 -m32 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -425,7 +425,7 @@ ifeq ($(config),vulkandistribution_x64)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O3 -std=c++17
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O3 -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../../bin/VulkanDistribution/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDistribution/linux/x86_64/GLFW/libGLFW.a -lvulkan-1
+  LIBS += ../../bin/VulkanDistribution/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDistribution/linux/x86_64/GLFW/libGLFW.a -lvulkan
   LDDEPS += ../../bin/VulkanDistribution/linux/x86_64/qgfx/libqgfx.a ../../dependencies/GLFW/bin/VulkanDistribution/linux/x86_64/GLFW/libGLFW.a
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib -L../../usr/local/lib -L../../dependencies/Vulkan/lib -L/usr/lib64 -m64 -pthread -lX11 -ldl
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)

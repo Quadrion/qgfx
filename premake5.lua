@@ -286,8 +286,7 @@ project "qgfx-test"
 
         links
     	{
-    		"GLFW",
-    		"vulkan-1"
+    		"GLFW"
     	}
 
     	defines
@@ -315,6 +314,18 @@ project "qgfx-test"
    		libdirs
     	{
     		"dependencies/Vulkan/lib"
-    	}
+        }
+        
+    filter { "configurations:VulkanDebug or VulkanRelease or VulkanDistribution", "system:linux" }
+        links
+        {
+            "vulkan"
+        }
+
+    filter { "configurations:VulkanDebug or VulkanRelease or VulkanDistribution", "system:windows" }
+        links 
+        {
+            "vulkan-1"
+        }
 
     filter {}
