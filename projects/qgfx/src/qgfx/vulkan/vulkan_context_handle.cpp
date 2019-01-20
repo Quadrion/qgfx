@@ -3,6 +3,7 @@
 #include <iostream>
 #include <set>
 #include <algorithm>
+#include <cstring>
 
 #if defined(QGFX_VULKAN)
 

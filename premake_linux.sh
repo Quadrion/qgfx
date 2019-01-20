@@ -1,0 +1,1 @@
+dependencies/Premake/premake5 --cc=clang --os=linux gmake

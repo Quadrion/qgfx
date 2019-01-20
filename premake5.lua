@@ -65,6 +65,11 @@ project "qgfx"
         buildoptions "-std=c++17"
         staticruntime "On"
 
+        defines
+        {
+            "QGFX_VULKAN"
+        }
+
     filter "configurations:OpenGLDebug"
         runtime "Debug"
         symbols "On"
@@ -87,13 +92,24 @@ project "qgfx"
         {
         	"GLFW",
             "Glad",
-            "opengl32.lib"
         }
 
         defines
         {
         	"QGFX_OPENGL"
-    	}
+        }
+        
+    filter { "configurations:OpenGLDebug or OpenGLRelease or OpenGLDistribution", "system:windows" }
+        links
+        {
+            "opengl32.lib"
+        }
+
+    filter { "configurations:OpenGLDebug or OpenGLRelease or OpenGLDistribution", "system:linux" }
+        links
+        {
+            "gl"
+        }
 
     filter "configurations:VulkanDebug"
         runtime "Debug"
@@ -194,6 +210,11 @@ project "qgfx-test"
         buildoptions "-std=c++17"
         staticruntime "On"
 
+        defines
+        {
+            "QGFX_VULKAN"
+        }
+
     filter "configurations:OpenGLDebug"
         runtime "Debug"
         symbols "On"
@@ -217,13 +238,24 @@ project "qgfx-test"
         {
         	"GLFW",
             "Glad",
-            "opengl32.lib"
         }
 
         defines
         {
         	"QGFX_OPENGL"
-    	}
+        }
+        
+    filter { "configurations:OpenGLDebug or OpenGLRelease or OpenGLDistribution", "system:windows" }
+        links
+        {
+            "opengl32.lib"
+        }
+
+    filter { "configurations:OpenGLDebug or OpenGLRelease or OpenGLDistribution", "system:linux" }
+        links
+        {
+            "gl"
+        }
 
     filter "configurations:VulkanDebug"
         runtime "Debug"

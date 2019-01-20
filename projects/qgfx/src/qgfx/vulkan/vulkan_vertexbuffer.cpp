@@ -2,6 +2,8 @@
 
 #include <array>
 #include "qgfx/qassert.h"
+#include <memory>
+#include <cstring>
 
 ContextHandle* handle;
 
