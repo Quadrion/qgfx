@@ -213,9 +213,13 @@ project "qgfx-test"
     filter "system:linux"
         buildoptions "-std=c++17"
         staticruntime "On"
-        linkoptions "-pthread"
-        linkoptions "-lX11"
-        linkoptions "-ldl"
+
+        linkoptions
+        {
+            "-lpthread",
+            "-lX11",
+            "-ldl"
+        }
 
         libdirs 
         {
