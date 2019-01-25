@@ -11,7 +11,7 @@
 class VulkanShader : public IShader
 {
 	public:
-		explicit VulkanShader(ContextHandle* handle);
+		explicit VulkanShader(ContextHandle* context);
 		~VulkanShader();
 
 		bool attachVertexShader(const std::string& source) override;

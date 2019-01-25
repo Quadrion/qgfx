@@ -58,6 +58,20 @@ VulkanPipeline::VulkanPipeline(ContextHandle* context)
 
 	const VkResult result = vkCreatePipelineLayout(handle->getLogicalDevice(), &pipelineLayoutInfo, nullptr, &mLayout);
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create pipeline layout");
+
+	VkPipelineMultisampleStateCreateInfo multiSampling = {};
+	multiSampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+	multiSampling.sampleShadingEnable = VK_FALSE;
+	multiSampling.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+	multiSampling.minSampleShading = 1.0f;
+	multiSampling.pSampleMask = nullptr;
+	multiSampling.alphaToCoverageEnable = VK_FALSE;
+	multiSampling.alphaToOneEnable = VK_FALSE;
+
+	VkPipelineColorBlendAttachmentState colorBlendAttachment = {};
+	colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+	colorBlendAttachment.blendEnable = VK_FALSE;
+	colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_ONE;
 }
 
 VulkanPipeline::~VulkanPipeline()
