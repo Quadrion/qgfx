@@ -47,13 +47,13 @@ project "qgfx"
 
     files
     {
-        "projects/%{prj.name}/includes/**.h",
+        "projects/%{prj.name}/include/**.h",
         "projects/%{prj.name}/src/**.cpp"
     }
 
     includedirs
     {
-        "projects/%{prj.name}/includes"
+        "projects/%{prj.name}/include"
     }
 
     filter "system:windows"
@@ -191,7 +191,7 @@ project "qgfx-test"
 
     files
     {
-        "projects/%{prj.name}/includes/**.h",
+        "projects/%{prj.name}/include/**.h",
         "projects/%{prj.name}/src/**.cpp"
     }
 
@@ -202,7 +202,7 @@ project "qgfx-test"
 
     includedirs
     {
-        "projects/qgfx/includes"
+        "projects/qgfx/include"
     }
 
     filter "system:windows"
