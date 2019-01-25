@@ -1,6 +1,8 @@
 #ifndef ipipeline_h__
 #define ipipeline_h__
 
+#include <cstdint>
+
 enum class Topology : int32_t
 {
 	TriangleList,
