@@ -19,6 +19,8 @@ int main()
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 
+	ContextHandle* handle = new ContextHandle(window);
+
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
@@ -31,6 +33,8 @@ int main()
 		/* Poll for and process events */
 		glfwPollEvents();
 	}
+
+	delete handle;
 
 	glfwTerminate();
 #elif defined(QGFX_VULKAN)

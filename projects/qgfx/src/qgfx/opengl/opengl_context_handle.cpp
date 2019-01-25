@@ -4,6 +4,7 @@
 
 OpenGLContextHandle::OpenGLContextHandle(GLFWwindow* window)
 {
+	gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
 }
 
 OpenGLContextHandle::~OpenGLContextHandle()
