@@ -119,6 +119,7 @@ VulkanContextHandle::VulkanContextHandle(GLFWwindow* window)
 	_createLogicalDevice();
 	_createSwapChain();
 	_createImageViews();
+	_createRenderPass();
 	_createGraphicsPipeline();
 }
 
@@ -414,6 +415,11 @@ void VulkanContextHandle::_createImageViews()
 		const VkResult result = vkCreateImageView(mDevice, &createInfo, nullptr, &mSwapChainImageViews[i]);
 		QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create image views!");
 	}
+}
+
+void VulkanContextHandle::_createRenderPass()
+{
+
 }
 
 void VulkanContextHandle::_createGraphicsPipeline()
