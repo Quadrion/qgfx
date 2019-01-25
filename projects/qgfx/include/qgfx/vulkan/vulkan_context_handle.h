@@ -101,6 +101,7 @@ class VulkanContextHandle
 		void _createSurface();
 		void _createSwapChain();
 		void _createImageViews();
+		void _createRenderPass();
 		void _createGraphicsPipeline();
 
 		VkSurfaceFormatKHR _chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats) const;

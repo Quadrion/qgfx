@@ -16,6 +16,7 @@ class VulkanPipeline : public IPipeline
 
 	private:
 		VkPipelineLayout mLayout;
+		VkRenderPass mRenderPass;
 };
 
 #endif // vulkan_pipeline_h__
