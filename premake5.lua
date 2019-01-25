@@ -94,7 +94,6 @@ project "qgfx"
         }
         links
         {
-        	"GLFW",
             "Glad",
         }
 

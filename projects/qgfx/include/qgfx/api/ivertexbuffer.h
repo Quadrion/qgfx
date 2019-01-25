@@ -30,9 +30,8 @@ class VertexBufferLayout
 		{
 			QGFX_ASSERT(false);
 		}
-
 	private:
-		size_t mSize;
+		size_t mSize = 0;
 		std::vector<VertexBufferLayoutElement> mLayout;
 
 		void _push(const std::string& name, const uint32_t type, const size_t size, const uint32_t count, const bool normalized)

@@ -2,18 +2,21 @@
 #define opengl_shader_h__
 
 #include <glad/glad.h>
-#include "qgfx/api/ishader.h"
-
 #include <map>
+
+#include "qgfx/api/ishader.h"
 #include "qgfx/context_handle.h"
 
 class OpenGLShader : public IShader
 {
 	public:
 		explicit OpenGLShader(ContextHandle* handle);
+		OpenGLShader(const OpenGLShader&) = delete;
+		OpenGLShader(OpenGLShader&& shader) noexcept;
 		~OpenGLShader() override;
 
 		OpenGLShader& operator=(const OpenGLShader&) = delete;
+		OpenGLShader& operator=(OpenGLShader&& shader) noexcept;
 
 		bool attachVertexShader(const std::string& source) override;
 		bool attachGeometryShader(const std::string& source) override;

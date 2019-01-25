@@ -29,6 +29,7 @@ VkPolygonMode qgfxPolygonModeToVulkan(const PolygonMode mode)
 {
 	switch (mode)
 	{
+		case PolygonMode::Point: return VK_POLYGON_MODE_POINT;
 		case PolygonMode::Line: return VK_POLYGON_MODE_LINE;
 		case PolygonMode::Fill: return VK_POLYGON_MODE_FILL;
 		default: return static_cast<VkPolygonMode>(-1);

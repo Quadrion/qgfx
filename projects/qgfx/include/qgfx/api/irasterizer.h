@@ -18,6 +18,7 @@ enum class FrontFace : int32_t
 
 enum class PolygonMode : int32_t
 {
+	Point,
 	Line,
 	Fill
 };

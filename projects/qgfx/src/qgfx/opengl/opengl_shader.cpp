@@ -11,6 +11,12 @@ OpenGLShader::OpenGLShader(ContextHandle* handle)
 	QGFX_ASSERT_MSG(mId != 0, "Failed to create OpenGL Shader!\n");
 }
 
+OpenGLShader::OpenGLShader(OpenGLShader && shader) noexcept
+	: mId(shader.mId)
+{
+	shader.mId = 0;
+}
+
 OpenGLShader::~OpenGLShader()
 {
 	if (mId)
@@ -18,6 +24,13 @@ OpenGLShader::~OpenGLShader()
 		glDeleteProgram(mId);
 		mId = 0;
 	}
+}
+
+OpenGLShader& OpenGLShader::operator=(OpenGLShader && shader) noexcept
+{
+	mId = shader.mId;
+	shader.mId = 0;
+	return *this;
 }
 
 bool OpenGLShader::attachVertexShader(const std::string& source)
