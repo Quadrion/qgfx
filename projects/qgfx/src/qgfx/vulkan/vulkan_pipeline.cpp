@@ -179,4 +179,9 @@ void VulkanPipeline::addShader(const qtl::shared_ptr<Shader>& shader)
 	mShaders.push_back(shader);
 }
 
+VkRenderPass VulkanPipeline::getRenderPass() const
+{
+	return mRenderPass;
+}
+
 #endif // QGFX_VULKAN

@@ -20,6 +20,8 @@ class VulkanPipeline : public IPipeline
 		void setTopology(const Topology& topology) override;
 		void addShader(const qtl::shared_ptr<Shader>& shader) override;
 
+		VkRenderPass getRenderPass() const;
+
 	private:
 		VkPipelineLayout mLayout;
 		VkRenderPass mRenderPass;

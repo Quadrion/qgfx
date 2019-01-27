@@ -22,7 +22,7 @@ VulkanShader::~VulkanShader()
 	vkDestroyShaderModule(mHandle->getLogicalDevice(), mTesselationEvaluationModule, nullptr);
 }
 
-bool VulkanShader::attachVertexShader(const qtl::string& source)
+bool VulkanShader::attachVertexShader(const qtl::vector<char>& source)
 {
 	VkShaderModuleCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
@@ -35,7 +35,7 @@ bool VulkanShader::attachVertexShader(const qtl::string& source)
 	return result == VK_SUCCESS;
 }
 
-bool VulkanShader::attachFragmentShader(const qtl::string& source)
+bool VulkanShader::attachFragmentShader(const qtl::vector<char>& source)
 {
 	VkShaderModuleCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
@@ -48,7 +48,7 @@ bool VulkanShader::attachFragmentShader(const qtl::string& source)
 	return result == VK_SUCCESS;
 }
 
-bool VulkanShader::attachGeometryShader(const qtl::string& source)
+bool VulkanShader::attachGeometryShader(const qtl::vector<char>& source)
 {
 	VkShaderModuleCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
@@ -61,7 +61,7 @@ bool VulkanShader::attachGeometryShader(const qtl::string& source)
 	return result == VK_SUCCESS;
 }
 
-bool VulkanShader::attachTesselationControlShader(const qtl::string& source)
+bool VulkanShader::attachTesselationControlShader(const qtl::vector<char>& source)
 {
 	VkShaderModuleCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
@@ -74,7 +74,7 @@ bool VulkanShader::attachTesselationControlShader(const qtl::string& source)
 	return result == VK_SUCCESS;
 }
 
-bool VulkanShader::attachTesselationEvaluationShader(const qtl::string& source)
+bool VulkanShader::attachTesselationEvaluationShader(const qtl::vector<char>& source)
 {
 	VkShaderModuleCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;

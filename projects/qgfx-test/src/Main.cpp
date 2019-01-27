@@ -58,6 +58,19 @@ int main()
 
 	ContextHandle* contextHandle = new ContextHandle(window);
 
+	// create shader and meshes
+	const auto vs = load_spirv("media/effects/vert.spv");
+	const auto fs = load_spirv("media/effects/frag.spv");
+
+	qtl::shared_ptr<Shader> shader = qtl::make_shared<Shader>(contextHandle);
+	shader->attachVertexShader(vs);
+	shader->attachFragmentShader(fs);
+	shader->compile();
+
+	contextHandle->getPipeline()->addShader(shader);
+
+	contextHandle->initializeGraphics();
+
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{

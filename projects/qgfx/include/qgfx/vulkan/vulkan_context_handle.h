@@ -17,7 +17,7 @@ class VulkanContextHandle
 {
 	public:
 		/// <summary>
-		/// Constructs a new OpenGLVulkanContextHandleContextHandle.
+		/// Constructs a new Vulkan Context Handle.
 		/// </summary>
 		explicit VulkanContextHandle(GLFWwindow* window);
 
@@ -31,6 +31,8 @@ class VulkanContextHandle
 
 		VulkanContextHandle& operator = (const VulkanContextHandle&) = delete;
 		VulkanContextHandle& operator = (VulkanContextHandle&&) noexcept = delete;
+
+		void initializeGraphics();
 
 		/// <summary>
 		/// Returns the current Vulkan Instance
@@ -55,6 +57,8 @@ class VulkanContextHandle
 		/// Returns the current VkDevice
 		/// </returns>
 		VkDevice getLogicalDevice() const;
+
+		VulkanPipeline* getPipeline() const;
 
 		VkSwapchainKHR getSwapChain() const;
 		VkExtent2D getSwapChainExtent() const;
@@ -84,6 +88,8 @@ class VulkanContextHandle
 		VulkanRasterizer* mRasterizer;
 		VulkanPipeline* mPipeline;
 
+		qtl::vector<VkFramebuffer> mSwapChainFrameBuffers;
+
 		struct QueueFamilyIndices
 		{
 			std::optional<uint32_t> graphicsFamily;
@@ -109,8 +115,11 @@ class VulkanContextHandle
 		void _createSurface();
 		void _createSwapChain();
 		void _createImageViews();
+
 		void _createRenderPass();
 		void _createGraphicsPipeline();
+
+		void _createFrameBuffers();
 
 		VkSurfaceFormatKHR _chooseSwapSurfaceFormat(const qtl::vector<VkSurfaceFormatKHR>& availableFormats) const;
 		VkPresentModeKHR _chooseSwapPresentMode(const qtl::vector<VkPresentModeKHR>& availablePresentModes) const;

@@ -15,11 +15,11 @@ class VulkanShader : public IShader
 		explicit VulkanShader(ContextHandle* context);
 		~VulkanShader();
 
-		bool attachVertexShader(const qtl::string& source) override;
-		bool attachFragmentShader(const qtl::string& source) override;
-		bool attachGeometryShader(const qtl::string& source) override;
-		bool attachTesselationControlShader(const qtl::string& source) override;
-		bool attachTesselationEvaluationShader(const qtl::string& source) override;
+		bool attachVertexShader(const qtl::vector<char>& source) override;
+		bool attachFragmentShader(const qtl::vector<char>& source) override;
+		bool attachGeometryShader(const qtl::vector<char>& source) override;
+		bool attachTesselationControlShader(const qtl::vector<char>& source) override;
+		bool attachTesselationEvaluationShader(const qtl::vector<char>& source) override;
 
 		bool compile() override;
 

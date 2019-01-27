@@ -12,11 +12,11 @@ public:
 
 	IShader& operator = (const IShader&) = delete;
 
-	virtual bool attachVertexShader(const qtl::string& source) = 0;
-	virtual bool attachGeometryShader(const qtl::string& source) = 0;
-	virtual bool attachTesselationControlShader(const qtl::string& source) = 0;
-	virtual bool attachTesselationEvaluationShader(const qtl::string& source) = 0;
-	virtual bool attachFragmentShader(const qtl::string& source) = 0;
+	virtual bool attachVertexShader(const qtl::vector<char>& source) = 0;
+	virtual bool attachGeometryShader(const qtl::vector<char>& source) = 0;
+	virtual bool attachTesselationControlShader(const qtl::vector<char>& source) = 0;
+	virtual bool attachTesselationEvaluationShader(const qtl::vector<char>& source) = 0;
+	virtual bool attachFragmentShader(const qtl::vector<char>& source) = 0;
 	virtual bool compile() = 0;
 
 	virtual bool bind() = 0;
