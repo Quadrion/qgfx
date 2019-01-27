@@ -7,13 +7,15 @@
 #include <vulkan/vulkan.h>
 #include "GLFW/glfw3.h"
 
+#include "qgfx/api/icontexthandle.h"
+
 class VulkanRasterizer;
 class VulkanPipeline;
 /// <summary>
 /// Represents an Vulkan Context Handle. Contains all the initialization objects
 /// that Vulkan needs to bind to a window and render.
 /// </summary>
-class VulkanContextHandle
+class VulkanContextHandle : public IContextHandle
 {
 	public:
 		/// <summary>
@@ -27,12 +29,15 @@ class VulkanContextHandle
 		~VulkanContextHandle();
 
 		VulkanContextHandle(const VulkanContextHandle&) = delete;
-		VulkanContextHandle(VulkanContextHandle&&) noexcept = delete;
+		VulkanContextHandle(VulkanContextHandle&&) noexcept;
 
 		VulkanContextHandle& operator = (const VulkanContextHandle&) = delete;
-		VulkanContextHandle& operator = (VulkanContextHandle&&) noexcept = delete;
+		VulkanContextHandle& operator = (VulkanContextHandle&&) noexcept;
 
-		void initializeGraphics();
+		VulkanPipeline* getPipeline() const override;
+		VulkanRasterizer* getRasterizer() const override;
+
+		void initializeGraphics() override;
 
 		/// <summary>
 		/// Returns the current Vulkan Instance
@@ -58,17 +63,10 @@ class VulkanContextHandle
 		/// </returns>
 		VkDevice getLogicalDevice() const;
 
-		VulkanPipeline* getPipeline() const;
-
 		VkSwapchainKHR getSwapChain() const;
 		VkExtent2D getSwapChainExtent() const;
 		VkFormat getSwapChainFormat() const;
-
-		VulkanRasterizer* getRasterizer() const;
-
 	private:
-		GLFWwindow* mWindow;
-
 		VkInstance mInstance;
 		VkDebugUtilsMessengerEXT mCallback;
 		VkPhysicalDevice mPhysicalDevice;
@@ -89,8 +87,6 @@ class VulkanContextHandle
 		VulkanPipeline* mPipeline;
 
 		qtl::vector<VkFramebuffer> mSwapChainFrameBuffers;
-
-		
 
 		void _createInstance();
 		void _setupDebugCallback();
