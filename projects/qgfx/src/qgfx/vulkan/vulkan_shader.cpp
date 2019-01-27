@@ -3,11 +3,9 @@
 
 #include "qgfx/vulkan/vulkan_shader.h"
 
-ContextHandle* handle;
-
 VulkanShader::VulkanShader(ContextHandle* context)
 {
-	handle = context;
+	mHandle = context;
 	mVertexModule = VK_NULL_HANDLE;
 	mFragmentModule = VK_NULL_HANDLE;
 	mGeometryModule = VK_NULL_HANDLE;
@@ -17,73 +15,73 @@ VulkanShader::VulkanShader(ContextHandle* context)
 
 VulkanShader::~VulkanShader()
 {
-	vkDestroyShaderModule(handle->getLogicalDevice(), mVertexModule, nullptr);
-	vkDestroyShaderModule(handle->getLogicalDevice(), mFragmentModule, nullptr);
-	vkDestroyShaderModule(handle->getLogicalDevice(), mGeometryModule, nullptr);
-	vkDestroyShaderModule(handle->getLogicalDevice(), mTesselationControlModule, nullptr);
-	vkDestroyShaderModule(handle->getLogicalDevice(), mTesselationEvaluationModule, nullptr);
+	vkDestroyShaderModule(mHandle->getLogicalDevice(), mVertexModule, nullptr);
+	vkDestroyShaderModule(mHandle->getLogicalDevice(), mFragmentModule, nullptr);
+	vkDestroyShaderModule(mHandle->getLogicalDevice(), mGeometryModule, nullptr);
+	vkDestroyShaderModule(mHandle->getLogicalDevice(), mTesselationControlModule, nullptr);
+	vkDestroyShaderModule(mHandle->getLogicalDevice(), mTesselationEvaluationModule, nullptr);
 }
 
-bool VulkanShader::attachVertexShader(const std::string& source)
+bool VulkanShader::attachVertexShader(const qtl::string& source)
 {
 	VkShaderModuleCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
 	createInfo.codeSize = source.size();
 	createInfo.pCode = reinterpret_cast<const uint32_t*>(source.data());
 
-	const VkResult result = vkCreateShaderModule(handle->getLogicalDevice(), &createInfo, nullptr, &mVertexModule);
+	const VkResult result = vkCreateShaderModule(mHandle->getLogicalDevice(), &createInfo, nullptr, &mVertexModule);
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create vertex shader module!");
 
 	return result == VK_SUCCESS;
 }
 
-bool VulkanShader::attachFragmentShader(const std::string& source)
+bool VulkanShader::attachFragmentShader(const qtl::string& source)
 {
 	VkShaderModuleCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
 	createInfo.codeSize = source.size();
 	createInfo.pCode = reinterpret_cast<const uint32_t*>(source.data());
 
-	const VkResult result = vkCreateShaderModule(handle->getLogicalDevice(), &createInfo, nullptr, &mFragmentModule);
+	const VkResult result = vkCreateShaderModule(mHandle->getLogicalDevice(), &createInfo, nullptr, &mFragmentModule);
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create fragment shader module!");
 
 	return result == VK_SUCCESS;
 }
 
-bool VulkanShader::attachGeometryShader(const std::string& source)
+bool VulkanShader::attachGeometryShader(const qtl::string& source)
 {
 	VkShaderModuleCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
 	createInfo.codeSize = source.size();
 	createInfo.pCode = reinterpret_cast<const uint32_t*>(source.data());
 
-	const VkResult result = vkCreateShaderModule(handle->getLogicalDevice(), &createInfo, nullptr, &mGeometryModule);
+	const VkResult result = vkCreateShaderModule(mHandle->getLogicalDevice(), &createInfo, nullptr, &mGeometryModule);
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create geometry shader module!");
 
 	return result == VK_SUCCESS;
 }
 
-bool VulkanShader::attachTesselationControlShader(const std::string& source)
+bool VulkanShader::attachTesselationControlShader(const qtl::string& source)
 {
 	VkShaderModuleCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
 	createInfo.codeSize = source.size();
 	createInfo.pCode = reinterpret_cast<const uint32_t*>(source.data());
 
-	const VkResult result = vkCreateShaderModule(handle->getLogicalDevice(), &createInfo, nullptr, &mTesselationControlModule);
+	const VkResult result = vkCreateShaderModule(mHandle->getLogicalDevice(), &createInfo, nullptr, &mTesselationControlModule);
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create tesselation control shader module!");
 
 	return result == VK_SUCCESS;
 }
 
-bool VulkanShader::attachTesselationEvaluationShader(const std::string& source)
+bool VulkanShader::attachTesselationEvaluationShader(const qtl::string& source)
 {
 	VkShaderModuleCreateInfo createInfo = {};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
 	createInfo.codeSize = source.size();
 	createInfo.pCode = reinterpret_cast<const uint32_t*>(source.data());
 
-	const VkResult result = vkCreateShaderModule(handle->getLogicalDevice(), &createInfo, nullptr, &mTesselationEvaluationModule);
+	const VkResult result = vkCreateShaderModule(mHandle->getLogicalDevice(), &createInfo, nullptr, &mTesselationEvaluationModule);
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create tesselation evaluation shader module!");
 
 	return result == VK_SUCCESS;
@@ -156,5 +154,17 @@ bool VulkanShader::unbind()
 uint32_t VulkanShader::getStageCount() const
 {
 	return static_cast<uint32_t>(mShaderStages.size());
+}
+
+qtl::vector<void*> VulkanShader::getStages() const
+{
+	qtl::vector<void*> stages;
+	for(size_t i = 0; i < mShaderStages.size(); i++)
+	{
+		const auto data = const_cast<VkPipelineShaderStageCreateInfo*>(mShaderStages.data());
+		stages.push_back(data + i);
+	}
+	
+	return stages;
 }
 #endif // QGFX_VULKAN

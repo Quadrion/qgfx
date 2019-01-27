@@ -35,4 +35,6 @@
 #include "qgfx/vulkan/vulkan_vertexbuffer.h"
 #endif
 
+#include "typedefs.h"
+
 #endif // qgfx_h__

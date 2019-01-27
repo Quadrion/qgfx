@@ -2,6 +2,7 @@
 #define ishader_h__
 
 #include <qtl/string.h>
+#include <qtl/vector.h>
 
 class IShader
 {
@@ -21,6 +22,7 @@ public:
 	virtual bool bind() = 0;
 	virtual bool unbind() = 0;
 	virtual uint32_t getStageCount() const = 0;
+	virtual qtl::vector<void*> getStages() const = 0;
 };
 
 #endif // ishader_h__

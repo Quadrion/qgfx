@@ -2,7 +2,7 @@
 #define vulkan_context_handle_h__
 
 #include <optional>
-#include <vector>
+#include <qtl/vector.h>
 
 #include <vulkan/vulkan.h>
 #include "GLFW/glfw3.h"
@@ -74,8 +74,8 @@ class VulkanContextHandle
 		VkFormat mSwapChainImageFormat;
 		VkExtent2D mSwapChainExtent;
 
-		std::vector<VkImage> mSwapChainImages;
-		std::vector<VkImageView> mSwapChainImageViews;
+		qtl::vector<VkImage> mSwapChainImages;
+		qtl::vector<VkImageView> mSwapChainImageViews;
 
 		struct QueueFamilyIndices
 		{
@@ -91,8 +91,8 @@ class VulkanContextHandle
 		struct SwapChainSupportDetails
 		{
 			VkSurfaceCapabilitiesKHR capabilities;
-			std::vector<VkSurfaceFormatKHR> formats;
-			std::vector<VkPresentModeKHR> presentModes;
+			qtl::vector<VkSurfaceFormatKHR> formats;
+			qtl::vector<VkPresentModeKHR> presentModes;
 		};
 
 		void _createInstance();
@@ -105,8 +105,8 @@ class VulkanContextHandle
 		void _createRenderPass();
 		void _createGraphicsPipeline();
 
-		VkSurfaceFormatKHR _chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats) const;
-		VkPresentModeKHR _chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes) const;
+		VkSurfaceFormatKHR _chooseSwapSurfaceFormat(const qtl::vector<VkSurfaceFormatKHR>& availableFormats) const;
+		VkPresentModeKHR _chooseSwapPresentMode(const qtl::vector<VkPresentModeKHR>& availablePresentModes) const;
 		VkExtent2D _chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities) const;
 
 		QueueFamilyIndices _findQueueFamilies(const VkPhysicalDevice device) const;

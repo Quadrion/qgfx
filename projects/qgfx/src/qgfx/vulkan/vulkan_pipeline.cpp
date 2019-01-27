@@ -3,7 +3,7 @@
 #include "qgfx/vulkan/vulkan_pipeline.h"
 #include "qgfx/qassert.h"
 
-ContextHandle* handle;
+#include "qgfx/qgfx.h"
 
 VkPrimitiveTopology qgfxTopologyToVulkan(const Topology& topology)
 {
@@ -19,7 +19,7 @@ VkPrimitiveTopology qgfxTopologyToVulkan(const Topology& topology)
 
 VulkanPipeline::VulkanPipeline(ContextHandle* context)
 {
-	handle = context;
+	mHandle = context;
 
 	VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
 	vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
@@ -33,14 +33,14 @@ VulkanPipeline::VulkanPipeline(ContextHandle* context)
 	VkViewport viewport = {};
 	viewport.x = 0.0f;
 	viewport.y = 0.0f;
-	viewport.width = static_cast<float>(handle->getSwapChainExtent().width);
-	viewport.height = static_cast<float>(handle->getSwapChainExtent().height);
+	viewport.width = static_cast<float>(mHandle->getSwapChainExtent().width);
+	viewport.height = static_cast<float>(mHandle->getSwapChainExtent().height);
 	viewport.minDepth = 0.0f;
 	viewport.maxDepth = 1.0f;
 
 	VkRect2D scissor = {};
 	scissor.offset = { 0, 0 };
-	scissor.extent = handle->getSwapChainExtent();
+	scissor.extent = mHandle->getSwapChainExtent();
 
 	VkPipelineViewportStateCreateInfo viewportState = {};
 	viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
@@ -92,11 +92,11 @@ VulkanPipeline::VulkanPipeline(ContextHandle* context)
 	pipelineLayoutInfo.pushConstantRangeCount = 0;
 	pipelineLayoutInfo.pPushConstantRanges = nullptr;
 
-	VkResult result = vkCreatePipelineLayout(handle->getLogicalDevice(), &pipelineLayoutInfo, nullptr, &mLayout);
+	VkResult result = vkCreatePipelineLayout(mHandle->getLogicalDevice(), &pipelineLayoutInfo, nullptr, &mLayout);
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create pipeline layout");
 
 	VkAttachmentDescription colorAttachment = {};
-	colorAttachment.format = handle->getSwapChainFormat();
+	colorAttachment.format = mHandle->getSwapChainFormat();
 	colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
 	colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
 	colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
@@ -121,18 +121,34 @@ VulkanPipeline::VulkanPipeline(ContextHandle* context)
 	renderPassInfo.subpassCount = 1;
 	renderPassInfo.pSubpasses = &subpass;
 
-	result = vkCreateRenderPass(handle->getLogicalDevice(), &renderPassInfo, nullptr, &mRenderPass);
+	result = vkCreateRenderPass(mHandle->getLogicalDevice(), &renderPassInfo, nullptr, &mRenderPass);
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create render pass");
+
+	uint32_t stageCount = 0;
+	qtl::vector<VkPipelineShaderStageCreateInfo> stages;
+
+	for(const auto& shader : mShaders)
+	{
+		stageCount += shader->getStageCount();
+		for(auto stage : shader->getStages())
+		{
+			VkPipelineShaderStageCreateInfo info = *reinterpret_cast<VkPipelineShaderStageCreateInfo*>(stage);
+			stages.push_back(info);
+		}
+	}
 
 	VkGraphicsPipelineCreateInfo pipelineInfo = {};
 	pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-	pipelineInfo.stageCount = ;
+	pipelineInfo.stageCount = stageCount;
+	pipelineInfo.pStages = stages.data();
+
+	pipelineInfo.pVertexInputState = &vertexInputInfo;
 }
 
 VulkanPipeline::~VulkanPipeline()
 {
-	vkDestroyPipelineLayout(handle->getLogicalDevice(), mLayout, nullptr);
-	vkDestroyRenderPass(handle->getLogicalDevice(), mRenderPass, nullptr);
+	vkDestroyPipelineLayout(mHandle->getLogicalDevice(), mLayout, nullptr);
+	vkDestroyRenderPass(mHandle->getLogicalDevice(), mRenderPass, nullptr);
 }
 
 void VulkanPipeline::setTopology(const Topology& topology)
@@ -141,6 +157,11 @@ void VulkanPipeline::setTopology(const Topology& topology)
 	inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
 	inputAssembly.topology = qgfxTopologyToVulkan(topology);
 	inputAssembly.primitiveRestartEnable = VK_FALSE;
+}
+
+void VulkanPipeline::addShader(const qtl::shared_ptr<Shader> shader)
+{
+	mShaders.push_back(shader);
 }
 
 #endif // QGFX_VULKAN

@@ -3,6 +3,8 @@
 
 #include <vulkan/vulkan.h>
 
+#include <qtl/vector.h>
+
 #include "qgfx/api/ivertexbuffer.h"
 #include "qgfx/context_handle.h"
 
@@ -30,10 +32,12 @@ class VulkanVertexBuffer : public IVertexBuffer
 		VkVertexInputBindingDescription mBindingDescription;
 		qtl::vector<VkVertexInputAttributeDescription> mAttributeDescriptions;
 
-		uint32_t mSize;
+		size_t mSize;
 		void* mData;
 
 		uint32_t _findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) const;
+
+		ContextHandle* mHandle;
 };
 
 #endif // vulkan_vertexbuffer_h__

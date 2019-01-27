@@ -389,13 +389,13 @@ void VulkanContextHandle::_createSwapChain()
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create SwapChain!");
 
 	vkGetSwapchainImagesKHR(mDevice, mSwapChain, &imageCount, nullptr);
-	mSwapChainImages.resize(imageCount);
+	mSwapChainImages.reserve(imageCount);
 	vkGetSwapchainImagesKHR(mDevice, mSwapChain, &imageCount, mSwapChainImages.data());
 }
 
 void VulkanContextHandle::_createImageViews()
 {
-	mSwapChainImageViews.resize(mSwapChainImages.size());
+	mSwapChainImageViews.reserve(mSwapChainImages.size());
 
 	for(size_t i = 0; i < mSwapChainImages.size(); i++)
 	{
@@ -433,7 +433,7 @@ void VulkanContextHandle::_createGraphicsPipeline()
 }
 
 VkSurfaceFormatKHR VulkanContextHandle::_chooseSwapSurfaceFormat(
-	const std::vector<VkSurfaceFormatKHR>& availableFormats) const
+	const qtl::vector<VkSurfaceFormatKHR>& availableFormats) const
 {
 	if(availableFormats.size() == 1 && availableFormats[0].format == VK_FORMAT_UNDEFINED)
 	{
@@ -452,7 +452,7 @@ VkSurfaceFormatKHR VulkanContextHandle::_chooseSwapSurfaceFormat(
 }
 
 VkPresentModeKHR VulkanContextHandle::_chooseSwapPresentMode(
-	const std::vector<VkPresentModeKHR>& availablePresentModes) const
+	const qtl::vector<VkPresentModeKHR>& availablePresentModes) const
 {
 	VkPresentModeKHR bestMode = VK_PRESENT_MODE_FIFO_KHR;
 
@@ -536,7 +536,7 @@ VulkanContextHandle::SwapChainSupportDetails VulkanContextHandle::_querySwapChai
 
 	if(formatCount != 0)
 	{
-		details.formats.resize(formatCount);
+		details.formats.reserve(formatCount);
 		vkGetPhysicalDeviceSurfaceFormatsKHR(device, mSurface, &formatCount, details.formats.data());
 	}
 
@@ -545,7 +545,7 @@ VulkanContextHandle::SwapChainSupportDetails VulkanContextHandle::_querySwapChai
 
 	if(presentModeCount != 0)
 	{
-		details.presentModes.resize(presentModeCount);
+		details.presentModes.reserve(presentModeCount);
 		vkGetPhysicalDeviceSurfacePresentModesKHR(device, mSurface, &presentModeCount, details.presentModes.data());
 	}
 

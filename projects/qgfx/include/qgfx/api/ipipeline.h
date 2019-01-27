@@ -3,6 +3,10 @@
 
 #include <cstdint>
 
+#include <qtl/shared_ptr.h>
+
+#include "qgfx/typedefs.h"
+
 enum class Topology : int32_t
 {
 	TriangleList,
@@ -21,6 +25,7 @@ class IPipeline
 		IPipeline& operator = (const IPipeline&) = delete;
 
 		virtual void setTopology(const Topology& topology) = 0;
+		virtual void addShader(qtl::shared_ptr<Shader> shader) = 0;
 };
 
 #endif // ipipeline_h__

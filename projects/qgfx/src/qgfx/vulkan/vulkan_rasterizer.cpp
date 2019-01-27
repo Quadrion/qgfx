@@ -2,8 +2,6 @@
 
 #include "qgfx/vulkan/vulkan_rasterizer.h"
 
-ContextHandle* handle;
-
 VkCullModeFlags qgfxCullmodeToVulkan(const CullMode mode)
 {
 	switch (mode)
@@ -38,7 +36,7 @@ VkPolygonMode qgfxPolygonModeToVulkan(const PolygonMode mode)
 
 VulkanRasterizer::VulkanRasterizer(ContextHandle* context)
 {
-	handle = context;
+	mHandle = context;
 
 	rasterizer = {};
 	rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;

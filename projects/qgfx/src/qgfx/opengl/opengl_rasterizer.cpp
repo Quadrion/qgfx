@@ -1,5 +1,6 @@
-#include "..\..\..\include\qgfx\opengl\opengl_rasterizer.h"
 #if defined(QGFX_OPENGL)
+
+#include "qgfx/opengl/opengl_rasterizer.h"
 
 OpenGLRasterizer::OpenGLRasterizer()
 {

@@ -1,7 +1,8 @@
 #ifndef vulkan_shader_h__
 #define vulkan_shader_h__
 
-#include <string>
+#include <qtl/string.h>
+#include <qtl/vector.h>
 
 #include <vulkan/vulkan.h>
 
@@ -26,6 +27,7 @@ class VulkanShader : public IShader
 		bool unbind() override;
 
 		uint32_t getStageCount() const override;
+		qtl::vector<void*> getStages() const override;
 
 	private:
 		VkShaderModule mVertexModule;
@@ -34,7 +36,9 @@ class VulkanShader : public IShader
 		VkShaderModule mTesselationControlModule;
 		VkShaderModule mTesselationEvaluationModule;
 
-		std::vector<VkPipelineShaderStageCreateInfo> mShaderStages;
+		qtl::vector<VkPipelineShaderStageCreateInfo> mShaderStages;
+
+		ContextHandle* mHandle;
 };
 
 #endif // vulkan_shader_h__
