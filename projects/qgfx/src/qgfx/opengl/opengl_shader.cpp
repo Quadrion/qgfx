@@ -33,35 +33,35 @@ OpenGLShader& OpenGLShader::operator=(OpenGLShader && shader) noexcept
 	return *this;
 }
 
-bool OpenGLShader::attachVertexShader(const std::string& source)
+bool OpenGLShader::attachVertexShader(const qtl::string& source)
 {
 	const bool res = _createStage(source, GL_VERTEX_SHADER);
 
 	return res;
 }
 
-bool OpenGLShader::attachGeometryShader(const std::string& source)
+bool OpenGLShader::attachGeometryShader(const qtl::string& source)
 {
 	const bool res = _createStage(source, GL_GEOMETRY_SHADER);
 
 	return res;
 }
 
-bool OpenGLShader::attachTesselationControlShader(const std::string& source)
+bool OpenGLShader::attachTesselationControlShader(const qtl::string& source)
 {
 	const bool res = _createStage(source, GL_TESS_CONTROL_SHADER);
 
 	return res;
 }
 
-bool OpenGLShader::attachTesselationEvaluationShader(const std::string& source)
+bool OpenGLShader::attachTesselationEvaluationShader(const qtl::string& source)
 {
 	const bool res = _createStage(source, GL_TESS_EVALUATION_SHADER);
 
 	return res;
 }
 
-bool OpenGLShader::attachFragmentShader(const std::string& source)
+bool OpenGLShader::attachFragmentShader(const qtl::string& source)
 {
 	const bool res = _createStage(source, GL_FRAGMENT_SHADER);
 	
@@ -87,7 +87,7 @@ bool OpenGLShader::unbind()
 	return true;
 }
 
-bool OpenGLShader::_createStage(const std::string& src, GLenum type)
+bool OpenGLShader::_createStage(const qtl::string& src, GLenum type)
 {
 	GLuint stage = glCreateShader(type);
 	const char* source = src.c_str();
@@ -108,7 +108,7 @@ bool OpenGLShader::_createStage(const std::string& src, GLenum type)
 	}
 	else
 	{
-		mStages.insert(std::make_pair(type, stage));
+		mStages.insert({ type, stage });
 	}
 
 	return success == GL_TRUE;

@@ -1,7 +1,7 @@
 #ifndef ishader_h__
 #define ishader_h__
 
-#include <string>
+#include <qtl/string.h>
 
 class IShader
 {
@@ -11,11 +11,11 @@ public:
 
 	IShader& operator = (const IShader&) = delete;
 
-	virtual bool attachVertexShader(const std::string& source) = 0;
-	virtual bool attachGeometryShader(const std::string& source) = 0;
-	virtual bool attachTesselationControlShader(const std::string& source) = 0;
-	virtual bool attachTesselationEvaluationShader(const std::string& source) = 0;
-	virtual bool attachFragmentShader(const std::string& source) = 0;
+	virtual bool attachVertexShader(const qtl::string& source) = 0;
+	virtual bool attachGeometryShader(const qtl::string& source) = 0;
+	virtual bool attachTesselationControlShader(const qtl::string& source) = 0;
+	virtual bool attachTesselationEvaluationShader(const qtl::string& source) = 0;
+	virtual bool attachFragmentShader(const qtl::string& source) = 0;
 	virtual bool compile() = 0;
 
 	virtual bool bind() = 0;
