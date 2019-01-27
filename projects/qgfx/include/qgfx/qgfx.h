@@ -23,6 +23,8 @@
 #include "context_handle.h"
 #include "qassert.h"
 
+#include "typedefs.h"
+
 #if defined(QGFX_OPENGL)
 #include "qgfx/opengl/opengl_pipeline.h"
 #include "qgfx/opengl/opengl_rasterizer.h"
@@ -34,7 +36,5 @@
 #include "qgfx/vulkan/vulkan_shader.h"
 #include "qgfx/vulkan/vulkan_vertexbuffer.h"
 #endif
-
-#include "typedefs.h"
 
 #endif // qgfx_h__

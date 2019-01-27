@@ -1,7 +1,7 @@
 #ifndef irasterizer_h__
 #define irasterizer_h__
 
-#include <cstdint>
+#include <stdint.h>
 
 enum class CullMode : int32_t
 {

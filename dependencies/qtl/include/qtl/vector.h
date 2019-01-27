@@ -728,7 +728,7 @@ namespace qtl
 	template<typename T>
 	inline bool vector<T>::empty() const noexcept
 	{
-		return static_cast<bool>(__size);
+		return !static_cast<bool>(__size);
 	}
 
 	template<typename T>

@@ -5,19 +5,19 @@
 
 #include <cstring>
 
-VertexBuffer::VertexBuffer()
+OpenGLVertexBuffer::OpenGLVertexBuffer()
 	: mId(0)
 {
 }
 
-VertexBuffer::VertexBuffer(VertexBuffer && buf) noexcept
+OpenGLVertexBuffer::OpenGLVertexBuffer(OpenGLVertexBuffer && buf) noexcept
 	: mId(buf.mId), mData(buf.mData)
 {
 	buf.mId = 0;
 	buf.mData = nullptr;
 }
 
-VertexBuffer::~VertexBuffer()
+OpenGLVertexBuffer::~OpenGLVertexBuffer()
 {
 	if (mData)
 	{
@@ -31,7 +31,7 @@ VertexBuffer::~VertexBuffer()
 	}
 }
 
-VertexBuffer& VertexBuffer::operator=(VertexBuffer && buf) noexcept
+OpenGLVertexBuffer& OpenGLVertexBuffer::operator=(OpenGLVertexBuffer && buf) noexcept
 {
 	mId = buf.mId;
 	mData = buf.mData;
@@ -42,18 +42,18 @@ VertexBuffer& VertexBuffer::operator=(VertexBuffer && buf) noexcept
 	return *this;
 }
 
-void VertexBuffer::setData(void * data, const size_t size)
+void OpenGLVertexBuffer::setData(void * data, const size_t size)
 {
 	mData = new char[size];
 	memcpy(mData, data, size);
 }
 
-void VertexBuffer::setLayout(const VertexBufferLayout & layout)
+void OpenGLVertexBuffer::setLayout(const VertexBufferLayout & layout)
 {
 	mLayout = layout;
 }
 
-bool VertexBuffer::construct()
+bool OpenGLVertexBuffer::construct()
 {
 	QGFX_ASSERT_MSG(mId != 0, "Vertex Buffer already constructed.");
 	glCreateBuffers(1, &mId);
@@ -80,17 +80,17 @@ bool VertexBuffer::construct()
 	return true;
 }
 
-VertexBufferLayout & VertexBuffer::getLayout()
+VertexBufferLayout & OpenGLVertexBuffer::getLayout()
 {
 	return mLayout;
 }
 
-void VertexBuffer::bind()
+void OpenGLVertexBuffer::bind()
 {
 	glBindBuffer(GL_VERTEX_ARRAY, mId);
 }
 
-void VertexBuffer::unbind()
+void OpenGLVertexBuffer::unbind()
 {
 	glBindBuffer(GL_VERTEX_ARRAY, 0);
 }

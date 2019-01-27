@@ -6,16 +6,16 @@
 
 #include "qgfx/api/ivertexbuffer.h"
 
-class VertexBuffer : public IVertexBuffer
+class OpenGLVertexBuffer : public IVertexBuffer
 {
 	public:
-		VertexBuffer();
-		VertexBuffer(const VertexBuffer&) = delete;
-		VertexBuffer(VertexBuffer&& buf) noexcept;
-		~VertexBuffer();
+		OpenGLVertexBuffer();
+		OpenGLVertexBuffer(const OpenGLVertexBuffer&) = delete;
+		OpenGLVertexBuffer(OpenGLVertexBuffer&& buf) noexcept;
+		~OpenGLVertexBuffer();
 
-		VertexBuffer& operator=(const VertexBuffer&) = delete;
-		VertexBuffer& operator=(VertexBuffer&& buf) noexcept;
+		OpenGLVertexBuffer& operator=(const OpenGLVertexBuffer&) = delete;
+		OpenGLVertexBuffer& operator=(OpenGLVertexBuffer&& buf) noexcept;
 
 		void setData(void * data, const size_t size) override;
 		void setLayout(const VertexBufferLayout& layout) override;

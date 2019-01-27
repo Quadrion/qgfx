@@ -87,6 +87,16 @@ bool OpenGLShader::unbind()
 	return true;
 }
 
+uint32_t OpenGLShader::getStageCount() const
+{
+	return static_cast<uint32_t>(mStages.size());
+}
+
+qtl::vector<void*> OpenGLShader::getStages() const
+{
+	return qtl::vector<void*>();
+}
+
 bool OpenGLShader::_createStage(const qtl::string& src, GLenum type)
 {
 	GLuint stage = glCreateShader(type);

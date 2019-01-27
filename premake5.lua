@@ -171,10 +171,17 @@ project "qgfx"
    		{
    			"_DEBUG"
         }
-        
+
+    filter { "configurations:VulkanDebug or OpenGLDebug", "platforms:x86" }
         links
         {
-            "qtlDEBUG"
+            "qtlDEBUGx86"
+        }
+    
+    filter { "configurations:VulkanDebug or OpenGLDebug", "platforms:x64" }
+        links
+        {
+            "qtlDEBUGx64"
         }
 
    	filter { "configurations:VulkanRelease or OpenGLRelease" }
@@ -182,21 +189,23 @@ project "qgfx"
    		{
    			"_RELEASE"
         }
-           
-        links
-        {
-            "qtlRELEASE"
-        }
 
    	filter { "configurations:VulkanDistribution or OpenGLDistribution" }
    		defines
    		{
    			"_DIST"
         }
-           
+
+    filter { "configurations:VulkanRelease or OpenGLRelease or configurations:VulkanDistribution or OpenGLDistribution", "platforms:x86" }
         links
         {
-            "qtlRELEASE"
+            "qtlRELEASEx86"
+        }
+    
+    filter { "configurations:VulkanRelease or OpenGLRelease or configurations:VulkanDistribution or OpenGLDistribution", "platforms:x64" }
+        links
+        {
+            "qtlRELEASEx64"
         }
 
     filter {} 

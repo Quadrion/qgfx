@@ -27,6 +27,8 @@ class OpenGLShader : public IShader
 
 		bool bind() override;
 		bool unbind() override;
+		uint32_t getStageCount() const override;
+		qtl::vector<void*> getStages() const override;
 	private:
 		GLuint mId;
 		qtl::tree_map<GLenum, GLuint> mStages;

@@ -1,7 +1,7 @@
 #ifndef ipipeline_h__
 #define ipipeline_h__
 
-#include <cstdint>
+#include <stdint.h>
 
 #include <qtl/shared_ptr.h>
 
