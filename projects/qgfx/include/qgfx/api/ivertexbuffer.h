@@ -76,7 +76,7 @@ inline void VertexBufferLayout::push<uint8_t>(const qtl::string& name, const uin
 class IVertexBuffer
 {
 	public:
-		IVertexBuffer() = default;
+		explicit IVertexBuffer(ContextHandle* handle);
 		virtual ~IVertexBuffer() = default;
 
 		IVertexBuffer& operator = (const IVertexBuffer&) = delete;
@@ -90,6 +90,8 @@ class IVertexBuffer
 
 		virtual void bind() = 0;
 		virtual void unbind() = 0;
+	protected:
+		ContextHandle* mHandle;
 };
 
 #endif // ivertexbuffer_h__

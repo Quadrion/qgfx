@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#include "qgfx/context_handle.h"
+
 enum class CullMode : int32_t
 {
 	Front,
@@ -26,7 +28,7 @@ enum class PolygonMode : int32_t
 class IRasterizer
 {
 	public:
-		IRasterizer() = default;
+		explicit IRasterizer(ContextHandle* handle);
 		virtual ~IRasterizer() = default;
 
 		IRasterizer& operator = (const IRasterizer&) = delete;
@@ -39,6 +41,8 @@ class IRasterizer
 		virtual void setLineWidth(const float lineWidth) = 0;
 
 		virtual void setDepthTest(const bool enabled) = 0;
+	protected:
+		ContextHandle* mHandle;
 };
 
 #endif // irasterizer_h__

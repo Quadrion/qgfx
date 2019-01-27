@@ -18,11 +18,11 @@ class OpenGLShader : public IShader
 		OpenGLShader& operator=(const OpenGLShader&) = delete;
 		OpenGLShader& operator=(OpenGLShader&& shader) noexcept;
 
-		bool attachVertexShader(const qtl::string& source) override;
-		bool attachGeometryShader(const qtl::string& source) override;
-		bool attachTesselationControlShader(const qtl::string& source) override;
-		bool attachTesselationEvaluationShader(const qtl::string& source) override;
-		bool attachFragmentShader(const qtl::string& source) override;
+		bool attachVertexShader(const qtl::vector<char>& source) override;
+		bool attachGeometryShader(const qtl::vector<char>& source) override;
+		bool attachTesselationControlShader(const qtl::vector<char>& source) override;
+		bool attachTesselationEvaluationShader(const qtl::vector<char>& source) override;
+		bool attachFragmentShader(const qtl::vector<char>& source) override;
 		bool compile() override;
 
 		bool bind() override;
@@ -33,7 +33,7 @@ class OpenGLShader : public IShader
 		GLuint mId;
 		qtl::tree_map<GLenum, GLuint> mStages;
 
-		bool _createStage(const qtl::string& src, GLenum type);
+		bool _createStage(const qtl::vector<char>& src, GLenum type);
 };
 
 #endif // opengl_shader_h__

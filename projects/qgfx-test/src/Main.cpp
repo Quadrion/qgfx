@@ -9,9 +9,7 @@ int main()
 	/* Initialize the library */
 	if (!glfwInit())
 		return -1;
-	
-	auto ptext = load_text("media/effects/shader.vert");
-	auto spirv = load_spirv("media/effects/vert.spv");
+
 
 	/* Create a windowed mode window and its OpenGL context */
 	GLFWwindow* window = glfwCreateWindow(1280, 720, "QGFX Window", nullptr, nullptr);
@@ -25,6 +23,13 @@ int main()
 	glfwMakeContextCurrent(window);
 
 	ContextHandle* handle = new ContextHandle(window);
+	const auto vertex = load_text("media/effects/shader.vert");
+	const auto fragment = load_text("media/effects/shader.frag");
+
+	qtl::shared_ptr<Shader> shader = qtl::make_shared<Shader>(handle);
+	shader->attachVertexShader(vertex);
+	shader->attachFragmentShader(fragment);
+	shader->compile();
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))

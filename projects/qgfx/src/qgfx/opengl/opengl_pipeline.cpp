@@ -4,9 +4,9 @@
 
 #include <glad/glad.h>
 
-OpenGLPipeline::OpenGLPipeline()
+OpenGLPipeline::OpenGLPipeline(ContextHandle * handle)
+	: IPipeline(handle)
 {
-	// no op
 }
 
 OpenGLPipeline::~OpenGLPipeline()

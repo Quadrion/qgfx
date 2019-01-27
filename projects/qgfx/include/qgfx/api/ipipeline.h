@@ -5,6 +5,7 @@
 
 #include <qtl/shared_ptr.h>
 
+#include "qgfx/context_handle.h"
 #include "qgfx/typedefs.h"
 
 enum class Topology : int32_t
@@ -19,7 +20,7 @@ enum class Topology : int32_t
 class IPipeline
 {
 	public:
-		IPipeline() = default;
+		explicit IPipeline(ContextHandle* handle);
 		virtual ~IPipeline() = default;
 
 		IPipeline& operator = (const IPipeline&) = delete;
@@ -27,6 +28,8 @@ class IPipeline
 		virtual void construct() = 0;
 		virtual void setTopology(const Topology& topology) = 0;
 		virtual void addShader(const qtl::shared_ptr<Shader>& shader) = 0;
+	protected:
+		ContextHandle* mHandle;
 };
 
 #endif // ipipeline_h__

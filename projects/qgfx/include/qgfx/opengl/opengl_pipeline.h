@@ -3,15 +3,21 @@
 
 #include "qgfx/api/ipipeline.h"
 
+#include <qtl/vector.h>
+
 class OpenGLPipeline : public IPipeline
 {
 	public:
-		OpenGLPipeline();
+		OpenGLPipeline(ContextHandle* handle);
 		~OpenGLPipeline();
 
 		OpenGLPipeline& operator=(const OpenGLPipeline&) = delete;
 	
+		void addShader(const qtl::shared_ptr<Shader>& shader) override;
+		void construct() override;
 		void setTopology(const Topology& topology) override;
+	private:
+		qtl::vector<qtl::shared_ptr<Shader>> mShaders;
 };
 
 #endif // opengl_pipeline_h__
