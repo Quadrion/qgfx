@@ -7,6 +7,8 @@
 #include <vulkan/vulkan.h>
 #include "GLFW/glfw3.h"
 
+class VulkanRasterizer;
+class VulkanPipeline;
 /// <summary>
 /// Represents an Vulkan Context Handle. Contains all the initialization objects
 /// that Vulkan needs to bind to a window and render.
@@ -58,6 +60,8 @@ class VulkanContextHandle
 		VkExtent2D getSwapChainExtent() const;
 		VkFormat getSwapChainFormat() const;
 
+		VulkanRasterizer* getRasterizer() const;
+
 	private:
 		GLFWwindow* mWindow;
 
@@ -76,6 +80,9 @@ class VulkanContextHandle
 
 		qtl::vector<VkImage> mSwapChainImages;
 		qtl::vector<VkImageView> mSwapChainImageViews;
+
+		VulkanRasterizer* mRasterizer;
+		VulkanPipeline* mPipeline;
 
 		struct QueueFamilyIndices
 		{

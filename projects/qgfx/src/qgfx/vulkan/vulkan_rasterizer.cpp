@@ -38,20 +38,20 @@ VulkanRasterizer::VulkanRasterizer(ContextHandle* context)
 {
 	mHandle = context;
 
-	rasterizer = {};
-	rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
-	rasterizer.rasterizerDiscardEnable = VK_FALSE;
-	rasterizer.depthClampEnable = VK_FALSE;
+	mRasterizer = {};
+	mRasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+	mRasterizer.rasterizerDiscardEnable = VK_FALSE;
+	mRasterizer.depthClampEnable = VK_FALSE;
 
 	setFrontFace(FrontFace::Clockwise);
 	setCullMode(CullMode::Back);
 	setLineWidth(1.0f);
 	setPolygonMode(PolygonMode::Fill, CullMode::Front);
 
-	rasterizer.depthBiasEnable = VK_FALSE;
-	rasterizer.depthBiasConstantFactor = 0.0f;
-	rasterizer.depthBiasClamp = 0.0f;
-	rasterizer.depthBiasSlopeFactor = 0.0f;
+	mRasterizer.depthBiasEnable = VK_FALSE;
+	mRasterizer.depthBiasConstantFactor = 0.0f;
+	mRasterizer.depthBiasClamp = 0.0f;
+	mRasterizer.depthBiasSlopeFactor = 0.0f;
 }
 
 VulkanRasterizer::~VulkanRasterizer()
@@ -61,22 +61,32 @@ VulkanRasterizer::~VulkanRasterizer()
 
 void VulkanRasterizer::setCullMode(const CullMode mode)
 {
-	rasterizer.cullMode = qgfxCullmodeToVulkan(mode);
+	mRasterizer.cullMode = qgfxCullmodeToVulkan(mode);
 }
 
 void VulkanRasterizer::setFrontFace(const FrontFace face)
 {
-	rasterizer.frontFace = qgfxFrontfaceToVulkan(face);
+	mRasterizer.frontFace = qgfxFrontfaceToVulkan(face);
 }
 
 void VulkanRasterizer::setPolygonMode(const PolygonMode mode, const CullMode face)
 {
-	rasterizer.polygonMode = qgfxPolygonModeToVulkan(mode);
+	mRasterizer.polygonMode = qgfxPolygonModeToVulkan(mode);
 }
 
 void VulkanRasterizer::setLineWidth(const float lineWidth)
 {
-	rasterizer.lineWidth = lineWidth;
+	mRasterizer.lineWidth = lineWidth;
+}
+
+void VulkanRasterizer::setDepthTest(const bool enabled)
+{
+
+}
+
+VkPipelineRasterizationStateCreateInfo VulkanRasterizer::getStateInfo() const
+{
+	return mRasterizer;
 }
 
 #endif // QGFX_VULKAN

@@ -8,7 +8,7 @@ class IShader
 {
 public:
 	IShader() = default;
-	virtual ~IShader() = 0;
+	virtual ~IShader() = default;
 
 	IShader& operator = (const IShader&) = delete;
 

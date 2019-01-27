@@ -19,8 +19,10 @@ class VulkanRasterizer : public IRasterizer
 
 		void setDepthTest(const bool enabled) override;
 
+		VkPipelineRasterizationStateCreateInfo getStateInfo() const;
+
 	private:
-		VkPipelineRasterizationStateCreateInfo rasterizer;
+		VkPipelineRasterizationStateCreateInfo mRasterizer;
 		ContextHandle* mHandle;
 };
 

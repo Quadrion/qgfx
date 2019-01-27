@@ -20,12 +20,13 @@ class IPipeline
 {
 	public:
 		IPipeline() = default;
-		virtual ~IPipeline() = 0;
+		virtual ~IPipeline() = default;
 
 		IPipeline& operator = (const IPipeline&) = delete;
 
+		virtual void construct() = 0;
 		virtual void setTopology(const Topology& topology) = 0;
-		virtual void addShader(qtl::shared_ptr<Shader> shader) = 0;
+		virtual void addShader(const qtl::shared_ptr<Shader>& shader) = 0;
 };
 
 #endif // ipipeline_h__

@@ -15,13 +15,18 @@ class VulkanPipeline : public IPipeline
 		explicit VulkanPipeline(ContextHandle* context);
 		~VulkanPipeline();
 
+		void construct() override;
+
 		void setTopology(const Topology& topology) override;
-		void addShader(const qtl::shared_ptr<Shader> shader) override;
+		void addShader(const qtl::shared_ptr<Shader>& shader) override;
 
 	private:
 		VkPipelineLayout mLayout;
 		VkRenderPass mRenderPass;
 		ContextHandle* mHandle;
+		VkPipeline mPipeline;
+
+		VkPipelineInputAssemblyStateCreateInfo mInputAssembly;
 
 		qtl::vector<qtl::shared_ptr<Shader>> mShaders;
 };

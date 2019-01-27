@@ -20,7 +20,16 @@ VkPrimitiveTopology qgfxTopologyToVulkan(const Topology& topology)
 VulkanPipeline::VulkanPipeline(ContextHandle* context)
 {
 	mHandle = context;
+}
 
+VulkanPipeline::~VulkanPipeline()
+{
+	vkDestroyPipelineLayout(mHandle->getLogicalDevice(), mLayout, nullptr);
+	vkDestroyRenderPass(mHandle->getLogicalDevice(), mRenderPass, nullptr);
+}
+
+void VulkanPipeline::construct()
+{
 	VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
 	vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 	vertexInputInfo.vertexBindingDescriptionCount = 0;
@@ -127,10 +136,10 @@ VulkanPipeline::VulkanPipeline(ContextHandle* context)
 	uint32_t stageCount = 0;
 	qtl::vector<VkPipelineShaderStageCreateInfo> stages;
 
-	for(const auto& shader : mShaders)
+	for (const auto& shader : mShaders)
 	{
 		stageCount += shader->getStageCount();
-		for(auto stage : shader->getStages())
+		for (auto stage : shader->getStages())
 		{
 			VkPipelineShaderStageCreateInfo info = *reinterpret_cast<VkPipelineShaderStageCreateInfo*>(stage);
 			stages.push_back(info);
@@ -143,23 +152,29 @@ VulkanPipeline::VulkanPipeline(ContextHandle* context)
 	pipelineInfo.pStages = stages.data();
 
 	pipelineInfo.pVertexInputState = &vertexInputInfo;
-}
+	pipelineInfo.pInputAssemblyState = &mInputAssembly;
+	pipelineInfo.pViewportState = &viewportState;
+	pipelineInfo.pRasterizationState = &mHandle->getRasterizer()->getStateInfo();
+	pipelineInfo.pMultisampleState = &multiSampling;
+	pipelineInfo.pColorBlendState = &colorBlending;
+	pipelineInfo.layout = mLayout;
+	pipelineInfo.renderPass = mRenderPass;
+	pipelineInfo.subpass = 0;
+	pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
 
-VulkanPipeline::~VulkanPipeline()
-{
-	vkDestroyPipelineLayout(mHandle->getLogicalDevice(), mLayout, nullptr);
-	vkDestroyRenderPass(mHandle->getLogicalDevice(), mRenderPass, nullptr);
+	result = vkCreateGraphicsPipelines(mHandle->getLogicalDevice(), VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &mPipeline);
+	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create graphics pipeline");
 }
 
 void VulkanPipeline::setTopology(const Topology& topology)
 {
-	VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
-	inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-	inputAssembly.topology = qgfxTopologyToVulkan(topology);
-	inputAssembly.primitiveRestartEnable = VK_FALSE;
+	mInputAssembly = {};
+	mInputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+	mInputAssembly.topology = qgfxTopologyToVulkan(topology);
+	mInputAssembly.primitiveRestartEnable = VK_FALSE;
 }
 
-void VulkanPipeline::addShader(const qtl::shared_ptr<Shader> shader)
+void VulkanPipeline::addShader(const qtl::shared_ptr<Shader>& shader)
 {
 	mShaders.push_back(shader);
 }

@@ -77,7 +77,7 @@ class IVertexBuffer
 {
 	public:
 		IVertexBuffer() = default;
-		virtual ~IVertexBuffer() = 0;
+		virtual ~IVertexBuffer() = default;
 
 		IVertexBuffer& operator = (const IVertexBuffer&) = delete;
 

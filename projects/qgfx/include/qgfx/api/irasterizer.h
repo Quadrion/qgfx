@@ -27,7 +27,7 @@ class IRasterizer
 {
 	public:
 		IRasterizer() = default;
-		virtual ~IRasterizer() = 0;
+		virtual ~IRasterizer() = default;
 
 		IRasterizer& operator = (const IRasterizer&) = delete;
 
