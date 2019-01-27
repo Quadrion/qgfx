@@ -152,4 +152,9 @@ bool VulkanShader::unbind()
 {
 	return true;
 }
+
+uint32_t VulkanShader::getStageCount() const
+{
+	return static_cast<uint32_t>(mShaderStages.size());
+}
 #endif // QGFX_VULKAN

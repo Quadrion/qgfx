@@ -177,6 +177,11 @@ VkExtent2D VulkanContextHandle::getSwapChainExtent() const
 	return mSwapChainExtent;
 }
 
+VkFormat VulkanContextHandle::getSwapChainFormat() const
+{
+	return mSwapChainImageFormat;
+}
+
 void VulkanContextHandle::_createInstance()
 {
 	VkApplicationInfo appInfo = {};

@@ -92,11 +92,11 @@ VulkanPipeline::VulkanPipeline(ContextHandle* context)
 	pipelineLayoutInfo.pushConstantRangeCount = 0;
 	pipelineLayoutInfo.pPushConstantRanges = nullptr;
 
-	const VkResult result = vkCreatePipelineLayout(handle->getLogicalDevice(), &pipelineLayoutInfo, nullptr, &mLayout);
+	VkResult result = vkCreatePipelineLayout(handle->getLogicalDevice(), &pipelineLayoutInfo, nullptr, &mLayout);
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create pipeline layout");
 
 	VkAttachmentDescription colorAttachment = {};
-	colorAttachment.format = handle->swapChainImageFormat;
+	colorAttachment.format = handle->getSwapChainFormat();
 	colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
 	colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
 	colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
@@ -120,11 +120,19 @@ VulkanPipeline::VulkanPipeline(ContextHandle* context)
 	renderPassInfo.pAttachments = &colorAttachment;
 	renderPassInfo.subpassCount = 1;
 	renderPassInfo.pSubpasses = &subpass;
+
+	result = vkCreateRenderPass(handle->getLogicalDevice(), &renderPassInfo, nullptr, &mRenderPass);
+	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create render pass");
+
+	VkGraphicsPipelineCreateInfo pipelineInfo = {};
+	pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+	pipelineInfo.stageCount = ;
 }
 
 VulkanPipeline::~VulkanPipeline()
 {
 	vkDestroyPipelineLayout(handle->getLogicalDevice(), mLayout, nullptr);
+	vkDestroyRenderPass(handle->getLogicalDevice(), mRenderPass, nullptr);
 }
 
 void VulkanPipeline::setTopology(const Topology& topology)

@@ -20,6 +20,7 @@ public:
 
 	virtual bool bind() = 0;
 	virtual bool unbind() = 0;
+	virtual uint32_t getStageCount() const = 0;
 };
 
 #endif // ishader_h__

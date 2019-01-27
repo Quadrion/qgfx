@@ -56,6 +56,7 @@ class VulkanContextHandle
 
 		VkSwapchainKHR getSwapChain() const;
 		VkExtent2D getSwapChainExtent() const;
+		VkFormat getSwapChainFormat() const;
 
 	private:
 		GLFWwindow* mWindow;

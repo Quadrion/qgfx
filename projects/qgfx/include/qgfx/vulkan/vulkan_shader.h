@@ -25,6 +25,8 @@ class VulkanShader : public IShader
 		bool bind() override;
 		bool unbind() override;
 
+		uint32_t getStageCount() const override;
+
 	private:
 		VkShaderModule mVertexModule;
 		VkShaderModule mFragmentModule;
