@@ -37,8 +37,6 @@ class VulkanShader : public IShader
 		VkShaderModule mTesselationEvaluationModule;
 
 		qtl::vector<VkPipelineShaderStageCreateInfo> mShaderStages;
-
-		ContextHandle* mHandle;
 };
 
 #endif // vulkan_shader_h__

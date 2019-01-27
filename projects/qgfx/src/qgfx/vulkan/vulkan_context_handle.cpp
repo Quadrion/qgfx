@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cstring>
 #include "qgfx/shader_loader.h"
+#include "qgfx/vulkan/queuefamily.h"
 
 #if defined(QGFX_VULKAN)
 
@@ -314,7 +315,7 @@ void VulkanContextHandle::_pickPhysicalDevice()
 
 void VulkanContextHandle::_createLogicalDevice()
 {
-	QueueFamilyIndices indices = _findQueueFamilies(mPhysicalDevice);
+	QueueFamilyIndices indices = findQueueFamilies(mPhysicalDevice, mSurface);
 
 	std::vector<VkDeviceQueueCreateInfo> queueCreateInfos;
 	std::set<uint32_t> uniqueQueueFamilies = { indices.graphicsFamily.value(), indices.presentFamily.value() };
@@ -370,7 +371,7 @@ void VulkanContextHandle::_createSurface()
 
 void VulkanContextHandle::_createSwapChain()
 {
-	const SwapChainSupportDetails swapChainSupport = _querySwapChainSupport(mPhysicalDevice);
+	const SwapChainSupportDetails swapChainSupport = querySwapChainSupport(mPhysicalDevice, mSurface);
 
 	const VkSurfaceFormatKHR surfaceFormat = _chooseSwapSurfaceFormat(swapChainSupport.formats);
 	const VkPresentModeKHR presentMode = _chooseSwapPresentMode(swapChainSupport.presentModes);
@@ -395,7 +396,7 @@ void VulkanContextHandle::_createSwapChain()
 	createInfo.imageArrayLayers = 1;
 	createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
-	QueueFamilyIndices indices = _findQueueFamilies(mPhysicalDevice);
+	QueueFamilyIndices indices = findQueueFamilies(mPhysicalDevice, mSurface);
 	uint32_t queueFamilyIndices[] = { indices.graphicsFamily.value(), indices.presentFamily.value() };
 
 	if(indices.graphicsFamily != indices.presentFamily)
@@ -545,89 +546,16 @@ VkExtent2D VulkanContextHandle::_chooseSwapExtent(const VkSurfaceCapabilitiesKHR
 	}
 }
 
-VulkanContextHandle::QueueFamilyIndices VulkanContextHandle::_findQueueFamilies(const VkPhysicalDevice device) const
-{
-	QueueFamilyIndices indices;
-
-	uint32_t queueFamilyCount = 0;
-	vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
-
-	std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
-	vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data());
-
-	int32_t i = 0;
-	for(const auto& queueFamily : queueFamilies)
-	{
-		if(queueFamily.queueCount > 0 && queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT)
-		{
-			indices.graphicsFamily = i;
-		}
-
-		VkBool32 presentSupport = false;
-		vkGetPhysicalDeviceSurfaceSupportKHR(device, i, mSurface, &presentSupport);
-
-		if(queueFamily.queueCount > 0 && presentSupport)
-		{
-			indices.presentFamily = i;
-		}
-
-		if(indices.isComplete())
-		{
-			break;
-		}
-
-		i++;
-	}
-
-	return indices;
-}
-
-VulkanContextHandle::SwapChainSupportDetails VulkanContextHandle::_querySwapChainSupport(const VkPhysicalDevice device) const
-{
-	SwapChainSupportDetails details;
-
-	vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, mSurface, &details.capabilities);
-
-	uint32_t formatCount;
-	vkGetPhysicalDeviceSurfaceFormatsKHR(device, mSurface, &formatCount, nullptr);
-
-	if(formatCount != 0)
-	{
-		details.formats.reserve(formatCount);
-		for(size_t i = 0; i < formatCount; i++)
-		{
-			details.formats.emplace_back();
-		}
-		vkGetPhysicalDeviceSurfaceFormatsKHR(device, mSurface, &formatCount, details.formats.data());
-	}
-
-	uint32_t presentModeCount;
-	vkGetPhysicalDeviceSurfacePresentModesKHR(device, mSurface, &presentModeCount, nullptr);
-
-	if(presentModeCount != 0)
-	{
-		details.presentModes.reserve(presentModeCount);
-		for (size_t i = 0; i < presentModeCount; i++)
-		{
-			details.presentModes.emplace_back();
-		}
-		vkGetPhysicalDeviceSurfacePresentModesKHR(device, mSurface, &presentModeCount, details.presentModes.data());
-	}
-
-	return details;
-}
-
-
 bool VulkanContextHandle::_isDeviceSuitable(const VkPhysicalDevice device) const
 {
-	QueueFamilyIndices indices = _findQueueFamilies(device);
+	QueueFamilyIndices indices = findQueueFamilies(device, mSurface);
 
 	const bool extensionSupported = _checkDeviceExtensionSupport(device);
 
 	bool swapChainAdequate = false;
 	if(extensionSupported)
 	{
-		SwapChainSupportDetails swapChainSupport = _querySwapChainSupport(device);
+		SwapChainSupportDetails swapChainSupport = querySwapChainSupport(device, mSurface);
 		swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
 	}
 

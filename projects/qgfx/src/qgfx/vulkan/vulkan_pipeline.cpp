@@ -17,9 +17,9 @@ VkPrimitiveTopology qgfxTopologyToVulkan(const Topology& topology)
 	}
 }
 
-VulkanPipeline::VulkanPipeline(ContextHandle* context)
+VulkanPipeline::VulkanPipeline(ContextHandle* context) : IPipeline(context)
 {
-	mHandle = context;
+
 }
 
 VulkanPipeline::~VulkanPipeline()

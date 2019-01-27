@@ -36,8 +36,6 @@ class VulkanVertexBuffer : public IVertexBuffer
 		void* mData;
 
 		uint32_t _findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) const;
-
-		ContextHandle* mHandle;
 };
 
 #endif // vulkan_vertexbuffer_h__

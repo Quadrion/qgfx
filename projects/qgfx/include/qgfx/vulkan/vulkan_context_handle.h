@@ -90,23 +90,7 @@ class VulkanContextHandle
 
 		qtl::vector<VkFramebuffer> mSwapChainFrameBuffers;
 
-		struct QueueFamilyIndices
-		{
-			std::optional<uint32_t> graphicsFamily;
-			std::optional<uint32_t> presentFamily;
-
-			bool isComplete() const
-			{
-				return graphicsFamily.has_value() && presentFamily.has_value();
-			}
-		};
-
-		struct SwapChainSupportDetails
-		{
-			VkSurfaceCapabilitiesKHR capabilities;
-			qtl::vector<VkSurfaceFormatKHR> formats;
-			qtl::vector<VkPresentModeKHR> presentModes;
-		};
+		
 
 		void _createInstance();
 		void _setupDebugCallback();
@@ -125,8 +109,6 @@ class VulkanContextHandle
 		VkPresentModeKHR _chooseSwapPresentMode(const qtl::vector<VkPresentModeKHR>& availablePresentModes) const;
 		VkExtent2D _chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities) const;
 
-		QueueFamilyIndices _findQueueFamilies(const VkPhysicalDevice device) const;
-		SwapChainSupportDetails _querySwapChainSupport(const VkPhysicalDevice device) const;
 		bool _isDeviceSuitable(const VkPhysicalDevice device) const;
 		bool _checkDeviceExtensionSupport(const VkPhysicalDevice device) const;
 };

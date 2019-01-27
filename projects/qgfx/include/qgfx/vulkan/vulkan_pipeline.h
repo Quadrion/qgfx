@@ -25,7 +25,6 @@ class VulkanPipeline : public IPipeline
 	private:
 		VkPipelineLayout mLayout;
 		VkRenderPass mRenderPass;
-		ContextHandle* mHandle;
 		VkPipeline mPipeline;
 
 		VkPipelineInputAssemblyStateCreateInfo mInputAssembly;

@@ -7,10 +7,8 @@
 #include <memory>
 #include <cstring>
 
-VulkanVertexBuffer::VulkanVertexBuffer(ContextHandle* context)
+VulkanVertexBuffer::VulkanVertexBuffer(ContextHandle* context) : IVertexBuffer(context)
 {
-	mHandle = context;
-
 	mBuffer = VK_NULL_HANDLE;
 	mMemory = VK_NULL_HANDLE;
 	mBindingDescription = {};

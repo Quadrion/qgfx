@@ -23,7 +23,6 @@ class VulkanRasterizer : public IRasterizer
 
 	private:
 		VkPipelineRasterizationStateCreateInfo mRasterizer;
-		ContextHandle* mHandle;
 };
 
 #endif // vulkan_rasterizer_h__

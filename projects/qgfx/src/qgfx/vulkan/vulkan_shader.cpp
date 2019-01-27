@@ -3,9 +3,8 @@
 
 #include "qgfx/vulkan/vulkan_shader.h"
 
-VulkanShader::VulkanShader(ContextHandle* context)
+VulkanShader::VulkanShader(ContextHandle* context) : IShader(context)
 {
-	mHandle = context;
 	mVertexModule = VK_NULL_HANDLE;
 	mFragmentModule = VK_NULL_HANDLE;
 	mGeometryModule = VK_NULL_HANDLE;
