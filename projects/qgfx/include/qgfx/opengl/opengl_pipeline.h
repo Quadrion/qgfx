@@ -9,6 +9,7 @@ class OpenGLPipeline : public IPipeline
 {
 	public:
 		OpenGLPipeline(ContextHandle* handle);
+		OpenGLPipeline(const OpenGLPipeline&) = delete;
 		~OpenGLPipeline();
 
 		OpenGLPipeline& operator=(const OpenGLPipeline&) = delete;

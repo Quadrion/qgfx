@@ -21,30 +21,6 @@ class OpenGLContextHandle
 		/// Default destructor
 		/// </summary>
 		~OpenGLContextHandle();
-
-		/// <summary>
-		/// No-op
-		/// </summary>
-		/// <returns>
-		/// Null pointer
-		/// </returns>
-		void* getHandle() const;
-
-		/// <summary>
-		/// No-op
-		/// </summary>
-		/// <returns>
-		/// Null pointer
-		/// </returns>
-		void* getPhysicalDevice() const;
-
-		/// <summary>
-		/// No-op
-		/// </summary>
-		/// <returns>
-		/// Null pointer
-		/// </returns>
-		void* getLogicalDevice() const;
 };
 
 #endif // opengl_context_handle_h__

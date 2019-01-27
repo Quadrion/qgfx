@@ -6,13 +6,14 @@
 #include <cstring>
 
 OpenGLShader::OpenGLShader(ContextHandle* handle)
+	: IShader(handle)
 {
 	mId = glCreateProgram();
 	QGFX_ASSERT_MSG(mId != 0, "Failed to create OpenGL Shader!\n");
 }
 
 OpenGLShader::OpenGLShader(OpenGLShader && shader) noexcept
-	: mId(shader.mId)
+	: IShader(mHandle), mId(shader.mId)
 {
 	shader.mId = 0;
 }
