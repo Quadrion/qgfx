@@ -2,28 +2,34 @@
 
 #include "qgfx/opengl/opengl_context_handle.h"
 
+#include "qgfx/opengl/opengl_pipeline.h"
+#include "qgfx/opengl/opengl_rasterizer.h"
+
 OpenGLContextHandle::OpenGLContextHandle(GLFWwindow* window)
+	: IContextHandle(window)
 {
 	gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
+	mPipeline = new OpenGLPipeline(this);
+	mRasterizer = new OpenGLRasterizer(this);
 }
 
 OpenGLContextHandle::~OpenGLContextHandle()
 {
 }
 
-void* OpenGLContextHandle::getHandle() const
+Pipeline * OpenGLContextHandle::getPipeline() const
 {
-	return nullptr;
+	return mPipeline;
 }
 
-void* OpenGLContextHandle::getPhysicalDevice() const
+Rasterizer * OpenGLContextHandle::getRasterizer() const
 {
-	return nullptr;
+	return mRasterizer;
 }
 
-void* OpenGLContextHandle::getLogicalDevice() const
+void OpenGLContextHandle::initializeGraphics()
 {
-	return nullptr;
+	mPipeline->construct();
 }
 
 #endif // QGFX_OPENGL

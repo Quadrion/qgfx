@@ -5,13 +5,13 @@
 
 #include <cstring>
 
-OpenGLVertexBuffer::OpenGLVertexBuffer()
-	: mId(0)
+OpenGLVertexBuffer::OpenGLVertexBuffer(ContextHandle* handle)
+	: IVertexBuffer(handle), mId(0)
 {
 }
 
 OpenGLVertexBuffer::OpenGLVertexBuffer(OpenGLVertexBuffer && buf) noexcept
-	: mId(buf.mId), mData(buf.mData)
+	: IVertexBuffer(mHandle), mId(buf.mId), mData(buf.mData)
 {
 	buf.mId = 0;
 	buf.mData = nullptr;

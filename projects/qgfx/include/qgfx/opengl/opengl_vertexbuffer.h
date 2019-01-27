@@ -9,7 +9,7 @@
 class OpenGLVertexBuffer : public IVertexBuffer
 {
 	public:
-		OpenGLVertexBuffer();
+		OpenGLVertexBuffer(ContextHandle* handle);
 		OpenGLVertexBuffer(const OpenGLVertexBuffer&) = delete;
 		OpenGLVertexBuffer(OpenGLVertexBuffer&& buf) noexcept;
 		~OpenGLVertexBuffer();

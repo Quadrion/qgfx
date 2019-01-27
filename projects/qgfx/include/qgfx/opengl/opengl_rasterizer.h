@@ -8,7 +8,8 @@
 class OpenGLRasterizer : public IRasterizer
 {
 	public:
-		OpenGLRasterizer();
+		OpenGLRasterizer(ContextHandle* handle);
+		OpenGLRasterizer(const OpenGLRasterizer&) = delete;
 		~OpenGLRasterizer();
 
 		void setCullMode(const CullMode mode) override;
