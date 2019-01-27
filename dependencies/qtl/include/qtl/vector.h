@@ -184,6 +184,8 @@ namespace qtl
 		/// </param>
 		void reserve(const std::size_t capacity);
 
+		void resize(const std::size_t capacity);
+
 		/// <summary>
 		/// Provides element access to vector. Complexity O(1)
 		/// </summary>
@@ -526,6 +528,23 @@ namespace qtl
 		if (capacity > __capacity)
 		{
 			__expand_capacity(capacity);
+		}
+	}
+
+	template<typename T>
+	inline void vector<T>::resize(const std::size_t sz)
+	{
+		if (sz > __capacity)
+		{
+			__expand_capacity(sz);
+
+			for (std::size_t i = __size; i < sz; i++)
+			{
+				T* data = static_cast<T*>(__data);
+				::new (data + __size) T();
+			}
+
+			__size = sz;
 		}
 	}
 

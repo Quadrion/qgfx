@@ -219,6 +219,7 @@ project "qgfx-test"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("intermediates/" .. outputdir .. "/%{prj.name}")
+    debugdir("bin/");
 
     ignoredefaultlibraries 
     {
@@ -371,3 +372,7 @@ project "qgfx-test"
         }
 
     filter {}
+
+    postbuildcommands {
+        "{COPY} ../../media/ ../../bin/media/"
+    }

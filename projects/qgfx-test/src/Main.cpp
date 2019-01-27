@@ -9,6 +9,9 @@ int main()
 	/* Initialize the library */
 	if (!glfwInit())
 		return -1;
+	
+	auto ptext = load_text("media/effects/shader.vert");
+	auto spirv = load_spirv("media/effects/vert.spv");
 
 	/* Create a windowed mode window and its OpenGL context */
 	GLFWwindow* window = glfwCreateWindow(1280, 720, "QGFX Window", nullptr, nullptr);
@@ -17,8 +20,6 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
-
-	qtl::string testString = "Hello World";
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);

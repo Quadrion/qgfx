@@ -20,10 +20,11 @@
 #include <glad/glad.h>
 #endif
 
-#include "context_handle.h"
-#include "qassert.h"
+#include "qgfx/context_handle.h"
+#include "qgfx/shader_loader.h"
+#include "qgfx/qassert.h"
 
-#include "typedefs.h"
+#include "qgfx/typedefs.h"
 
 #if defined(QGFX_OPENGL)
 #include "qgfx/opengl/opengl_pipeline.h"
