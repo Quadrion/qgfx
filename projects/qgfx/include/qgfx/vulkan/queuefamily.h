@@ -24,14 +24,15 @@ struct SwapChainSupportDetails
 	qtl::vector<VkPresentModeKHR> presentModes;
 };
 
-inline QueueFamilyIndices findQueueFamilies(const VkPhysicalDevice device, const VkSurfaceKHR surface)
+inline QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surface)
 {
 	QueueFamilyIndices indices;
 
 	uint32_t queueFamilyCount = 0;
 	vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
 
-	qtl::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
+	qtl::vector<VkQueueFamilyProperties> queueFamilies;
+	queueFamilies.resize(queueFamilyCount);
 	vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data());
 
 	int32_t i = 0;
@@ -61,7 +62,7 @@ inline QueueFamilyIndices findQueueFamilies(const VkPhysicalDevice device, const
 	return indices;
 }
 
-inline SwapChainSupportDetails querySwapChainSupport(const VkPhysicalDevice device, const VkSurfaceKHR surface)
+inline SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device, VkSurfaceKHR surface)
 {
 	SwapChainSupportDetails details;
 

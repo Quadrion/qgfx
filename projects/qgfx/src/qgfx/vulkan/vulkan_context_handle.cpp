@@ -116,13 +116,11 @@ int32_t rateDeviceSuitability(const VkPhysicalDevice device)
 	return score;
 }
 
-VulkanContextHandle::VulkanContextHandle(GLFWwindow* window)
+VulkanContextHandle::VulkanContextHandle(GLFWwindow* window) : IContextHandle(window)
 {
 	mInstance = nullptr;
 	mPhysicalDevice = nullptr;
 	mCallback = 0;
-
-	mWindow = window;
 
 	_createInstance();
 	_setupDebugCallback();
@@ -170,6 +168,25 @@ VulkanContextHandle::~VulkanContextHandle()
 	mDevice = nullptr;
 }
 
+VulkanContextHandle::VulkanContextHandle(VulkanContextHandle&& other) noexcept : IContextHandle(other.mWindow)
+{
+	this->mCallback = other.mCallback; other.mCallback = nullptr;
+	this->mDevice = other.mDevice; other.mDevice = nullptr;
+	this->mGraphicsQueue = other.mGraphicsQueue; other.mGraphicsQueue = nullptr;
+	this->mInstance = other.mInstance; other.mInstance = nullptr;
+	this->mPhysicalDevice = other.mPhysicalDevice; other.mPhysicalDevice = nullptr;
+	this->mPipeline = other.mPipeline; other.mPipeline = nullptr;
+	this->mPresentQueue = other.mPresentQueue; other.mPresentQueue = nullptr;
+	this->mRasterizer = other.mRasterizer; other.mRasterizer = nullptr;
+	this->mSurface = other.mSurface; other.mSurface = nullptr;
+	this->mSwapChain = other.mSwapChain; other.mSwapChain = nullptr;
+	this->mSwapChainExtent = other.mSwapChainExtent;
+	this->mSwapChainFrameBuffers = other.mSwapChainFrameBuffers; other.mSwapChainFrameBuffers.clear();
+	this->mSwapChainImageFormat = other.mSwapChainImageFormat;
+	this->mSwapChainImages = other.mSwapChainImages; other.mSwapChainImages.clear();
+	this->mSwapChainImageViews = other.mSwapChainImageViews; other.mSwapChainImageViews.clear();
+}
+
 void VulkanContextHandle::initializeGraphics()
 {
 	_createRenderPass();
@@ -189,6 +206,27 @@ VkPhysicalDevice VulkanContextHandle::getPhysicalDevice() const
 VkDevice VulkanContextHandle::getLogicalDevice() const
 {
 	return mDevice;
+}
+
+VulkanContextHandle& VulkanContextHandle::operator=(VulkanContextHandle&& other) noexcept
+{
+	this->mCallback = other.mCallback; other.mCallback = nullptr;
+	this->mDevice = other.mDevice; other.mDevice = nullptr;
+	this->mGraphicsQueue = other.mGraphicsQueue; other.mGraphicsQueue = nullptr;
+	this->mInstance = other.mInstance; other.mInstance = nullptr;
+	this->mPhysicalDevice = other.mPhysicalDevice; other.mPhysicalDevice = nullptr;
+	this->mPipeline = other.mPipeline; other.mPipeline = nullptr;
+	this->mPresentQueue = other.mPresentQueue; other.mPresentQueue = nullptr;
+	this->mRasterizer = other.mRasterizer; other.mRasterizer = nullptr;
+	this->mSurface = other.mSurface; other.mSurface = nullptr;
+	this->mSwapChain = other.mSwapChain; other.mSwapChain = nullptr;
+	this->mSwapChainExtent = other.mSwapChainExtent;
+	this->mSwapChainFrameBuffers = other.mSwapChainFrameBuffers; other.mSwapChainFrameBuffers.clear();
+	this->mSwapChainImageFormat = other.mSwapChainImageFormat;
+	this->mSwapChainImages = other.mSwapChainImages; other.mSwapChainImages.clear();
+	this->mSwapChainImageViews = other.mSwapChainImageViews; other.mSwapChainImageViews.clear();
+
+	return *this;
 }
 
 VulkanPipeline* VulkanContextHandle::getPipeline() const
