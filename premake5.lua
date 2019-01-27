@@ -34,6 +34,10 @@ workspace "qgfx"
     IncludeDir["Glad"] = "dependencies/Glad/include"
     IncludeDir["GLFW"] = "dependencies/GLFW/include"
     IncludeDir["Vulkan"] = "dependencies/Vulkan/include"
+    IncludeDir["QTL"] = "dependencies/qtl/include"
+
+    LibDir = {}
+    LibDir["QTL"] = "dependencies/qtl/lib"
 
 project "qgfx"
     location "projects/%{prj.name}"
@@ -53,17 +57,23 @@ project "qgfx"
 
     includedirs
     {
-        "projects/%{prj.name}/include"
+        "projects/%{prj.name}/include",
+        "%{IncludeDir.QTL}"
+    }
+
+    libdirs
+    {
+        "%{LibDir.QTL}"
     }
 
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "On"
+        staticruntime "Off"
         systemversion "latest"
 
     filter "system:linux"
         buildoptions "-std=c++17"
-        staticruntime "On"
+        staticruntime "Off"
         linkoptions "-pthread"
         linkoptions "-lX11"
         linkoptions "-ldl"
@@ -160,19 +170,34 @@ project "qgfx"
    		defines
    		{
    			"_DEBUG"
-   		}
+        }
+        
+        links
+        {
+            "qtlDEBUG"
+        }
 
    	filter { "configurations:VulkanRelease or OpenGLRelease" }
    		defines
    		{
    			"_RELEASE"
-   		}
+        }
+           
+        links
+        {
+            "qtlRELEASE"
+        }
 
    	filter { "configurations:VulkanDistribution or OpenGLDistribution" }
    		defines
    		{
    			"_DIST"
-   		}
+        }
+           
+        links
+        {
+            "qtlRELEASE"
+        }
 
     filter {} 
     
@@ -186,7 +211,11 @@ project "qgfx-test"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("intermediates/" .. outputdir .. "/%{prj.name}")
 
-    ignoredefaultlibraries {"LIBCMT"}
+    ignoredefaultlibraries 
+    {
+        "LIBCMT", 
+        "LIBCMTD"
+    }
 
     files
     {
@@ -201,17 +230,18 @@ project "qgfx-test"
 
     includedirs
     {
-        "projects/qgfx/include"
+        "projects/qgfx/include",
+        "%{IncludeDir.QTL}"
     }
 
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "On"
+        staticruntime "Off"
         systemversion "latest"
 
     filter "system:linux"
         buildoptions "-std=c++17"
-        staticruntime "On"
+        staticruntime "Off"
 
         linkoptions
         {

@@ -1,14 +1,16 @@
 #ifndef ivertexbuffer_h__
 #define ivertexbuffer_h__
 
-#include <vector>
+#include <stddef.h>
+#include <qtl/string.h>
+#include <qtl/vector.h>
 
 #include "qgfx/context_handle.h"
 #include "qgfx/qassert.h"
 
 struct VertexBufferLayoutElement
 {
-	std::string name;
+	qtl::string name;
 	uint32_t type;
 	size_t size;
 	uint32_t count;
@@ -22,19 +24,19 @@ class VertexBufferLayout
 		VertexBufferLayout() = default;
 		~VertexBufferLayout() = default;
 
-		const std::vector<VertexBufferLayoutElement>& getLayout() const { return mLayout; }
-		uint32_t getStride() const { return mSize; }
+		const qtl::vector<VertexBufferLayoutElement>& getLayout() const { return mLayout; }
+		size_t getStride() const { return mSize; }
 
 		template<typename T>
-		void push(const std::string& name, const uint32_t count = 1, const bool normalize = false)
+		void push(const qtl::string& name, const uint32_t count = 1, const bool normalize = false)
 		{
 			QGFX_ASSERT(false);
 		}
 	private:
 		size_t mSize = 0;
-		std::vector<VertexBufferLayoutElement> mLayout;
+		qtl::vector<VertexBufferLayoutElement> mLayout;
 
-		void _push(const std::string& name, const uint32_t type, const size_t size, const uint32_t count, const bool normalized)
+		void _push(const qtl::string& name, const uint32_t type, const size_t size, const uint32_t count, const bool normalized)
 		{
 			mLayout.push_back({ name, type, size, count, mSize, normalized });
 			mSize += size * count;
@@ -42,7 +44,7 @@ class VertexBufferLayout
 };
 
 template<>
-inline void VertexBufferLayout::push<float>(const std::string& name, const uint32_t count, const bool normalized)
+inline void VertexBufferLayout::push<float>(const qtl::string& name, const uint32_t count, const bool normalized)
 {
 	#if defined(QGFX_OPENGL)
 	_push(name, GL_FLOAT, sizeof(float), count, normalized);
@@ -52,7 +54,7 @@ inline void VertexBufferLayout::push<float>(const std::string& name, const uint3
 }
 
 template<>
-inline void VertexBufferLayout::push<uint32_t>(const std::string& name, const uint32_t count, const bool normalized)
+inline void VertexBufferLayout::push<uint32_t>(const qtl::string& name, const uint32_t count, const bool normalized)
 {
 	#if defined(QGFX_OPENGL)
 		_push(name, GL_UNSIGNED_INT, sizeof(uint32_t), count, normalized);
@@ -62,7 +64,7 @@ inline void VertexBufferLayout::push<uint32_t>(const std::string& name, const ui
 }
 
 template<>
-inline void VertexBufferLayout::push<uint8_t>(const std::string& name, const uint32_t count, const bool normalized)
+inline void VertexBufferLayout::push<uint8_t>(const qtl::string& name, const uint32_t count, const bool normalized)
 {
 	#if defined(QGFX_OPENGL)
 		_push(name, GL_UNSIGNED_BYTE, sizeof(uint8_t), count, normalized);

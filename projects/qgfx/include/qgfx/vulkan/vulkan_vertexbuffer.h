@@ -28,7 +28,7 @@ class VulkanVertexBuffer : public IVertexBuffer
 		VertexBufferLayout mLayout;
 
 		VkVertexInputBindingDescription mBindingDescription;
-		std::vector<VkVertexInputAttributeDescription> mAttributeDescriptions;
+		qtl::vector<VkVertexInputAttributeDescription> mAttributeDescriptions;
 
 		uint32_t mSize;
 		void* mData;

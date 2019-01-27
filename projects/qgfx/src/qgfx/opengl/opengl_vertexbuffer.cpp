@@ -72,7 +72,7 @@ bool VertexBuffer::construct()
 		auto of = format.offset;
 		auto nm = format.normalized;
 
-		glVertexAttribPointer(idx, ct, tp, nm, mLayout.getStride(), reinterpret_cast<const void*>(of));
+		glVertexAttribPointer(idx, ct, tp, nm, static_cast<GLsizei>(mLayout.getStride()), reinterpret_cast<const void*>(of));
 		glEnableVertexAttribArray(idx);
 		++idx;
 	}
