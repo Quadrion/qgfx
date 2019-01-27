@@ -1,6 +1,8 @@
 #include "qgfx/qgfx.h"
 #include "GLFW/glfw3.h"
 
+#include <qtl/string.h>
+
 int main()
 {
 #if defined(QGFX_OPENGL)
@@ -15,6 +17,8 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
+
+	qtl::string testString = "Hello World";
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);

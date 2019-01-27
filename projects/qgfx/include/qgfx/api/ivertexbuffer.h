@@ -1,6 +1,7 @@
 #ifndef ivertexbuffer_h__
 #define ivertexbuffer_h__
 
+#include <stddef.h>
 #include <vector>
 
 #include "qgfx/context_handle.h"
@@ -23,7 +24,7 @@ class VertexBufferLayout
 		~VertexBufferLayout() = default;
 
 		const std::vector<VertexBufferLayoutElement>& getLayout() const { return mLayout; }
-		uint32_t getStride() const { return mSize; }
+		size_t getStride() const { return mSize; }
 
 		template<typename T>
 		void push(const std::string& name, const uint32_t count = 1, const bool normalize = false)
