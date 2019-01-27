@@ -36,6 +36,8 @@
 #include "qgfx/vulkan/vulkan_rasterizer.h"
 #include "qgfx/vulkan/vulkan_shader.h"
 #include "qgfx/vulkan/vulkan_vertexbuffer.h"
+#include "qgfx/vulkan/vulkan_commandbuffer.h"
+#include "qgfx/vulkan/vulkan_commandpool.h"
 #endif
 
 #endif // qgfx_h__

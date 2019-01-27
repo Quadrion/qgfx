@@ -7,8 +7,16 @@
 class VulkanCommandBuffer : public ICommandBuffer
 {
 	public:
-		explicit VulkanCommandBuffer(ContextHandle* context);
+		explicit VulkanCommandBuffer(ContextHandle* context, CommandPool* pool);
 		~VulkanCommandBuffer();
+
+		void record() override;
+		void end() override;
+
+	private:
+		friend class VulkanCommandPool;
+
+		VkCommandBuffer mBuffer;
 };
 
 #endif // vulkan_commandbuffer_h__

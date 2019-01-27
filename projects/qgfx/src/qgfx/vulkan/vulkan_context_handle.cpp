@@ -249,6 +249,16 @@ VkFormat VulkanContextHandle::getSwapChainFormat() const
 	return mSwapChainImageFormat;
 }
 
+qtl::vector<VkFramebuffer> VulkanContextHandle::getSwapChainFramebuffers() const
+{
+	return mSwapChainFrameBuffers;
+}
+
+VkSurfaceKHR VulkanContextHandle::getSurface() const
+{
+	return mSurface;
+}
+
 VulkanRasterizer* VulkanContextHandle::getRasterizer() const
 {
 	return mRasterizer;
