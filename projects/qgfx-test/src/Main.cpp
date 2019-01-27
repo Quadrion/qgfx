@@ -30,6 +30,7 @@ int main()
 	shader->attachVertexShader(vertex);
 	shader->attachFragmentShader(fragment);
 	shader->compile();
+	handle->getPipeline()->addShader(shader);
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))

@@ -2,6 +2,7 @@
 #define opengl_pipeline_h__
 
 #include "qgfx/api/ipipeline.h"
+#include "qgfx/opengl/opengl_shader.h"
 
 #include <qtl/vector.h>
 
@@ -18,7 +19,7 @@ class OpenGLPipeline : public IPipeline
 		void construct() override;
 		void setTopology(const Topology& topology) override;
 	private:
-		qtl::vector<qtl::shared_ptr<Shader>> mShaders;
+		qtl::vector<qtl::shared_ptr<OpenGLShader>> mShaders;
 };
 
 #endif // opengl_pipeline_h__

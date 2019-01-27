@@ -4,11 +4,14 @@
 #include <glad/glad.h>
 #include "GLFW/glfw3.h"
 
+#include "qgfx/api/icontexthandle.h"
+#include "qgfx/typedefs.h"
+
 /// <summary>
 /// Represents an OpenGL Context Handle.  Does not contain anything
 /// as OpenGL does not need a handle.
 /// </summary>
-class OpenGLContextHandle
+class OpenGLContextHandle : public IContextHandle
 {
 	public:
 		/// <summary>
@@ -21,6 +24,14 @@ class OpenGLContextHandle
 		/// Default destructor
 		/// </summary>
 		~OpenGLContextHandle();
+
+		Pipeline* getPipeline() const override;
+		Rasterizer* getRasterizer() const override;
+
+		void initializeGraphics() override;
+	private:
+		OpenGLPipeline* mPipeline;
+		OpenGLRasterizer* mRasterizer;
 };
 
 #endif // opengl_context_handle_h__

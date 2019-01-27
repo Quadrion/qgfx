@@ -5,10 +5,10 @@
 #include <algorithm>
 #include <cstring>
 #include "qgfx/shader_loader.h"
-#include "qgfx/vulkan/queuefamily.h"
 
 #if defined(QGFX_VULKAN)
 
+#include "qgfx/vulkan/queuefamily.h"
 #include "qgfx/vulkan/vulkan_context_handle.h"
 #include "qgfx/vulkan/vulkan_rasterizer.h"
 #include "qgfx/vulkan/vulkan_pipeline.h"
