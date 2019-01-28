@@ -1,8 +1,9 @@
 #ifndef icontexthandle_h__
 #define icontexthandle_h__
 
-#include "GLFW/glfw3.h"
 #include "qgfx/typedefs.h"
+
+#include "GLFW/glfw3.h"
 
 class IContextHandle
 {
