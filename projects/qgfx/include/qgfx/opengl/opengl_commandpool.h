@@ -11,15 +11,16 @@ public:
 	OpenGLCommandPool(const OpenGLCommandPool&) = delete;
 	OpenGLCommandPool(OpenGLCommandPool&& pool) noexcept;
 
-	virtual ~OpenGLCommandPool() = default;
+	virtual ~OpenGLCommandPool();
 
 	OpenGLCommandPool& operator=(const OpenGLCommandPool&) = delete;
 	OpenGLCommandPool& operator=(OpenGLCommandPool&& other) noexcept;
 
-	void addCommandBuffer(const qtl::shared_ptr<CommandBuffer>& buffer) override;
+	CommandBuffer* addCommandBuffer() override;
+	qtl::vector<CommandBuffer*> getBuffers() override;
 	void construct() override;
 private:
-	qtl::vector<qtl::shared_ptr<CommandBuffer>> mBuffers;
+	qtl::vector<CommandBuffer*> mBuffers;
 };
 
 #endif

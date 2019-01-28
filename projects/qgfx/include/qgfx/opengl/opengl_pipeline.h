@@ -17,11 +17,11 @@ class OpenGLPipeline : public IPipeline
 		OpenGLPipeline& operator=(const OpenGLPipeline&) = delete;
 		OpenGLPipeline& operator=(OpenGLPipeline&& pipeline) noexcept;
 	
-		void addShader(const qtl::shared_ptr<Shader>& shader) override;
+		Shader* addShader() override;
 		void construct() override;
 		void setTopology(const Topology& topology) override;
 	private:
-		qtl::vector<qtl::shared_ptr<OpenGLShader>> mShaders;
+		qtl::vector<Shader*> mShaders;
 };
 
 #endif // opengl_pipeline_h__

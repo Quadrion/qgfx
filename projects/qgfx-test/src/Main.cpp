@@ -23,14 +23,14 @@ int main()
 	glfwMakeContextCurrent(window);
 
 	ContextHandle* handle = new ContextHandle(window);
+	handle->addCommandPool();
 	const auto vertex = load_text("media/effects/shader.vert");
 	const auto fragment = load_text("media/effects/shader.frag");
 
-	qtl::shared_ptr<Shader> shader = qtl::make_shared<Shader>(handle);
+	auto shader = handle->getPipeline()->addShader();
 	shader->attachVertexShader(vertex);
 	shader->attachFragmentShader(fragment);
 	shader->compile();
-	handle->getPipeline()->addShader(shader);
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))

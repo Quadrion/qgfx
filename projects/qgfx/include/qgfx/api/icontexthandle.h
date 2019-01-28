@@ -4,6 +4,7 @@
 #include "qgfx/typedefs.h"
 
 #include "GLFW/glfw3.h"
+#include <qtl/vector.h>
 
 class IContextHandle
 {
@@ -20,6 +21,7 @@ class IContextHandle
 		virtual void finalizeGraphics() = 0;
 
 		virtual CommandPool* addCommandPool() = 0;
+		virtual qtl::vector<CommandPool*> getCommandPools() = 0;
 
 		virtual void startFrame() = 0;
 		virtual void endFrame() = 0;

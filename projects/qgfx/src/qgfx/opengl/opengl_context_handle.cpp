@@ -2,11 +2,12 @@
 
 #include "qgfx/opengl/opengl_context_handle.h"
 
+#include "qgfx/opengl/opengl_commandpool.h"
 #include "qgfx/opengl/opengl_pipeline.h"
 #include "qgfx/opengl/opengl_rasterizer.h"
 
 OpenGLContextHandle::OpenGLContextHandle(GLFWwindow* window)
-	: IContextHandle(window), mCommandPool(nullptr)
+	: IContextHandle(window)
 {
 	gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
 	mPipeline = new OpenGLPipeline(this);
@@ -14,16 +15,22 @@ OpenGLContextHandle::OpenGLContextHandle(GLFWwindow* window)
 }
 
 OpenGLContextHandle::OpenGLContextHandle(OpenGLContextHandle&& context) noexcept
-	: IContextHandle(context.mWindow), mPipeline(context.mPipeline), mRasterizer(context.mRasterizer), mCommandPool(context.mCommandPool)
+	: IContextHandle(context.mWindow), mPipeline(context.mPipeline), mRasterizer(context.mRasterizer), mCommandPools(qtl::move(context.mCommandPools))
 {
 	context.mPipeline = nullptr;
 	context.mRasterizer = nullptr;
+	context.mCommandPools.clear();
 }
 
 OpenGLContextHandle::~OpenGLContextHandle()
 {
 	if (mPipeline) delete mPipeline;
 	if (mRasterizer) delete mRasterizer;
+	for (auto pool : mCommandPools)
+	{
+		delete pool;
+	}
+	mCommandPools.clear();
 	mPipeline = nullptr;
 	mRasterizer = nullptr;
 }
@@ -58,9 +65,17 @@ void OpenGLContextHandle::finalizeGraphics()
 	// no op
 }
 
-void OpenGLContextHandle::setCommandPool(CommandPool * pool)
+CommandPool* OpenGLContextHandle::addCommandPool()
 {
-	mCommandPool = pool;
+	auto pool = new CommandPool(this);
+	mCommandPools.emplace_back(pool);
+
+	return pool;
+}
+
+qtl::vector<CommandPool*> OpenGLContextHandle::getCommandPools()
+{
+	return mCommandPools;
 }
 
 void OpenGLContextHandle::startFrame()
