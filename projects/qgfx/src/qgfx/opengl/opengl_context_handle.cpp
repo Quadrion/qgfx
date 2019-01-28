@@ -6,7 +6,7 @@
 #include "qgfx/opengl/opengl_rasterizer.h"
 
 OpenGLContextHandle::OpenGLContextHandle(GLFWwindow* window)
-	: IContextHandle(window)
+	: IContextHandle(window), mCommandPool(nullptr)
 {
 	gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
 	mPipeline = new OpenGLPipeline(this);
@@ -14,7 +14,7 @@ OpenGLContextHandle::OpenGLContextHandle(GLFWwindow* window)
 }
 
 OpenGLContextHandle::OpenGLContextHandle(OpenGLContextHandle&& context) noexcept
-	: IContextHandle(context.mWindow), mPipeline(context.mPipeline), mRasterizer(context.mRasterizer)
+	: IContextHandle(context.mWindow), mPipeline(context.mPipeline), mRasterizer(context.mRasterizer), mCommandPool(context.mCommandPool)
 {
 	context.mPipeline = nullptr;
 	context.mRasterizer = nullptr;
@@ -56,6 +56,24 @@ void OpenGLContextHandle::initializeGraphics()
 void OpenGLContextHandle::finalizeGraphics()
 {
 	// no op
+}
+
+void OpenGLContextHandle::setCommandPool(CommandPool * pool)
+{
+	mCommandPool = pool;
+}
+
+void OpenGLContextHandle::startFrame()
+{
+}
+
+void OpenGLContextHandle::endFrame()
+{
+}
+
+void OpenGLContextHandle::swap()
+{
+	glfwSwapBuffers(mWindow);
 }
 
 #endif // QGFX_OPENGL

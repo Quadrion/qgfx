@@ -35,9 +35,15 @@ class OpenGLContextHandle : public IContextHandle
 
 		void initializeGraphics() override;
 		void finalizeGraphics() override;
+
+		void setCommandPool(CommandPool* pool) override;
+		void startFrame() override;
+		void endFrame() override;
+		void swap() override;
 	private:
 		OpenGLPipeline* mPipeline;
 		OpenGLRasterizer* mRasterizer;
+		OpenGLCommandPool* mCommandPool;
 };
 
 #endif // opengl_context_handle_h__

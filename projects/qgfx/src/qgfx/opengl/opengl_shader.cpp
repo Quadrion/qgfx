@@ -4,6 +4,7 @@
 #include "qgfx/qassert.h"
 
 #include <cstring>
+#include <stddef.h>
 
 OpenGLShader::OpenGLShader(ContextHandle* handle)
 	: IShader(handle)
@@ -70,6 +71,47 @@ bool OpenGLShader::attachFragmentShader(const qtl::vector<char>& source)
 }
 
 bool OpenGLShader::compile()
+{
+	for (auto stage : mStages)
+	{
+		glAttachShader(mId, stage.second);
+	}
+	glLinkProgram(mId);
+
+	GLint status;
+	glGetProgramiv(mId, GL_LINK_STATUS, &status);
+	if (!status)
+	{
+		GLint len;
+		glGetProgramiv(mId, GL_INFO_LOG_LENGTH, &len);
+		char * log = new char[static_cast<size_t>(len) + 1];
+		glGetProgramInfoLog(mId, len, &len, log);
+		QGFX_ASSERT_MSG(status, "%s\n", log);
+		delete[] log;
+		return false;
+	}
+	glValidateProgram(mId);
+	glGetProgramiv(mId, GL_VALIDATE_STATUS, &status);
+	if (!status)
+	{
+		GLint len;
+		glGetProgramiv(mId, GL_INFO_LOG_LENGTH, &len);
+		char * log = new char[static_cast<size_t>(len) + 1];
+		glGetProgramInfoLog(mId, len, &len, log);
+		QGFX_ASSERT_MSG(status, "%s\n", log);
+		delete[] log;
+		return false;
+	}
+
+	for (auto stage : mStages)
+	{
+		glDeleteShader(stage.second);
+	}
+
+	return true;
+}
+
+bool OpenGLShader::cleanup()
 {
 	return true;
 }

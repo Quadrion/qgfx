@@ -21,7 +21,6 @@ class ICommandPool
 
 	protected:
 		ContextHandle* mHandle;
-		qtl::vector<qtl::shared_ptr<CommandBuffer>> mBuffers;
 };
 
 #endif // icommandpool_h__
