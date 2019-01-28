@@ -7,6 +7,8 @@
 #include <memory>
 #include <cstring>
 
+#include "qgfx/vulkan/vulkan_memory.h"
+
 VulkanVertexBuffer::VulkanVertexBuffer(ContextHandle* context) : IVertexBuffer(context)
 {
 	mBuffer = VK_NULL_HANDLE;
@@ -66,7 +68,7 @@ bool VulkanVertexBuffer::construct()
 	VkMemoryAllocateInfo allocInfo = {};
 	allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 	allocInfo.allocationSize = memoryRequirements.size;
-	allocInfo.memoryTypeIndex = _findMemoryType(memoryRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+	allocInfo.memoryTypeIndex = findMemoryType(mHandle->getPhysicalDevice(), memoryRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 
 	result = vkAllocateMemory(mHandle->getLogicalDevice(), &allocInfo, nullptr, &mMemory);
 
@@ -95,23 +97,6 @@ void VulkanVertexBuffer::bind()
 void VulkanVertexBuffer::unbind()
 {
 	// TODO (Roderick): unbind from pipeline list
-}
-
-uint32_t VulkanVertexBuffer::_findMemoryType(const uint32_t typeFilter, const VkMemoryPropertyFlags properties) const
-{
-	VkPhysicalDeviceMemoryProperties memoryProperties;
-	vkGetPhysicalDeviceMemoryProperties(mHandle->getPhysicalDevice(), &memoryProperties);
-
-	for(uint32_t i = 0; i < memoryProperties.memoryTypeCount; i++)
-	{
-		if(typeFilter & (1 << i) && (memoryProperties.memoryTypes[i].propertyFlags & properties) == properties)
-		{
-			return i;
-		}
-	}
-
-	QGFX_ASSERT_MSG(false, "Failed to find suitable memory type");
-	return 0;
 }
 
 #endif // QGFX_VULKAN

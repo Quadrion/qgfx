@@ -68,6 +68,8 @@ int main()
 		CommandBuffer* cmdBuffer = pool->getBuffers()[i];
 		cmdBuffer->record();
 
+
+
 		VkRenderPassBeginInfo renderPassInfo = {};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
 		renderPassInfo.renderPass = contextHandle->getPipeline()->getRenderPass();

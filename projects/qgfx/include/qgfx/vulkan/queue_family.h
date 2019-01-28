@@ -1,5 +1,5 @@
-#ifndef queuefamily_h__
-#define queuefamily_h__
+#ifndef queue_family_h__
+#define queue_family_h__
 
 #include <vulkan/vulkan.h>
 #include <optional>
@@ -97,4 +97,4 @@ inline SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device, Vk
 	return details;
 }
 
-#endif // queuefamily_h__
+#endif // queue_family_h__
