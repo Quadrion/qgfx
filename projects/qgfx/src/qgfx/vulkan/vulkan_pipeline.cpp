@@ -24,6 +24,11 @@ VulkanPipeline::VulkanPipeline(ContextHandle* context) : IPipeline(context)
 
 VulkanPipeline::~VulkanPipeline()
 {
+	for(size_t i = 0; i < mShaders.size(); i++)
+	{
+		delete mShaders[i];
+	}
+
 	vkDestroyPipeline(mHandle->getLogicalDevice(), mPipeline, nullptr);
 	vkDestroyPipelineLayout(mHandle->getLogicalDevice(), mLayout, nullptr);
 	vkDestroyRenderPass(mHandle->getLogicalDevice(), mRenderPass, nullptr);
@@ -175,9 +180,12 @@ void VulkanPipeline::setTopology(const Topology& topology)
 	mInputAssembly.primitiveRestartEnable = VK_FALSE;
 }
 
-void VulkanPipeline::addShader(const qtl::shared_ptr<Shader>& shader)
+Shader* VulkanPipeline::addShader()
 {
+	Shader* shader = new Shader(mHandle);
 	mShaders.push_back(shader);
+
+	return shader;
 }
 
 VkRenderPass VulkanPipeline::getRenderPass() const

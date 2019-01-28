@@ -18,7 +18,7 @@ class VulkanPipeline : public IPipeline
 		void construct() override;
 
 		void setTopology(const Topology& topology) override;
-		void addShader(const qtl::shared_ptr<Shader>& shader) override;
+		Shader* addShader() override;
 
 		VkRenderPass getRenderPass() const;
 		VkPipeline getPipeline() const;
@@ -30,7 +30,7 @@ class VulkanPipeline : public IPipeline
 
 		VkPipelineInputAssemblyStateCreateInfo mInputAssembly;
 
-		qtl::vector<qtl::shared_ptr<Shader>> mShaders;
+		qtl::vector<Shader*> mShaders;
 };
 
 #endif // vulkan_pipeline_h__

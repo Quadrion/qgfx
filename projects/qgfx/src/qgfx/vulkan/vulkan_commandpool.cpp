@@ -14,20 +14,23 @@ VulkanCommandPool::VulkanCommandPool(ContextHandle* context) : ICommandPool(cont
 
 VulkanCommandPool::~VulkanCommandPool()
 {
-	for(size_t i = 0; i < mVulkanBuffers.size(); i++)
+	for(size_t i = 0; i < mBuffers.size(); i++)
 	{
-		
+		delete mBuffers[i];
 	}
 
 	vkDestroyCommandPool(mHandle->getLogicalDevice(), mCommandPool, nullptr);
 }
 
-void VulkanCommandPool::addCommandBuffer(const qtl::shared_ptr<CommandBuffer>& buffer)
+CommandBuffer* VulkanCommandPool::addCommandBuffer()
 {
+	CommandBuffer* buffer = new CommandBuffer(mHandle);
 	mBuffers.push_back(buffer);
+
+	return buffer;
 }
 
-qtl::vector<qtl::shared_ptr<CommandBuffer>> VulkanCommandPool::getBuffers()
+qtl::vector<CommandBuffer*> VulkanCommandPool::getBuffers()
 {
 	return mBuffers;
 }

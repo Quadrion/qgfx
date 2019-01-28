@@ -27,7 +27,7 @@ class IPipeline
 
 		virtual void construct() = 0;
 		virtual void setTopology(const Topology& topology) = 0;
-		virtual void addShader(const qtl::shared_ptr<Shader>& shader) = 0;
+		virtual Shader* addShader() = 0;
 	protected:
 		ContextHandle* mHandle;
 };

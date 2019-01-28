@@ -148,7 +148,10 @@ VulkanContextHandle::~VulkanContextHandle()
 		vkDestroyFence(mDevice, mInFlightFences[i], nullptr);
 	}
 
-	delete mPool;
+	for(size_t i = 0; i < mCommandPools.size(); i++)
+	{
+		delete mCommandPools[i];
+	}
 
 	for(auto framebuffer : mSwapChainFrameBuffers)
 	{
@@ -214,9 +217,12 @@ void VulkanContextHandle::finalizeGraphics()
 	_createSyncObjects();
 }
 
-void VulkanContextHandle::setCommandPool(CommandPool* pool)
+VulkanCommandPool* VulkanContextHandle::addCommandPool()
 {
-	mPool = pool;
+	VulkanCommandPool* pool = new VulkanCommandPool(this);
+	mCommandPools.push_back(pool);
+
+	return pool;
 }
 
 void VulkanContextHandle::startFrame()
@@ -238,7 +244,8 @@ void VulkanContextHandle::startFrame()
 	submitInfo.pWaitDstStageMask = waitStages;
 
 	submitInfo.commandBufferCount = 1;
-	VkCommandBuffer buffers[] = { mPool->getBuffers()[mImageIndex]->getBuffer() };
+	// TODO (Roderick & Nick): How to select current commandpool
+	VkCommandBuffer buffers[] = { mCommandPools[0]->getBuffers()[mImageIndex]->getBuffer() };
 	submitInfo.pCommandBuffers = buffers;
 
 	VkSemaphore signalSemaphores[] = { getRenderSemaphore()[mCurrentFrame] };

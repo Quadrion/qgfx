@@ -68,31 +68,26 @@ int main()
 	const auto vs = load_spirv("media/effects/vert.spv");
 	const auto fs = load_spirv("media/effects/frag.spv");
 
-	qtl::shared_ptr<Shader> shader = qtl::make_shared<Shader>(contextHandle);
+	Shader* shader = contextHandle->getPipeline()->addShader();
 	shader->attachVertexShader(vs);
 	shader->attachFragmentShader(fs);
 	shader->compile();
-
-	contextHandle->getPipeline()->addShader(shader);
 
 	contextHandle->initializeGraphics();
 
 	shader->cleanup();
 
-	CommandPool* pool = new CommandPool(contextHandle);
+	CommandPool* pool = contextHandle->addCommandPool();
 
 	for (size_t i = 0; i < contextHandle->getSwapChainFramebuffers().size(); i++)
 	{
-		const qtl::shared_ptr<CommandBuffer> cmdBuffer = qtl::make_shared<CommandBuffer>(contextHandle);
-		pool->addCommandBuffer(cmdBuffer);
+		pool->addCommandBuffer();
 	}
 	pool->construct();
 
-	contextHandle->setCommandPool(pool);
-
 	for (size_t i = 0; i < contextHandle->getSwapChainFramebuffers().size(); i++)
 	{
-		const qtl::shared_ptr<CommandBuffer> cmdBuffer = pool->getBuffers()[i];
+		CommandBuffer* cmdBuffer = pool->getBuffers()[i];
 		cmdBuffer->record();
 
 		VkRenderPassBeginInfo renderPassInfo = {};

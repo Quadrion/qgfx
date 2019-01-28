@@ -15,8 +15,8 @@ class ICommandPool
 
 		ICommandPool& operator = (const ICommandPool&) = delete;
 
-		virtual void addCommandBuffer(const qtl::shared_ptr<CommandBuffer>& buffer) = 0;
-		virtual qtl::vector<qtl::shared_ptr<CommandBuffer>> getBuffers() = 0;
+		virtual CommandBuffer* addCommandBuffer() = 0;
+		virtual qtl::vector<CommandBuffer*> getBuffers() = 0;
 		virtual void construct() = 0;
 
 	protected:

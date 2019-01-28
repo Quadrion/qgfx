@@ -40,7 +40,7 @@ class VulkanContextHandle : public IContextHandle
 		void initializeGraphics() override;
 		void finalizeGraphics() override;
 
-		void setCommandPool(CommandPool* pool) override;
+		VulkanCommandPool* addCommandPool() override;
 
 		void startFrame() override;
 		void endFrame() override;
@@ -114,7 +114,7 @@ class VulkanContextHandle : public IContextHandle
 		uint32_t mCurrentFrame;
 		uint32_t mImageIndex;
 
-		CommandPool* mPool;
+		qtl::vector<VulkanCommandPool*> mCommandPools;
 
 		void _createInstance();
 		void _setupDebugCallback();
