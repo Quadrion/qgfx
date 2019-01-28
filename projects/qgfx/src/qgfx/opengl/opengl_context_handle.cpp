@@ -32,4 +32,9 @@ void OpenGLContextHandle::initializeGraphics()
 	mPipeline->construct();
 }
 
+void OpenGLContextHandle::finalizeGraphics()
+{
+	// no op
+}
+
 #endif // QGFX_OPENGL

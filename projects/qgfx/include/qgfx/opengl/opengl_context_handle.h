@@ -29,6 +29,7 @@ class OpenGLContextHandle : public IContextHandle
 		Rasterizer* getRasterizer() const override;
 
 		void initializeGraphics() override;
+		void finalizeGraphics() override;
 	private:
 		OpenGLPipeline* mPipeline;
 		OpenGLRasterizer* mRasterizer;

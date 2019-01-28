@@ -83,7 +83,7 @@ int main()
 
 	for (size_t i = 0; i < contextHandle->getSwapChainFramebuffers().size(); i++)
 	{
-		const qtl::shared_ptr<CommandBuffer> cmdBuffer = qtl::make_shared<CommandBuffer>(contextHandle, pool);
+		const qtl::shared_ptr<CommandBuffer> cmdBuffer = qtl::make_shared<CommandBuffer>(contextHandle);
 		bufs.push_back(cmdBuffer);
 
 		pool->addCommandBuffer(cmdBuffer);

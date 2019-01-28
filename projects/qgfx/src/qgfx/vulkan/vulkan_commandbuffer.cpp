@@ -4,7 +4,7 @@
 #include "qgfx/vulkan/vulkan_commandbuffer.h"
 #include "qgfx/vulkan/vulkan_commandpool.h"
 
-VulkanCommandBuffer::VulkanCommandBuffer(ContextHandle* context, CommandPool* pool) : ICommandBuffer(context, pool)
+VulkanCommandBuffer::VulkanCommandBuffer(ContextHandle* context) : ICommandBuffer(context)
 {
 
 }
