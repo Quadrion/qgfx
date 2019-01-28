@@ -66,6 +66,10 @@ class VulkanContextHandle : public IContextHandle
 		VkSwapchainKHR getSwapChain() const;
 		VkExtent2D getSwapChainExtent() const;
 		VkFormat getSwapChainFormat() const;
+
+		qtl::vector<VkFramebuffer> getSwapChainFramebuffers() const;
+
+		VkSurfaceKHR getSurface() const;
 	private:
 		VkInstance mInstance;
 		VkDebugUtilsMessengerEXT mCallback;

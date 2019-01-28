@@ -17,6 +17,7 @@ class VulkanCommandPool : public ICommandPool
 
 	private:
 		VkCommandPool mCommandPool;
+		qtl::vector<VkCommandBuffer> mVulkanBuffers;
 };
 
 #endif // vulkan_commandpool_h__
