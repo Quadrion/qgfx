@@ -16,11 +16,12 @@ class ICommandPool
 		ICommandPool& operator = (const ICommandPool&) = delete;
 
 		virtual void addCommandBuffer(const qtl::shared_ptr<CommandBuffer>& buffer) = 0;
-
+		virtual qtl::vector<qtl::shared_ptr<CommandBuffer>> getBuffers() = 0;
 		virtual void construct() = 0;
 
 	protected:
 		ContextHandle* mHandle;
+		qtl::vector<qtl::shared_ptr<CommandBuffer>> mBuffers;
 };
 
 #endif // icommandpool_h__

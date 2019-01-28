@@ -24,6 +24,7 @@ VulkanPipeline::VulkanPipeline(ContextHandle* context) : IPipeline(context)
 
 VulkanPipeline::~VulkanPipeline()
 {
+	vkDestroyPipeline(mHandle->getLogicalDevice(), mPipeline, nullptr);
 	vkDestroyPipelineLayout(mHandle->getLogicalDevice(), mLayout, nullptr);
 	vkDestroyRenderPass(mHandle->getLogicalDevice(), mRenderPass, nullptr);
 }

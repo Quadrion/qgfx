@@ -14,12 +14,22 @@ VulkanCommandPool::VulkanCommandPool(ContextHandle* context) : ICommandPool(cont
 
 VulkanCommandPool::~VulkanCommandPool()
 {
+	for(size_t i = 0; i < mVulkanBuffers.size(); i++)
+	{
+		
+	}
+
 	vkDestroyCommandPool(mHandle->getLogicalDevice(), mCommandPool, nullptr);
 }
 
 void VulkanCommandPool::addCommandBuffer(const qtl::shared_ptr<CommandBuffer>& buffer)
 {
 	mBuffers.push_back(buffer);
+}
+
+qtl::vector<qtl::shared_ptr<CommandBuffer>> VulkanCommandPool::getBuffers()
+{
+	return mBuffers;
 }
 
 void VulkanCommandPool::construct()

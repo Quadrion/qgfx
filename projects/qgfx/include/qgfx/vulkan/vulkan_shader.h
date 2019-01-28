@@ -22,6 +22,7 @@ class VulkanShader : public IShader
 		bool attachTesselationEvaluationShader(const qtl::vector<char>& source) override;
 
 		bool compile() override;
+		bool cleanup() override;
 
 		bool bind() override;
 		bool unbind() override;

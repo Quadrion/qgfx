@@ -20,6 +20,7 @@ class IShader
 		virtual bool attachTesselationEvaluationShader(const qtl::vector<char>& source) = 0;
 		virtual bool attachFragmentShader(const qtl::vector<char>& source) = 0;
 		virtual bool compile() = 0;
+		virtual bool cleanup() = 0;
 
 		virtual bool bind() = 0;
 		virtual bool unbind() = 0;

@@ -14,11 +14,7 @@ VulkanShader::VulkanShader(ContextHandle* context) : IShader(context)
 
 VulkanShader::~VulkanShader()
 {
-	vkDestroyShaderModule(mHandle->getLogicalDevice(), mVertexModule, nullptr);
-	vkDestroyShaderModule(mHandle->getLogicalDevice(), mFragmentModule, nullptr);
-	vkDestroyShaderModule(mHandle->getLogicalDevice(), mGeometryModule, nullptr);
-	vkDestroyShaderModule(mHandle->getLogicalDevice(), mTesselationControlModule, nullptr);
-	vkDestroyShaderModule(mHandle->getLogicalDevice(), mTesselationEvaluationModule, nullptr);
+	
 }
 
 bool VulkanShader::attachVertexShader(const qtl::vector<char>& source)
@@ -136,6 +132,17 @@ bool VulkanShader::compile()
 	{
 		QGFX_ASSERT_MSG(stage.module != VK_NULL_HANDLE, "Shader stage not valid");
 	}
+
+	return true;
+}
+
+bool VulkanShader::cleanup()
+{
+	vkDestroyShaderModule(mHandle->getLogicalDevice(), mVertexModule, nullptr);
+	vkDestroyShaderModule(mHandle->getLogicalDevice(), mFragmentModule, nullptr);
+	vkDestroyShaderModule(mHandle->getLogicalDevice(), mGeometryModule, nullptr);
+	vkDestroyShaderModule(mHandle->getLogicalDevice(), mTesselationControlModule, nullptr);
+	vkDestroyShaderModule(mHandle->getLogicalDevice(), mTesselationEvaluationModule, nullptr);
 
 	return true;
 }

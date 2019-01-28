@@ -19,6 +19,13 @@ class IContextHandle
 		virtual void initializeGraphics() = 0;
 		virtual void finalizeGraphics() = 0;
 
+		virtual void setCommandPool(CommandPool* pool) = 0;
+
+		virtual void startFrame() = 0;
+		virtual void endFrame() = 0;
+
+		virtual void swap() = 0;
+
 	protected:
 		GLFWwindow* mWindow;
 };

@@ -9,8 +9,6 @@
 
 #include "qgfx/api/icontexthandle.h"
 
-const int32_t MAX_FRAMES_IN_FLIGHT = 2;
-
 class VulkanRasterizer;
 class VulkanPipeline;
 /// <summary>
@@ -41,6 +39,13 @@ class VulkanContextHandle : public IContextHandle
 
 		void initializeGraphics() override;
 		void finalizeGraphics() override;
+
+		void setCommandPool(CommandPool* pool) override;
+
+		void startFrame() override;
+		void endFrame() override;
+
+		void swap() override;
 
 		/// <summary>
 		/// Returns the current Vulkan Instance
@@ -105,6 +110,11 @@ class VulkanContextHandle : public IContextHandle
 		qtl::vector<VkFence> mInFlightFences;
 
 		qtl::vector<VkFramebuffer> mSwapChainFrameBuffers;
+
+		uint32_t mCurrentFrame;
+		uint32_t mImageIndex;
+
+		CommandPool* mPool;
 
 		void _createInstance();
 		void _setupDebugCallback();

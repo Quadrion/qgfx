@@ -13,8 +13,12 @@
 #include "qgfx/vulkan/vulkan_rasterizer.h"
 #include "qgfx/vulkan/vulkan_pipeline.h"
 #include "qgfx/vulkan/vulkan_shader.h"
+#include "qgfx/vulkan/vulkan_commandpool.h"
+#include "qgfx/vulkan/vulkan_commandbuffer.h"
 #include "GLFW/glfw3.h"
 #include "qgfx/qassert.h"
+
+const int32_t MAX_FRAMES_IN_FLIGHT = 2;
 
 const std::vector<const char*> validationLayers = {
 	"VK_LAYER_LUNARG_standard_validation"
@@ -121,6 +125,7 @@ VulkanContextHandle::VulkanContextHandle(GLFWwindow* window) : IContextHandle(wi
 	mInstance = nullptr;
 	mPhysicalDevice = nullptr;
 	mCallback = 0;
+	mCurrentFrame = 0;
 
 	_createInstance();
 	_setupDebugCallback();
@@ -143,10 +148,23 @@ VulkanContextHandle::~VulkanContextHandle()
 		vkDestroyFence(mDevice, mInFlightFences[i], nullptr);
 	}
 
+	delete mPool;
+
 	for(auto framebuffer : mSwapChainFrameBuffers)
 	{
 		vkDestroyFramebuffer(mDevice, framebuffer, nullptr);
 	}
+
+	delete mPipeline;
+
+	for(auto imageView : mSwapChainImageViews)
+	{
+		vkDestroyImageView(mDevice, imageView, nullptr);
+	}
+
+	vkDestroySwapchainKHR(mDevice, mSwapChain, nullptr);
+
+	vkDestroyDevice(mDevice, nullptr);
 
 	if (enableValidationLayers)
 	{
@@ -158,15 +176,6 @@ VulkanContextHandle::~VulkanContextHandle()
 			func(mInstance, mCallback, nullptr);
 		}
 	}
-
-	for(auto imageView : mSwapChainImageViews)
-	{
-		vkDestroyImageView(mDevice, imageView, nullptr);
-	}
-
-	vkDestroySwapchainKHR(mDevice, mSwapChain, nullptr);
-
-	vkDestroyDevice(mDevice, nullptr);
 
 	vkDestroySurfaceKHR(mInstance, mSurface, nullptr);
 	vkDestroyInstance(mInstance, nullptr);
@@ -203,6 +212,68 @@ void VulkanContextHandle::initializeGraphics()
 void VulkanContextHandle::finalizeGraphics()
 {
 	_createSyncObjects();
+}
+
+void VulkanContextHandle::setCommandPool(CommandPool* pool)
+{
+	mPool = pool;
+}
+
+void VulkanContextHandle::startFrame()
+{
+	vkWaitForFences(getLogicalDevice(), 1, &getFences()[mCurrentFrame],
+		VK_TRUE, std::numeric_limits<uint64_t>::max());
+	vkResetFences(getLogicalDevice(), 1, &getFences()[mCurrentFrame]);
+
+	vkAcquireNextImageKHR(getLogicalDevice(), getSwapChain(),
+		std::numeric_limits<uint64_t>::max(), getImageSemaphore()[mCurrentFrame], VK_NULL_HANDLE, &mImageIndex);
+
+	VkSubmitInfo submitInfo = {};
+	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+
+	VkSemaphore waitSemaphores[] = {getImageSemaphore()[mCurrentFrame] };
+	VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+	submitInfo.waitSemaphoreCount = 1;
+	submitInfo.pWaitSemaphores = waitSemaphores;
+	submitInfo.pWaitDstStageMask = waitStages;
+
+	submitInfo.commandBufferCount = 1;
+	VkCommandBuffer buffers[] = { mPool->getBuffers()[mImageIndex]->getBuffer() };
+	submitInfo.pCommandBuffers = buffers;
+
+	VkSemaphore signalSemaphores[] = { getRenderSemaphore()[mCurrentFrame] };
+	submitInfo.signalSemaphoreCount = 1;
+	submitInfo.pSignalSemaphores = signalSemaphores;
+
+	const VkResult result = vkQueueSubmit(getGraphicsQueue(), 1, &submitInfo,
+		getFences()[mCurrentFrame]);
+	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to submit draw command buffer!");
+}
+
+void VulkanContextHandle::endFrame()
+{
+	
+}
+
+void VulkanContextHandle::swap()
+{
+	VkPresentInfoKHR presentInfo = {};
+	presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+
+	VkSemaphore signalSemaphores[] = { getRenderSemaphore()[mCurrentFrame] };
+
+	presentInfo.waitSemaphoreCount = 1;
+	presentInfo.pWaitSemaphores = signalSemaphores;
+
+	VkSwapchainKHR swapChains[] = { getSwapChain() };
+	presentInfo.swapchainCount = 1;
+	presentInfo.pSwapchains = swapChains;
+
+	presentInfo.pImageIndices = &mImageIndex;
+
+	vkQueuePresentKHR(getPresentQueue(), &presentInfo);
+
+	mCurrentFrame = (mCurrentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 }
 
 VkInstance VulkanContextHandle::getInstance() const

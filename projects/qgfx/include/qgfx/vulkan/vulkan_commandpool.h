@@ -13,12 +13,12 @@ class VulkanCommandPool : public ICommandPool
 		~VulkanCommandPool();
 
 		void addCommandBuffer(const qtl::shared_ptr<CommandBuffer>& buffer) override;
+		qtl::vector<qtl::shared_ptr<CommandBuffer>> getBuffers() override;
 		void construct() override;
 
 	private:
 		VkCommandPool mCommandPool;
 		qtl::vector<VkCommandBuffer> mVulkanBuffers;
-		qtl::vector<qtl::shared_ptr<CommandBuffer>> mBuffers;
 };
 
 #endif // vulkan_commandpool_h__
