@@ -11,9 +11,11 @@ class OpenGLPipeline : public IPipeline
 	public:
 		OpenGLPipeline(ContextHandle* handle);
 		OpenGLPipeline(const OpenGLPipeline&) = delete;
+		OpenGLPipeline(OpenGLPipeline&& pipeline) noexcept;
 		~OpenGLPipeline();
 
 		OpenGLPipeline& operator=(const OpenGLPipeline&) = delete;
+		OpenGLPipeline& operator=(OpenGLPipeline&& pipeline) noexcept;
 	
 		void addShader(const qtl::shared_ptr<Shader>& shader) override;
 		void construct() override;

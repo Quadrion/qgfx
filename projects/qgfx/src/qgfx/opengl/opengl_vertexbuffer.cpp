@@ -10,7 +10,7 @@ OpenGLVertexBuffer::OpenGLVertexBuffer(ContextHandle* handle)
 {
 }
 
-OpenGLVertexBuffer::OpenGLVertexBuffer(OpenGLVertexBuffer && buf) noexcept
+OpenGLVertexBuffer::OpenGLVertexBuffer(OpenGLVertexBuffer&& buf) noexcept
 	: IVertexBuffer(mHandle), mId(buf.mId), mData(buf.mData)
 {
 	buf.mId = 0;
@@ -31,7 +31,7 @@ OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	}
 }
 
-OpenGLVertexBuffer& OpenGLVertexBuffer::operator=(OpenGLVertexBuffer && buf) noexcept
+OpenGLVertexBuffer& OpenGLVertexBuffer::operator=(OpenGLVertexBuffer&& buf) noexcept
 {
 	mId = buf.mId;
 	mData = buf.mData;
@@ -44,18 +44,23 @@ OpenGLVertexBuffer& OpenGLVertexBuffer::operator=(OpenGLVertexBuffer && buf) noe
 
 void OpenGLVertexBuffer::setData(void * data, const size_t size)
 {
+	if (mData)
+	{
+		delete[] reinterpret_cast<char*>(mData);
+	}
 	mData = new char[size];
 	memcpy(mData, data, size);
 }
 
-void OpenGLVertexBuffer::setLayout(const VertexBufferLayout & layout)
+void OpenGLVertexBuffer::setLayout(const VertexBufferLayout& layout)
 {
 	mLayout = layout;
 }
 
 bool OpenGLVertexBuffer::construct()
 {
-	QGFX_ASSERT_MSG(mId != 0, "Vertex Buffer already constructed.");
+	QGFX_ASSERT_MSG(mId != 0, "Vertex Buffer already constructed.\n");
+	QGFX_ASSERT_MSG(mData != nullptr, "Vertex Buffer has no data.\n");
 	glCreateBuffers(1, &mId);
 	if (mId == 0)
 	{
@@ -77,10 +82,12 @@ bool OpenGLVertexBuffer::construct()
 		++idx;
 	}
 	glBindBuffer(GL_VERTEX_ARRAY, 0);
+	delete[] mData;
+	mData = nullptr;
 	return true;
 }
 
-VertexBufferLayout & OpenGLVertexBuffer::getLayout()
+VertexBufferLayout& OpenGLVertexBuffer::getLayout()
 {
 	return mLayout;
 }

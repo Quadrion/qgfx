@@ -12,6 +12,8 @@ class OpenGLRasterizer : public IRasterizer
 		OpenGLRasterizer(const OpenGLRasterizer&) = delete;
 		~OpenGLRasterizer();
 
+		OpenGLRasterizer& operator=(const OpenGLRasterizer&) = delete;
+
 		void setCullMode(const CullMode mode) override;
 		void setFrontFace(const FrontFace face) override;
 		void setPolygonMode(const PolygonMode mode, const CullMode face) override;

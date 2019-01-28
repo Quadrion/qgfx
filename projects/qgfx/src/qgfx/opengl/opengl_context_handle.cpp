@@ -13,8 +13,29 @@ OpenGLContextHandle::OpenGLContextHandle(GLFWwindow* window)
 	mRasterizer = new OpenGLRasterizer(this);
 }
 
+OpenGLContextHandle::OpenGLContextHandle(OpenGLContextHandle&& context) noexcept
+	: IContextHandle(context.mWindow), mPipeline(context.mPipeline), mRasterizer(context.mRasterizer)
+{
+	context.mPipeline = nullptr;
+	context.mRasterizer = nullptr;
+}
+
 OpenGLContextHandle::~OpenGLContextHandle()
 {
+	if (mPipeline) delete mPipeline;
+	if (mRasterizer) delete mRasterizer;
+	mPipeline = nullptr;
+	mRasterizer = nullptr;
+}
+
+OpenGLContextHandle& OpenGLContextHandle::operator=(OpenGLContextHandle&& handle) noexcept
+{
+	mWindow = handle.mWindow;
+	mPipeline = handle.mPipeline;
+	mRasterizer = handle.mRasterizer;
+	handle.mPipeline = nullptr;
+	handle.mRasterizer = nullptr;
+	return *this;
 }
 
 Pipeline * OpenGLContextHandle::getPipeline() const
