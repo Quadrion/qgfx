@@ -10,6 +10,7 @@ VulkanWindow::VulkanWindow()
 VulkanWindow::~VulkanWindow()
 {
 	glfwDestroyWindow(mWindow);
+	glfwTerminate();
 }
 
 void VulkanWindow::construct(const WindowCreationParameters& params)
@@ -40,6 +41,16 @@ void VulkanWindow::construct(const uint32_t width, const uint32_t height, const 
 void* VulkanWindow::getPlatformHandle() const
 {
 	return mWindow;
+}
+
+bool VulkanWindow::shouldClose() const
+{
+	return glfwWindowShouldClose(mWindow);
+}
+
+void VulkanWindow::poll() const
+{
+	glfwPollEvents();
 }
 
 #endif // QGFX_VULKAN

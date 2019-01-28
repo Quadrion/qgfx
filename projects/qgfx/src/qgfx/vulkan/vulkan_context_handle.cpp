@@ -235,10 +235,19 @@ void VulkanContextHandle::startFrame()
 {
 	vkWaitForFences(getLogicalDevice(), 1, &getFences()[mCurrentFrame],
 		VK_TRUE, std::numeric_limits<uint64_t>::max());
-	vkResetFences(getLogicalDevice(), 1, &getFences()[mCurrentFrame]);
-
-	vkAcquireNextImageKHR(getLogicalDevice(), getSwapChain(),
+	VkResult result = vkAcquireNextImageKHR(getLogicalDevice(), getSwapChain(),
 		std::numeric_limits<uint64_t>::max(), getImageSemaphore()[mCurrentFrame], VK_NULL_HANDLE, &mImageIndex);
+
+	if(result == VK_ERROR_OUT_OF_DATE_KHR)
+	{
+		// TODO (Roderick): Implement this function
+		// _recreateSwapChain();
+		return;
+	}
+	else if(result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
+	{
+		QGFX_ASSERT_MSG(false, "Failed to acquire swap chain image!");
+	}
 
 	VkSubmitInfo submitInfo = {};
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
@@ -258,7 +267,9 @@ void VulkanContextHandle::startFrame()
 	submitInfo.signalSemaphoreCount = 1;
 	submitInfo.pSignalSemaphores = signalSemaphores;
 
-	const VkResult result = vkQueueSubmit(getGraphicsQueue(), 1, &submitInfo,
+	vkResetFences(getLogicalDevice(), 1, &getFences()[mCurrentFrame]);
+
+	result = vkQueueSubmit(getGraphicsQueue(), 1, &submitInfo,
 		getFences()[mCurrentFrame]);
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to submit draw command buffer!");
 }

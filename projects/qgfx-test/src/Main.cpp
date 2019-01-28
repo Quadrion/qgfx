@@ -57,7 +57,6 @@ int main()
 	shader->cleanup();
 
 	CommandPool* pool = contextHandle->addCommandPool();
-
 	for (size_t i = 0; i < contextHandle->getSwapChainFramebuffers().size(); i++)
 	{
 		pool->addCommandBuffer();
@@ -93,9 +92,9 @@ int main()
 	contextHandle->finalizeGraphics();
 
 	/* Loop until the user closes the window */
-	while (!glfwWindowShouldClose(static_cast<GLFWwindow*>(window->getPlatformHandle())))
+	while (!window->shouldClose())
 	{
-		glfwPollEvents();
+		window->poll();
 
 		contextHandle->startFrame();
 
@@ -107,8 +106,7 @@ int main()
 
 	delete contextHandle;
 
-	glfwDestroyWindow(static_cast<GLFWwindow*>(window->getPlatformHandle()));
-	glfwTerminate();
+	delete window;
 
 #endif
 
