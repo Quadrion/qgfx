@@ -20,7 +20,6 @@ class ICommandPool
 		virtual void construct() = 0;
 
 	protected:
-		qtl::vector<qtl::shared_ptr<CommandBuffer>> mBuffers;
 		ContextHandle* mHandle;
 };
 
