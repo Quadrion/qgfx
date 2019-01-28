@@ -1,6 +1,6 @@
 #if defined (QGFX_OPENGL)
 
-#include "opengl_command_pool.h"
+#include "qgfx/opengl/opengl_commandpool.h"
 
 OpenGLCommandPool::OpenGLCommandPool(ContextHandle * handle)
 	: ICommandPool(handle)

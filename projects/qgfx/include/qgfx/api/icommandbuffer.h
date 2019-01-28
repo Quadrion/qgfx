@@ -8,7 +8,7 @@
 class ICommandBuffer
 {
 	public:
-		explicit ICommandBuffer(ContextHandle* handle, CommandPool* pool);
+		explicit ICommandBuffer(ContextHandle* handle);
 		virtual ~ICommandBuffer() = default;
 
 		ICommandBuffer& operator = (const ICommandBuffer&) = delete;
@@ -18,7 +18,6 @@ class ICommandBuffer
 
 	protected:
 		ContextHandle* mHandle;
-		CommandPool* mPool;
 };
 
 #endif // icommandbuffer_h__
