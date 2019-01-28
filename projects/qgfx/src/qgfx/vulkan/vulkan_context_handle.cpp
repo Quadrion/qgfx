@@ -8,7 +8,7 @@
 
 #if defined(QGFX_VULKAN)
 
-#include "qgfx/vulkan/queuefamily.h"
+#include "qgfx/vulkan/queue_family.h"
 #include "qgfx/vulkan/vulkan_context_handle.h"
 #include "qgfx/vulkan/vulkan_rasterizer.h"
 #include "qgfx/vulkan/vulkan_pipeline.h"

@@ -79,18 +79,6 @@ static constexpr VkFormat convertQGFXFormatToVulkan(const ImageFormat format, co
 				case ImageDataType::Int: return VK_FORMAT_R32G32B32_SINT;
 				case ImageDataType::UInt: return VK_FORMAT_R32G32B32_UINT;
 				case ImageDataType::Float: return VK_FORMAT_R32G32B32_SFLOAT;
-				case ImageDataType::UShort5_6_5: return VK_FORMAT_R5G6B5_UNORM_PACK16;
-				default: return VK_FORMAT_UNDEFINED;
-			}
-			break;
-		}
-		case ImageFormat::BGR:
-		{
-			switch (type)
-			{
-			case ImageDataType::Byte: return VK_FORMAT_B8G8R8_SINT;
-			case ImageDataType::UByte: return VK_FORMAT_B8G8R8_UINT;
-			case ImageDataType::UShort5_6_5: return VK_FORMAT_B5G6R5_UNORM_PACK16;
 				default: return VK_FORMAT_UNDEFINED;
 			}
 			break;
@@ -106,20 +94,6 @@ static constexpr VkFormat convertQGFXFormatToVulkan(const ImageFormat format, co
 				case ImageDataType::Int: return VK_FORMAT_R32G32B32A32_SINT;
 				case ImageDataType::UInt: return VK_FORMAT_R32G32B32A32_UINT;
 				case ImageDataType::Float: return VK_FORMAT_R32G32B32A32_SFLOAT;
-				case ImageDataType::UShort4_4_4_4: return VK_FORMAT_R4G4B4A4_UNORM_PACK16;
-				case ImageDataType::UShort5_5_5_1: return VK_FORMAT_R5G5B5A1_UNORM_PACK16;
-				case ImageDataType::UInt8_8_8_8: return VK_FORMAT_R8G8B8A8_UINT;
-				case ImageDataType::UInt10_10_10_2: return VK_FORMAT_A2R10G10B10_UINT_PACK32;
-				default: return VK_FORMAT_UNDEFINED;
-			}
-			break;
-		}
-		case ImageFormat::BGRA:
-		{
-			switch (type)
-			{
-				case ImageDataType::Byte: return VK_FORMAT_B8G8R8A8_SINT;
-				case ImageDataType::UByte: return VK_FORMAT_B8G8R8A8_UINT;
 				case ImageDataType::UShort4_4_4_4: return VK_FORMAT_R4G4B4A4_UNORM_PACK16;
 				case ImageDataType::UShort5_5_5_1: return VK_FORMAT_R5G5B5A1_UNORM_PACK16;
 				case ImageDataType::UInt8_8_8_8: return VK_FORMAT_R8G8B8A8_UINT;

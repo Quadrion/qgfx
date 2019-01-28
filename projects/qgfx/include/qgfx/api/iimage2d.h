@@ -11,9 +11,7 @@ enum class ImageFormat : uint32_t
 	Blue,
 	Alpha,
 	RGB,
-	BGR,
 	RGBA,
-	BGRA,
 	Luminance,
 	LuminanceAlpha
 };
@@ -27,8 +25,6 @@ enum class ImageDataType : uint32_t
 	Int,
 	UInt,
 	Float,
-	UByte3_3_2,
-	UShort5_6_5,
 	UShort4_4_4_4,
 	UShort5_5_5_1,
 	UInt8_8_8_8,

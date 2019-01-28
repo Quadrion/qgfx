@@ -12,7 +12,7 @@ class IFrameBuffer
 
 		IFrameBuffer& operator = (const IFrameBuffer&) = delete;
 
-		virtual void construct(RenderPass* renderPass,  attachments, uint32_t attachmentCount, uint32_t width, uint32_t height)
+//		virtual void construct(RenderPass* renderPass, attachments, uint32_t attachmentCount, uint32_t width, uint32_t height);
 
 	protected:
 		ContextHandle* mHandle;
