@@ -6,6 +6,7 @@
 
 #include "qgfx/api/icontexthandle.h"
 #include "qgfx/typedefs.h"
+#include <qtl/vector.h>
 
 /// <summary>
 /// Represents an OpenGL Context Handle.  Does not contain anything
@@ -36,14 +37,15 @@ class OpenGLContextHandle : public IContextHandle
 		void initializeGraphics() override;
 		void finalizeGraphics() override;
 
-		void setCommandPool(CommandPool* pool) override;
+		CommandPool* addCommandPool() override;
+		qtl::vector<CommandPool*> getCommandPools() override;
 		void startFrame() override;
 		void endFrame() override;
 		void swap() override;
 	private:
 		OpenGLPipeline* mPipeline;
 		OpenGLRasterizer* mRasterizer;
-		OpenGLCommandPool* mCommandPool;
+		qtl::vector<OpenGLCommandPool*> mCommandPools;
 };
 
 #endif // opengl_context_handle_h__

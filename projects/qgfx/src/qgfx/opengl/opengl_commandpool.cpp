@@ -14,6 +14,15 @@ OpenGLCommandPool::OpenGLCommandPool(OpenGLCommandPool&& pool) noexcept
 	pool.mBuffers.clear();
 }
 
+OpenGLCommandPool::~OpenGLCommandPool()
+{
+	for (auto buf : mBuffers)
+	{
+		delete buf;
+	}
+	mBuffers.clear();
+}
+
 OpenGLCommandPool& OpenGLCommandPool::operator=(OpenGLCommandPool&& other) noexcept
 {
 	mHandle = other.mHandle;
@@ -23,9 +32,17 @@ OpenGLCommandPool& OpenGLCommandPool::operator=(OpenGLCommandPool&& other) noexc
 	return *this;
 }
 
-void OpenGLCommandPool::addCommandBuffer(const qtl::shared_ptr<CommandBuffer>& buffer)
+CommandBuffer * OpenGLCommandPool::addCommandBuffer()
 {
-	mBuffers.push_back(buffer);
+	auto buf = new CommandBuffer(mHandle);
+	mBuffers.push_back(buf);
+
+	return buf;
+}
+
+qtl::vector<CommandBuffer*> OpenGLCommandPool::getBuffers()
+{
+	return mBuffers;
 }
 
 void OpenGLCommandPool::construct()

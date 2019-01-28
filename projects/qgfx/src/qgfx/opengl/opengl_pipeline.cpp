@@ -17,6 +17,10 @@ OpenGLPipeline::OpenGLPipeline(OpenGLPipeline&& pipeline) noexcept
 
 OpenGLPipeline::~OpenGLPipeline()
 {
+	for (auto shader : mShaders)
+	{
+		delete shader;
+	}
 	mShaders.clear();
 }
 
@@ -28,9 +32,11 @@ OpenGLPipeline & OpenGLPipeline::operator=(OpenGLPipeline&& pipeline) noexcept
 	return *this;
 }
 
-void OpenGLPipeline::addShader(const qtl::shared_ptr<Shader>& shader)
+Shader * OpenGLPipeline::addShader()
 {
+	auto shader = new Shader(mHandle);
 	mShaders.push_back(shader);
+	return shader;
 }
 
 void OpenGLPipeline::construct()
