@@ -1,28 +1,17 @@
 #include "qgfx/qgfx.h"
-#include "GLFW/glfw3.h"
 
 #include <qtl/string.h>
 
 int main()
 {
 #if defined(QGFX_OPENGL)
-	/* Initialize the library */
-	if (!glfwInit())
-		return -1;
-
-
 	/* Create a windowed mode window and its OpenGL context */
-	GLFWwindow* window = glfwCreateWindow(1280, 720, "QGFX Window", nullptr, nullptr);
-	if (!window)
-	{
-		glfwTerminate();
-		return -1;
-	}
+	Window * win = new Window;
+	win->construct(1280, 720, "QGFX WINDOW", false, false);
 
 	/* Make the window's context current */
-	glfwMakeContextCurrent(window);
 
-	ContextHandle* handle = new ContextHandle(window);
+	ContextHandle* handle = new ContextHandle(win);
 	handle->addCommandPool();
 	const auto vertex = load_text("media/effects/shader.vert");
 	const auto fragment = load_text("media/effects/shader.frag");
@@ -33,16 +22,16 @@ int main()
 	shader->compile();
 
 	/* Loop until the user closes the window */
-	while (!glfwWindowShouldClose(window))
+	while (!win->shouldClose())
 	{
 		/* Render here */
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		/* Swap front and back buffers */
-		glfwSwapBuffers(window);
+		handle->swap();
 
 		/* Poll for and process events */
-		glfwPollEvents();
+		win->poll();
 	}
 
 	delete handle;

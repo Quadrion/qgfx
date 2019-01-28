@@ -5,8 +5,9 @@
 #include "qgfx/opengl/opengl_commandpool.h"
 #include "qgfx/opengl/opengl_pipeline.h"
 #include "qgfx/opengl/opengl_rasterizer.h"
+#include "qgfx/opengl/opengl_window.h"
 
-OpenGLContextHandle::OpenGLContextHandle(GLFWwindow* window)
+OpenGLContextHandle::OpenGLContextHandle(Window* window)
 	: IContextHandle(window)
 {
 	gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
@@ -88,7 +89,7 @@ void OpenGLContextHandle::endFrame()
 
 void OpenGLContextHandle::swap()
 {
-	glfwSwapBuffers(mWindow);
+	glfwSwapBuffers(reinterpret_cast<GLFWwindow*>(mWindow->getPlatformHandle()));
 }
 
 #endif // QGFX_OPENGL

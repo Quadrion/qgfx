@@ -19,7 +19,7 @@ class OpenGLContextHandle : public IContextHandle
 		/// Constructs a new OpenGLContextHandle.  Matches VulkanContextHandle, but the
 		/// constructor is a no-op
 		/// </summary>
-		explicit OpenGLContextHandle(GLFWwindow * window);
+		explicit OpenGLContextHandle(Window * window);
 		OpenGLContextHandle(const OpenGLContextHandle&) = delete;
 		OpenGLContextHandle(OpenGLContextHandle&& context) noexcept;
 
