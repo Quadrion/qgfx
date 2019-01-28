@@ -27,19 +27,20 @@
 #include "qgfx/typedefs.h"
 
 #if defined(QGFX_OPENGL)
+#include "qgfx/opengl/opengl_commandbuffer.h"
+#include "qgfx/opengl/opengl_commandpool.h"
 #include "qgfx/opengl/opengl_pipeline.h"
 #include "qgfx/opengl/opengl_rasterizer.h"
 #include "qgfx/opengl/opengl_shader.h"
 #include "qgfx/opengl/opengl_vertexbuffer.h"
-#include "qgfx/opengl/opengl_commandbuffer.h"
-#include "qgfx/opengl/opengl_commandpool.h"
+#include "qgfx/opengl/opengl_window.h"
 #elif defined(QGFX_VULKAN)
+#include "qgfx/vulkan/vulkan_commandbuffer.h"
+#include "qgfx/vulkan/vulkan_commandpool.h"
 #include "qgfx/vulkan/vulkan_pipeline.h"
 #include "qgfx/vulkan/vulkan_rasterizer.h"
 #include "qgfx/vulkan/vulkan_shader.h"
 #include "qgfx/vulkan/vulkan_vertexbuffer.h"
-#include "qgfx/vulkan/vulkan_commandbuffer.h"
-#include "qgfx/vulkan/vulkan_commandpool.h"
 #include "qgfx/vulkan/vulkan_window.h"
 #endif
 
