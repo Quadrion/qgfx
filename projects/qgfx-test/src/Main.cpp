@@ -49,18 +49,8 @@ int main()
 
 	glfwTerminate();
 #elif defined(QGFX_VULKAN)
-	if (!glfwInit())
-		return -1;
-
-	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-
-	/* Create a windowed mode window and its OpenGL context */
-	GLFWwindow* window = glfwCreateWindow(1280, 720, "QGFX Window", nullptr, nullptr);
-	if (!window)
-	{
-		glfwTerminate();
-		return -1;
-	}
+	Window* window = new Window();
+	window->construct(1280, 720, "QGFX");
 
 	ContextHandle* contextHandle = new ContextHandle(window);
 
@@ -114,7 +104,7 @@ int main()
 	contextHandle->finalizeGraphics();
 
 	/* Loop until the user closes the window */
-	while (!glfwWindowShouldClose(window))
+	while (!glfwWindowShouldClose(static_cast<GLFWwindow*>(window->getPlatformHandle())))
 	{
 		glfwPollEvents();
 
@@ -128,7 +118,7 @@ int main()
 
 	delete contextHandle;
 
-	glfwDestroyWindow(window);
+	glfwDestroyWindow(static_cast<GLFWwindow*>(window->getPlatformHandle()));
 	glfwTerminate();
 
 #endif

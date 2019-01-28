@@ -21,7 +21,7 @@ class VulkanContextHandle : public IContextHandle
 		/// <summary>
 		/// Constructs a new Vulkan Context Handle.
 		/// </summary>
-		explicit VulkanContextHandle(GLFWwindow* window);
+		explicit VulkanContextHandle(Window* window);
 
 		/// <summary>
 		/// Default destructor

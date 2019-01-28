@@ -8,7 +8,7 @@
 class IContextHandle
 {
 	public:
-		explicit IContextHandle(GLFWwindow* window);
+		explicit IContextHandle(Window* window);
 		virtual ~IContextHandle() = default;
 
 		IContextHandle& operator = (const IContextHandle&) = delete;
@@ -27,7 +27,7 @@ class IContextHandle
 		virtual void swap() = 0;
 
 	protected:
-		GLFWwindow* mWindow;
+		Window* mWindow;
 };
 
 #endif // icontexthandle_h__

@@ -1,6 +1,6 @@
 #include "qgfx/api/icontexthandle.h"
 
-IContextHandle::IContextHandle(GLFWwindow * window)
+IContextHandle::IContextHandle(Window* window)
 	: mWindow(window)
 {
 }

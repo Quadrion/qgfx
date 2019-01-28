@@ -15,6 +15,7 @@
 #include "qgfx/vulkan/vulkan_shader.h"
 #include "qgfx/vulkan/vulkan_commandpool.h"
 #include "qgfx/vulkan/vulkan_commandbuffer.h"
+#include "qgfx/vulkan/vulkan_window.h"
 #include "GLFW/glfw3.h"
 #include "qgfx/qassert.h"
 
@@ -120,7 +121,7 @@ int32_t rateDeviceSuitability(const VkPhysicalDevice device)
 	return score;
 }
 
-VulkanContextHandle::VulkanContextHandle(GLFWwindow* window) : IContextHandle(window)
+VulkanContextHandle::VulkanContextHandle(Window* window) : IContextHandle(window)
 {
 	mInstance = nullptr;
 	mPhysicalDevice = nullptr;
@@ -527,7 +528,7 @@ void VulkanContextHandle::_createLogicalDevice()
 
 void VulkanContextHandle::_createSurface()
 {
-	const VkResult result = glfwCreateWindowSurface(mInstance, mWindow, nullptr, &mSurface);
+	const VkResult result = glfwCreateWindowSurface(mInstance, static_cast<GLFWwindow*>(mWindow->getPlatformHandle()), nullptr, &mSurface);
 
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create window surface!");
 }

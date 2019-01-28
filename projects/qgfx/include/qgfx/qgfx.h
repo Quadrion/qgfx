@@ -31,6 +31,8 @@
 #include "qgfx/opengl/opengl_rasterizer.h"
 #include "qgfx/opengl/opengl_shader.h"
 #include "qgfx/opengl/opengl_vertexbuffer.h"
+#include "qgfx/opengl/opengl_commandbuffer.h"
+#include "qgfx/opengl/opengl_commandpool.h"
 #elif defined(QGFX_VULKAN)
 #include "qgfx/vulkan/vulkan_pipeline.h"
 #include "qgfx/vulkan/vulkan_rasterizer.h"
@@ -38,6 +40,7 @@
 #include "qgfx/vulkan/vulkan_vertexbuffer.h"
 #include "qgfx/vulkan/vulkan_commandbuffer.h"
 #include "qgfx/vulkan/vulkan_commandpool.h"
+#include "qgfx/vulkan/vulkan_window.h"
 #endif
 
 #endif // qgfx_h__
