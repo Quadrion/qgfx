@@ -41,6 +41,7 @@ class VulkanContextHandle : public IContextHandle
 		void finalizeGraphics() override;
 
 		VulkanCommandPool* addCommandPool() override;
+		qtl::vector<VulkanCommandPool*> getCommandPools() override;
 
 		void startFrame() override;
 		void endFrame() override;

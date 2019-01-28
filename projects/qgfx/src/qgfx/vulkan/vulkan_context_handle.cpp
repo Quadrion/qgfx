@@ -226,6 +226,11 @@ VulkanCommandPool* VulkanContextHandle::addCommandPool()
 	return pool;
 }
 
+qtl::vector<VulkanCommandPool*> VulkanContextHandle::getCommandPools()
+{
+	return mCommandPools;
+}
+
 void VulkanContextHandle::startFrame()
 {
 	vkWaitForFences(getLogicalDevice(), 1, &getFences()[mCurrentFrame],
