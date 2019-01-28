@@ -19,11 +19,16 @@ class OpenGLContextHandle : public IContextHandle
 		/// constructor is a no-op
 		/// </summary>
 		explicit OpenGLContextHandle(GLFWwindow * window);
+		OpenGLContextHandle(const OpenGLContextHandle&) = delete;
+		OpenGLContextHandle(OpenGLContextHandle&& context) noexcept;
 
 		/// <summary>
 		/// Default destructor
 		/// </summary>
 		~OpenGLContextHandle();
+
+		OpenGLContextHandle& operator=(const OpenGLContextHandle&) = delete;
+		OpenGLContextHandle& operator=(OpenGLContextHandle&& handle) noexcept;
 
 		Pipeline* getPipeline() const override;
 		Rasterizer* getRasterizer() const override;

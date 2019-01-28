@@ -12,7 +12,7 @@ OpenGLShader::OpenGLShader(ContextHandle* handle)
 	QGFX_ASSERT_MSG(mId != 0, "Failed to create OpenGL Shader!\n");
 }
 
-OpenGLShader::OpenGLShader(OpenGLShader && shader) noexcept
+OpenGLShader::OpenGLShader(OpenGLShader&& shader) noexcept
 	: IShader(mHandle), mId(shader.mId)
 {
 	shader.mId = 0;
@@ -27,7 +27,7 @@ OpenGLShader::~OpenGLShader()
 	}
 }
 
-OpenGLShader& OpenGLShader::operator=(OpenGLShader && shader) noexcept
+OpenGLShader& OpenGLShader::operator=(OpenGLShader&& shader) noexcept
 {
 	mId = shader.mId;
 	shader.mId = 0;
