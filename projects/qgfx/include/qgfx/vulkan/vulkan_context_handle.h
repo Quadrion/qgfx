@@ -9,6 +9,8 @@
 
 #include "qgfx/api/icontexthandle.h"
 
+const int32_t MAX_FRAMES_IN_FLIGHT = 2;
+
 class VulkanRasterizer;
 class VulkanPipeline;
 /// <summary>
@@ -38,6 +40,7 @@ class VulkanContextHandle : public IContextHandle
 		VulkanRasterizer* getRasterizer() const override;
 
 		void initializeGraphics() override;
+		void finalizeGraphics() override;
 
 		/// <summary>
 		/// Returns the current Vulkan Instance
@@ -69,6 +72,13 @@ class VulkanContextHandle : public IContextHandle
 
 		qtl::vector<VkFramebuffer> getSwapChainFramebuffers() const;
 
+		qtl::vector<VkSemaphore> getImageSemaphore() const;
+		qtl::vector<VkSemaphore> getRenderSemaphore() const;
+		qtl::vector<VkFence> getFences() const;
+
+		VkQueue getGraphicsQueue() const;
+		VkQueue getPresentQueue() const;
+
 		VkSurfaceKHR getSurface() const;
 	private:
 		VkInstance mInstance;
@@ -90,6 +100,10 @@ class VulkanContextHandle : public IContextHandle
 		VulkanRasterizer* mRasterizer;
 		VulkanPipeline* mPipeline;
 
+		qtl::vector<VkSemaphore> mImageAvailableSemaphore;
+		qtl::vector<VkSemaphore> mRenderFinishedSemaphore;
+		qtl::vector<VkFence> mInFlightFences;
+
 		qtl::vector<VkFramebuffer> mSwapChainFrameBuffers;
 
 		void _createInstance();
@@ -104,6 +118,7 @@ class VulkanContextHandle : public IContextHandle
 		void _createGraphicsPipeline();
 
 		void _createFrameBuffers();
+		void _createSyncObjects();
 
 		VkSurfaceFormatKHR _chooseSwapSurfaceFormat(const qtl::vector<VkSurfaceFormatKHR>& availableFormats) const;
 		VkPresentModeKHR _chooseSwapPresentMode(const qtl::vector<VkPresentModeKHR>& availablePresentModes) const;

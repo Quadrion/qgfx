@@ -136,6 +136,13 @@ VulkanContextHandle::VulkanContextHandle(GLFWwindow* window) : IContextHandle(wi
 
 VulkanContextHandle::~VulkanContextHandle()
 {
+	for(size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++)
+	{
+		vkDestroySemaphore(mDevice, mRenderFinishedSemaphore[i], nullptr);
+		vkDestroySemaphore(mDevice, mImageAvailableSemaphore[i], nullptr);
+		vkDestroyFence(mDevice, mInFlightFences[i], nullptr);
+	}
+
 	for(auto framebuffer : mSwapChainFrameBuffers)
 	{
 		vkDestroyFramebuffer(mDevice, framebuffer, nullptr);
@@ -191,6 +198,11 @@ void VulkanContextHandle::initializeGraphics()
 {
 	_createRenderPass();
 	_createGraphicsPipeline();
+}
+
+void VulkanContextHandle::finalizeGraphics()
+{
+	_createSyncObjects();
 }
 
 VkInstance VulkanContextHandle::getInstance() const
@@ -252,6 +264,31 @@ VkFormat VulkanContextHandle::getSwapChainFormat() const
 qtl::vector<VkFramebuffer> VulkanContextHandle::getSwapChainFramebuffers() const
 {
 	return mSwapChainFrameBuffers;
+}
+
+qtl::vector<VkSemaphore> VulkanContextHandle::getImageSemaphore() const
+{
+	return mImageAvailableSemaphore;
+}
+
+qtl::vector<VkSemaphore> VulkanContextHandle::getRenderSemaphore() const
+{
+	return mRenderFinishedSemaphore;
+}
+
+qtl::vector<VkFence> VulkanContextHandle::getFences() const
+{
+	return mInFlightFences;
+}
+
+VkQueue VulkanContextHandle::getGraphicsQueue() const
+{
+	return mGraphicsQueue;
+}
+
+VkQueue VulkanContextHandle::getPresentQueue() const
+{
+	return mPresentQueue;
 }
 
 VkSurfaceKHR VulkanContextHandle::getSurface() const
@@ -471,13 +508,13 @@ void VulkanContextHandle::_createSwapChain()
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create SwapChain!");
 
 	vkGetSwapchainImagesKHR(mDevice, mSwapChain, &imageCount, nullptr);
-	mSwapChainImages.reserve(imageCount);
+	mSwapChainImages.resize(imageCount);
 	vkGetSwapchainImagesKHR(mDevice, mSwapChain, &imageCount, mSwapChainImages.data());
 }
 
 void VulkanContextHandle::_createImageViews()
 {
-	mSwapChainImageViews.reserve(mSwapChainImages.size());
+	mSwapChainImageViews.resize(mSwapChainImages.size());
 
 	for(size_t i = 0; i < mSwapChainImages.size(); i++)
 	{
@@ -512,6 +549,7 @@ void VulkanContextHandle::_createRenderPass()
 void VulkanContextHandle::_createGraphicsPipeline()
 {
 	mPipeline->construct();
+	_createFrameBuffers();
 }
 
 void VulkanContextHandle::_createFrameBuffers()
@@ -535,6 +573,28 @@ void VulkanContextHandle::_createFrameBuffers()
 
 		const VkResult result = vkCreateFramebuffer(mDevice, &framebufferInfo, nullptr, &mSwapChainFrameBuffers[i]);
 		QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create framebuffer!");
+	}
+}
+
+void VulkanContextHandle::_createSyncObjects()
+{
+	mImageAvailableSemaphore.resize(MAX_FRAMES_IN_FLIGHT);
+	mRenderFinishedSemaphore.resize(MAX_FRAMES_IN_FLIGHT);
+	mInFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
+
+	VkSemaphoreCreateInfo semaphoreInfo = {};
+	semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+
+	VkFenceCreateInfo fenceInfo = {};
+	fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+	fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
+
+	for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
+		if (vkCreateSemaphore(mDevice, &semaphoreInfo, nullptr, &mImageAvailableSemaphore[i]) != VK_SUCCESS ||
+			vkCreateSemaphore(mDevice, &semaphoreInfo, nullptr, &mRenderFinishedSemaphore[i]) != VK_SUCCESS ||
+			vkCreateFence(mDevice, &fenceInfo, nullptr, &mInFlightFences[i]) != VK_SUCCESS) {
+			QGFX_ASSERT(false);
+		}
 	}
 }
 

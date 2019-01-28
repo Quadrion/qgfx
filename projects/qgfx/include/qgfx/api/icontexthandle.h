@@ -16,6 +16,7 @@ class IContextHandle
 		virtual Rasterizer* getRasterizer() const = 0;
 
 		virtual void initializeGraphics() = 0;
+		virtual void finalizeGraphics() = 0;
 
 	protected:
 		GLFWwindow* mWindow;

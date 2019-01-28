@@ -21,6 +21,7 @@ class VulkanPipeline : public IPipeline
 		void addShader(const qtl::shared_ptr<Shader>& shader) override;
 
 		VkRenderPass getRenderPass() const;
+		VkPipeline getPipeline() const;
 
 	private:
 		VkPipelineLayout mLayout;

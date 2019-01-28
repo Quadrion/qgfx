@@ -13,6 +13,8 @@ class VulkanCommandBuffer : public ICommandBuffer
 		void record() override;
 		void end() override;
 
+		VkCommandBuffer getBuffer();
+
 	private:
 		friend class VulkanCommandPool;
 

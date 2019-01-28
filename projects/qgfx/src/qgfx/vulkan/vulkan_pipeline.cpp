@@ -184,4 +184,9 @@ VkRenderPass VulkanPipeline::getRenderPass() const
 	return mRenderPass;
 }
 
+VkPipeline VulkanPipeline::getPipeline() const
+{
+	return mPipeline;
+}
+
 #endif // QGFX_VULKAN

@@ -9,7 +9,7 @@
 
 VulkanCommandPool::VulkanCommandPool(ContextHandle* context) : ICommandPool(context)
 {
-
+	mCommandPool = nullptr;
 }
 
 VulkanCommandPool::~VulkanCommandPool()
@@ -40,7 +40,8 @@ void VulkanCommandPool::construct()
 	allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
 	allocInfo.commandPool = mCommandPool;
 	allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-	allocInfo.commandBufferCount = amount;
+	allocInfo.commandBufferCount = static_cast<uint32_t>(amount);
+	mVulkanBuffers.resize(amount);
 
 	result = vkAllocateCommandBuffers(mHandle->getLogicalDevice(), &allocInfo, mVulkanBuffers.data());
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create command buffers");
