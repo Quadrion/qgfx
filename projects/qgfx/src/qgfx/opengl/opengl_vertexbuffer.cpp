@@ -67,7 +67,7 @@ bool OpenGLVertexBuffer::construct()
 		return false;
 	}
 	glBindBuffer(GL_VERTEX_ARRAY, mId);
-	glBufferStorage(GL_VERTEX_ARRAY, mSize, mData, 0);
+	glBufferStorage(GL_VERTEX_ARRAY, mSize, mData, GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT);
 	GLuint idx = 0;
 	for (const auto& format : mLayout.getLayout())
 	{
