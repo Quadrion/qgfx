@@ -2,7 +2,6 @@
 #define opengl_context_handle_h__
 
 #include <glad/glad.h>
-#include "GLFW/glfw3.h"
 
 #include "qgfx/api/icontexthandle.h"
 #include "qgfx/typedefs.h"
@@ -19,9 +18,9 @@ class OpenGLContextHandle : public IContextHandle
 		/// Constructs a new OpenGLContextHandle.  Matches VulkanContextHandle, but the
 		/// constructor is a no-op
 		/// </summary>
-		explicit OpenGLContextHandle(Window * window);
+		explicit OpenGLContextHandle(Window* window);
 		OpenGLContextHandle(const OpenGLContextHandle&) = delete;
-		OpenGLContextHandle(OpenGLContextHandle&& context) noexcept;
+		OpenGLContextHandle(OpenGLContextHandle&&) noexcept;
 
 		/// <summary>
 		/// Default destructor
@@ -29,7 +28,7 @@ class OpenGLContextHandle : public IContextHandle
 		~OpenGLContextHandle();
 
 		OpenGLContextHandle& operator=(const OpenGLContextHandle&) = delete;
-		OpenGLContextHandle& operator=(OpenGLContextHandle&& handle) noexcept;
+		OpenGLContextHandle& operator=(OpenGLContextHandle&&) noexcept;
 
 		Pipeline* getPipeline() const override;
 		Rasterizer* getRasterizer() const override;
@@ -43,9 +42,9 @@ class OpenGLContextHandle : public IContextHandle
 		void endFrame() override;
 		void swap() override;
 	private:
-		OpenGLPipeline* mPipeline;
-		OpenGLRasterizer* mRasterizer;
-		qtl::vector<OpenGLCommandPool*> mCommandPools;
+		Pipeline* mPipeline;
+		Rasterizer* mRasterizer;
+		qtl::vector<CommandPool*> mCommandPools;
 };
 
 #endif // opengl_context_handle_h__

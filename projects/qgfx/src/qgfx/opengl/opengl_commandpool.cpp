@@ -1,6 +1,7 @@
 #if defined (QGFX_OPENGL)
 
 #include "qgfx/opengl/opengl_commandpool.h"
+#include "qgfx/opengl/opengl_commandbuffer.h"
 
 OpenGLCommandPool::OpenGLCommandPool(ContextHandle* handle)
 	: ICommandPool(handle)
@@ -32,9 +33,9 @@ OpenGLCommandPool& OpenGLCommandPool::operator=(OpenGLCommandPool&& other) noexc
 	return *this;
 }
 
-CommandBuffer * OpenGLCommandPool::addCommandBuffer()
+CommandBuffer* OpenGLCommandPool::addCommandBuffer()
 {
-	auto buf = new CommandBuffer(mHandle);
+	const auto buf = new CommandBuffer(mHandle);
 	mBuffers.push_back(buf);
 
 	return buf;

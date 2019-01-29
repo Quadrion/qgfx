@@ -17,9 +17,12 @@ VkPrimitiveTopology qgfxTopologyToVulkan(const Topology& topology)
 	}
 }
 
-VulkanPipeline::VulkanPipeline(ContextHandle* context) : IPipeline(context)
+VulkanPipeline::VulkanPipeline(ContextHandle* handle) : IPipeline(handle)
 {
-
+	mLayout = nullptr;
+	mPipeline = nullptr;
+	mRenderPass = nullptr;
+	mInputAssembly = {};
 }
 
 VulkanPipeline::~VulkanPipeline()
@@ -94,13 +97,9 @@ void VulkanPipeline::construct()
 	colorBlending.blendConstants[2] = 0.0f;
 	colorBlending.blendConstants[3] = 0.0f;
 
-	VkDynamicState dynamicStates[] =
-	{
-		VK_DYNAMIC_STATE_VIEWPORT,
-		VK_DYNAMIC_STATE_BLEND_CONSTANTS
-	};
-
-	VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
+	// TODO (Roderick): Dynamic states
+    
+    VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
 	pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
 	pipelineLayoutInfo.setLayoutCount = 0;
 	pipelineLayoutInfo.pSetLayouts = nullptr;

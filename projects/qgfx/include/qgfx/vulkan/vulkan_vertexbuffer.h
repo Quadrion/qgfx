@@ -11,7 +11,7 @@
 class VulkanVertexBuffer : public IVertexBuffer
 {
 	public:
-		explicit VulkanVertexBuffer(ContextHandle* context);
+		explicit VulkanVertexBuffer(ContextHandle* handle);
 		~VulkanVertexBuffer();
 
 		void setData(void* data, const size_t size) override;

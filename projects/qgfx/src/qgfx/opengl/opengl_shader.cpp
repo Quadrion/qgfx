@@ -3,9 +3,6 @@
 #include "qgfx/opengl/opengl_shader.h"
 #include "qgfx/qassert.h"
 
-#include <cstring>
-#include <stddef.h>
-
 OpenGLShader::OpenGLShader(ContextHandle* handle)
 	: IShader(handle)
 {
@@ -14,7 +11,7 @@ OpenGLShader::OpenGLShader(ContextHandle* handle)
 }
 
 OpenGLShader::OpenGLShader(OpenGLShader&& shader) noexcept
-	: IShader(mHandle), mId(shader.mId)
+	: IShader(shader.mHandle), mId(shader.mId)
 {
 	shader.mId = 0;
 }
@@ -72,7 +69,7 @@ bool OpenGLShader::attachFragmentShader(const qtl::vector<char>& source)
 
 bool OpenGLShader::compile()
 {
-	for (auto stage : mStages)
+	for (const auto stage : mStages)
 	{
 		glAttachShader(mId, stage.second);
 	}
@@ -103,7 +100,7 @@ bool OpenGLShader::compile()
 		return false;
 	}
 
-	for (auto stage : mStages)
+	for (const auto stage : mStages)
 	{
 		glDeleteShader(stage.second);
 	}
@@ -140,9 +137,9 @@ qtl::vector<void*> OpenGLShader::getStages() const
 	return qtl::vector<void*>();
 }
 
-bool OpenGLShader::_createStage(const qtl::vector<char>& src, GLenum type)
+bool OpenGLShader::_createStage(const qtl::vector<char>& src, const GLenum type)
 {
-	GLuint stage = glCreateShader(type);
+	const GLuint stage = glCreateShader(type);
 	const char* source = src.data();
 	glShaderSource(stage, 1, &source, nullptr);
 	glCompileShader(stage);

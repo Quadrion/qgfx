@@ -3,7 +3,6 @@
 
 #include <vulkan/vulkan.h>
 
-#include <qtl/shared_ptr.h>
 #include <qtl/vector.h>
 
 #include "qgfx/api/ipipeline.h"
@@ -12,7 +11,7 @@
 class VulkanPipeline : public IPipeline
 {
 	public:
-		explicit VulkanPipeline(ContextHandle* context);
+		explicit VulkanPipeline(ContextHandle* handle);
 		~VulkanPipeline();
 
 		void construct() override;

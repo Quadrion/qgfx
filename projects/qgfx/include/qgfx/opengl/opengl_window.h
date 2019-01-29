@@ -7,17 +7,17 @@
 
 class OpenGLWindow : public IWindow
 {
-public:
-	OpenGLWindow() = default;
-	~OpenGLWindow();
+    public:
+	    OpenGLWindow() = default;
+	    ~OpenGLWindow();
 
-	void construct(const WindowCreationParameters& params) override;
-	void construct(const uint32_t width, const uint32_t height, const qtl::string& title, const bool fullscreen = false, const bool vsync = false) override;
-	void* getPlatformHandle() const override;;
-	bool shouldClose() const override;
-	void poll() const override;
-private:
-	GLFWwindow* mHandle = nullptr;
+	    void construct(const WindowCreationParameters& params) override;
+	    void construct(const uint32_t width, const uint32_t height, const qtl::string& title, const bool fullscreen = false, const bool vsync = false) override;
+	    void* getPlatformHandle() const override;;
+	    bool shouldClose() const override;
+	    void poll() const override;
+    private:
+	    GLFWwindow* mHandle = nullptr;
 };
 
 #endif

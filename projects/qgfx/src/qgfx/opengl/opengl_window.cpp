@@ -8,7 +8,7 @@ OpenGLWindow::~OpenGLWindow()
 	glfwDestroyWindow(mHandle);
 }
 
-void OpenGLWindow::construct(const WindowCreationParameters & params)
+void OpenGLWindow::construct(const WindowCreationParameters& params)
 {
 	construct(params.width, params.height, params.title, params.fullscreen, params.vsync);
 }

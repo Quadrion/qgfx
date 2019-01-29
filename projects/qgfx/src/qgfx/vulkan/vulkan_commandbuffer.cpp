@@ -1,10 +1,10 @@
-#include "qgfx/qassert.h"
 #if defined(QGFX_VULKAN)
+#include "qgfx/qassert.h"
 
 #include "qgfx/vulkan/vulkan_commandbuffer.h"
 #include "qgfx/vulkan/vulkan_commandpool.h"
 
-VulkanCommandBuffer::VulkanCommandBuffer(ContextHandle* context) : ICommandBuffer(context)
+VulkanCommandBuffer::VulkanCommandBuffer(ContextHandle* handle) : ICommandBuffer(handle)
 {
 
 }
@@ -31,7 +31,7 @@ void VulkanCommandBuffer::end()
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to end recording command buffer!");
 }
 
-VkCommandBuffer VulkanCommandBuffer::getBuffer()
+VkCommandBuffer VulkanCommandBuffer::getBuffer() const
 {
 	return mBuffer;
 }

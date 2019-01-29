@@ -13,7 +13,7 @@ OpenGLCommandBuffer::OpenGLCommandBuffer(OpenGLCommandBuffer&& buf) noexcept
 	buf.mHandle = nullptr;
 }
 
-OpenGLCommandBuffer & OpenGLCommandBuffer::operator=(OpenGLCommandBuffer&& buf) noexcept
+OpenGLCommandBuffer& OpenGLCommandBuffer::operator=(OpenGLCommandBuffer&& buf) noexcept
 {
 	mHandle = buf.mHandle;
 	buf.mHandle = nullptr;

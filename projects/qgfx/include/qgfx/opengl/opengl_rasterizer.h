@@ -8,7 +8,7 @@
 class OpenGLRasterizer : public IRasterizer
 {
 	public:
-		OpenGLRasterizer(ContextHandle* handle);
+		explicit OpenGLRasterizer(ContextHandle* handle);
 		OpenGLRasterizer(const OpenGLRasterizer&) = delete;
 		~OpenGLRasterizer();
 

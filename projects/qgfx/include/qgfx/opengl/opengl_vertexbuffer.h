@@ -1,7 +1,6 @@
 #ifndef opengl_vertexbuffer_h__
 #define opengl_vertexbuffer_h__
 
-#include <cstdint>
 #include <glad/glad.h>
 
 #include "qgfx/api/ivertexbuffer.h"
@@ -9,15 +8,15 @@
 class OpenGLVertexBuffer : public IVertexBuffer
 {
 	public:
-		OpenGLVertexBuffer(ContextHandle* handle);
+		explicit OpenGLVertexBuffer(ContextHandle* handle);
 		OpenGLVertexBuffer(const OpenGLVertexBuffer&) = delete;
-		OpenGLVertexBuffer(OpenGLVertexBuffer&& buf) noexcept;
+		OpenGLVertexBuffer(OpenGLVertexBuffer&&) noexcept;
 		~OpenGLVertexBuffer();
 
 		OpenGLVertexBuffer& operator=(const OpenGLVertexBuffer&) = delete;
-		OpenGLVertexBuffer& operator=(OpenGLVertexBuffer&& buf) noexcept;
+		OpenGLVertexBuffer& operator=(OpenGLVertexBuffer&&) noexcept;
 
-		void setData(void * data, const size_t size) override;
+		void setData(void* data, const size_t size) override;
 		void setLayout(const VertexBufferLayout& layout) override;
 		bool construct() override;
 
@@ -28,7 +27,7 @@ class OpenGLVertexBuffer : public IVertexBuffer
 		GLuint mId;
 		VertexBufferLayout mLayout;
 		void * mData = nullptr;
-		std::size_t mSize = 0;
+		size_t mSize = 0;
 };
 
 #endif // opengl_vertexbuffer_h__

@@ -1,7 +1,6 @@
 #ifndef vulkan_context_handle_h__
 #define vulkan_context_handle_h__
 
-#include <optional>
 #include <qtl/vector.h>
 
 #include <vulkan/vulkan.h>
@@ -125,18 +124,17 @@ class VulkanContextHandle : public IContextHandle
 		void _createSwapChain();
 		void _createImageViews();
 
-		void _createRenderPass();
 		void _createGraphicsPipeline();
 
 		void _createFrameBuffers();
 		void _createSyncObjects();
 
-		VkSurfaceFormatKHR _chooseSwapSurfaceFormat(const qtl::vector<VkSurfaceFormatKHR>& availableFormats) const;
-		VkPresentModeKHR _chooseSwapPresentMode(const qtl::vector<VkPresentModeKHR>& availablePresentModes) const;
+        static VkSurfaceFormatKHR _chooseSwapSurfaceFormat(const qtl::vector<VkSurfaceFormatKHR>& availableFormats);
+        static VkPresentModeKHR _chooseSwapPresentMode(const qtl::vector<VkPresentModeKHR>& availablePresentModes);
 		VkExtent2D _chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities) const;
 
 		bool _isDeviceSuitable(const VkPhysicalDevice device) const;
-		bool _checkDeviceExtensionSupport(const VkPhysicalDevice device) const;
+        static bool _checkDeviceExtensionSupport(const VkPhysicalDevice device);
 };
 
 #endif // vulkan_context_handle_h__

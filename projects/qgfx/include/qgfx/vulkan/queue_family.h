@@ -24,7 +24,7 @@ struct SwapChainSupportDetails
 	qtl::vector<VkPresentModeKHR> presentModes;
 };
 
-inline QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surface)
+inline QueueFamilyIndices findQueueFamilies(const VkPhysicalDevice device, const VkSurfaceKHR surface)
 {
 	QueueFamilyIndices indices;
 
@@ -62,7 +62,7 @@ inline QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKH
 	return indices;
 }
 
-inline SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device, VkSurfaceKHR surface)
+inline SwapChainSupportDetails querySwapChainSupport(const VkPhysicalDevice device, const VkSurfaceKHR surface)
 {
 	SwapChainSupportDetails details;
 

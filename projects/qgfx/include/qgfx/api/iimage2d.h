@@ -2,7 +2,6 @@
 #define iimage_h__
 
 #include "qgfx/context_handle.h"
-#include "qgfx/typedefs.h"
 
 enum class ImageFormat : uint32_t
 {

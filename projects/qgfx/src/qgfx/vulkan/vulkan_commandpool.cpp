@@ -1,5 +1,5 @@
-#include "qgfx/qassert.h"
 #if defined(QGFX_VULKAN)
+#include "qgfx/qassert.h"
 
 #include "qgfx/vulkan/queue_family.h"
 
@@ -7,7 +7,7 @@
 #include "qgfx/vulkan/vulkan_commandpool.h"
 #include "qgfx/vulkan/vulkan_commandbuffer.h"
 
-VulkanCommandPool::VulkanCommandPool(ContextHandle* context) : ICommandPool(context)
+VulkanCommandPool::VulkanCommandPool(ContextHandle* handle) : ICommandPool(handle)
 {
 	mCommandPool = nullptr;
 }

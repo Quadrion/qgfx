@@ -11,7 +11,7 @@ OpenGLVertexBuffer::OpenGLVertexBuffer(ContextHandle* handle)
 }
 
 OpenGLVertexBuffer::OpenGLVertexBuffer(OpenGLVertexBuffer&& buf) noexcept
-	: IVertexBuffer(mHandle), mId(buf.mId), mData(buf.mData)
+	: IVertexBuffer(buf.mHandle), mId(buf.mId), mData(buf.mData)
 {
 	buf.mId = 0;
 	buf.mData = nullptr;
@@ -42,7 +42,7 @@ OpenGLVertexBuffer& OpenGLVertexBuffer::operator=(OpenGLVertexBuffer&& buf) noex
 	return *this;
 }
 
-void OpenGLVertexBuffer::setData(void * data, const size_t size)
+void OpenGLVertexBuffer::setData(void* data, const size_t size)
 {
 	if (mData)
 	{
@@ -69,20 +69,19 @@ bool OpenGLVertexBuffer::construct()
 	glBindBuffer(GL_VERTEX_ARRAY, mId);
 	glBufferStorage(GL_VERTEX_ARRAY, mSize, mData, 0);
 	GLuint idx = 0;
-	for (auto format : mLayout.getLayout())
+	for (const auto& format : mLayout.getLayout())
 	{
 		auto sz = format.size;
-		auto ct = format.count;
-		auto tp = format.type;
-		auto of = format.offset;
-		auto nm = format.normalized;
+		const auto ct = format.count;
+		const auto tp = format.type;
+		const auto of = format.offset;
+		const auto nm = format.normalized;
 
 		glVertexAttribPointer(idx, ct, tp, nm, static_cast<GLsizei>(mLayout.getStride()), reinterpret_cast<const void*>(of));
 		glEnableVertexAttribArray(idx);
 		++idx;
 	}
 	glBindBuffer(GL_VERTEX_ARRAY, 0);
-	delete[] mData;
 	mData = nullptr;
 	return true;
 }

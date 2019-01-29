@@ -34,7 +34,7 @@ VkPolygonMode qgfxPolygonModeToVulkan(const PolygonMode mode)
 	}
 }
 
-VulkanRasterizer::VulkanRasterizer(ContextHandle* context) : IRasterizer(context)
+VulkanRasterizer::VulkanRasterizer(ContextHandle* handle) : IRasterizer(handle)
 {
 	mRasterizer = {};
 	mRasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;

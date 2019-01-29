@@ -1,7 +1,6 @@
 #ifndef icommandpool_h__
 #define icommandpool_h__
 
-#include <qtl/shared_ptr.h>
 #include <qtl/vector.h>
 
 #include "qgfx/context_handle.h"

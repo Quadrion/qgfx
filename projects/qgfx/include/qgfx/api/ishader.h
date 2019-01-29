@@ -3,7 +3,6 @@
 
 #include "qgfx/context_handle.h"
 
-#include <qtl/string.h>
 #include <qtl/vector.h>
 
 class IShader

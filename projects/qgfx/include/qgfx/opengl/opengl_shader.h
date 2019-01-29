@@ -12,11 +12,11 @@ class OpenGLShader : public IShader
 	public:
 		explicit OpenGLShader(ContextHandle* handle);
 		OpenGLShader(const OpenGLShader&) = delete;
-		OpenGLShader(OpenGLShader&& shader) noexcept;
+		OpenGLShader(OpenGLShader&&) noexcept;
 		~OpenGLShader() override;
 
 		OpenGLShader& operator=(const OpenGLShader&) = delete;
-		OpenGLShader& operator=(OpenGLShader&& shader) noexcept;
+		OpenGLShader& operator=(OpenGLShader&&) noexcept;
 
 		bool attachVertexShader(const qtl::vector<char>& source) override;
 		bool attachGeometryShader(const qtl::vector<char>& source) override;
@@ -28,13 +28,14 @@ class OpenGLShader : public IShader
 
 		bool bind() override;
 		bool unbind() override;
+
 		uint32_t getStageCount() const override;
 		qtl::vector<void*> getStages() const override;
 	private:
 		GLuint mId;
 		qtl::tree_map<GLenum, GLuint> mStages;
 
-		bool _createStage(const qtl::vector<char>& src, GLenum type);
+		bool _createStage(const qtl::vector<char>& src, const GLenum type);
 };
 
 #endif // opengl_shader_h__

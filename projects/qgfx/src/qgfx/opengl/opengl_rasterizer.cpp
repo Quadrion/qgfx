@@ -2,7 +2,7 @@
 
 #include "qgfx/opengl/opengl_rasterizer.h"
 
-OpenGLRasterizer::OpenGLRasterizer(ContextHandle * handle)
+OpenGLRasterizer::OpenGLRasterizer(ContextHandle* handle)
 	: IRasterizer(handle)
 {
 }

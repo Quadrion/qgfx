@@ -7,7 +7,7 @@
 class VulkanRasterizer : public IRasterizer
 {
 	public:
-		explicit VulkanRasterizer(ContextHandle* context);
+		explicit VulkanRasterizer(ContextHandle* handle);
 		~VulkanRasterizer();
 
 		void setCullMode(const CullMode mode) override;

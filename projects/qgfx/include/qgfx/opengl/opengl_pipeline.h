@@ -9,13 +9,13 @@
 class OpenGLPipeline : public IPipeline
 {
 	public:
-		OpenGLPipeline(ContextHandle* handle);
+		explicit OpenGLPipeline(ContextHandle* handle);
 		OpenGLPipeline(const OpenGLPipeline&) = delete;
-		OpenGLPipeline(OpenGLPipeline&& pipeline) noexcept;
+		OpenGLPipeline(OpenGLPipeline&&) noexcept;
 		~OpenGLPipeline();
 
 		OpenGLPipeline& operator=(const OpenGLPipeline&) = delete;
-		OpenGLPipeline& operator=(OpenGLPipeline&& pipeline) noexcept;
+		OpenGLPipeline& operator=(OpenGLPipeline&&) noexcept;
 	
 		Shader* addShader() override;
 		void construct() override;

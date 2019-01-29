@@ -1,7 +1,5 @@
 #include "qgfx/qgfx.h"
 
-#include <qtl/string.h>
-
 int main()
 {
 #if defined(QGFX_OPENGL)
@@ -13,8 +11,8 @@ int main()
 
 	ContextHandle* handle = new ContextHandle(win);
 	handle->addCommandPool();
-	const auto vertex = load_text("media/effects/shader.vert");
-	const auto fragment = load_text("media/effects/shader.frag");
+	const auto vertex = loadText("media/effects/shader.vert");
+	const auto fragment = loadText("media/effects/shader.frag");
 
 	auto shader = handle->getPipeline()->addShader();
 	shader->attachVertexShader(vertex);
@@ -44,8 +42,8 @@ int main()
 	ContextHandle* contextHandle = new ContextHandle(window);
 
 	// create shader and meshes
-	const auto vs = load_spirv("media/effects/vert.spv");
-	const auto fs = load_spirv("media/effects/frag.spv");
+	const auto vs = loadSpirv("media/effects/vert.spv");
+	const auto fs = loadSpirv("media/effects/frag.spv");
 
 	Shader* shader = contextHandle->getPipeline()->addShader();
 	shader->attachVertexShader(vs);
@@ -67,8 +65,6 @@ int main()
 	{
 		CommandBuffer* cmdBuffer = pool->getBuffers()[i];
 		cmdBuffer->record();
-
-
 
 		VkRenderPassBeginInfo renderPassInfo = {};
 		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;

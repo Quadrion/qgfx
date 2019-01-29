@@ -3,7 +3,6 @@
 
 #include "qgfx/typedefs.h"
 
-#include "GLFW/glfw3.h"
 #include <qtl/vector.h>
 
 class IContextHandle

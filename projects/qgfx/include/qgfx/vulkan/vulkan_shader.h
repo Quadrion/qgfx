@@ -1,7 +1,6 @@
 #ifndef vulkan_shader_h__
 #define vulkan_shader_h__
 
-#include <qtl/string.h>
 #include <qtl/vector.h>
 
 #include <vulkan/vulkan.h>
@@ -12,7 +11,7 @@
 class VulkanShader : public IShader
 {
 	public:
-		explicit VulkanShader(ContextHandle* context);
+		explicit VulkanShader(ContextHandle* handle);
 		~VulkanShader();
 
 		bool attachVertexShader(const qtl::vector<char>& source) override;

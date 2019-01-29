@@ -25,8 +25,8 @@ OpenGLContextHandle::OpenGLContextHandle(OpenGLContextHandle&& context) noexcept
 
 OpenGLContextHandle::~OpenGLContextHandle()
 {
-	if (mPipeline) delete mPipeline;
-	if (mRasterizer) delete mRasterizer;
+    delete mPipeline;
+    delete mRasterizer;
 	for (auto pool : mCommandPools)
 	{
 		delete pool;
@@ -46,12 +46,12 @@ OpenGLContextHandle& OpenGLContextHandle::operator=(OpenGLContextHandle&& handle
 	return *this;
 }
 
-Pipeline * OpenGLContextHandle::getPipeline() const
+Pipeline* OpenGLContextHandle::getPipeline() const
 {
 	return mPipeline;
 }
 
-Rasterizer * OpenGLContextHandle::getRasterizer() const
+Rasterizer* OpenGLContextHandle::getRasterizer() const
 {
 	return mRasterizer;
 }

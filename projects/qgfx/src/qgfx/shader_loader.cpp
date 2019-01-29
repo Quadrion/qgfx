@@ -5,9 +5,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <stddef.h>
 
-qtl::vector<char> load_spirv(const qtl::string& file)
+qtl::vector<char> loadSpirv(const qtl::string& file)
 {
 	std::ifstream is(file.c_str(), std::ios::ate | std::ios::binary);
 	QGFX_ASSERT_MSG(is.is_open(), "File %s could not be opened!\n", file.c_str());
@@ -20,7 +19,7 @@ qtl::vector<char> load_spirv(const qtl::string& file)
 	return buf;
 }
 
-qtl::vector<char> load_text(const qtl::string& file)
+qtl::vector<char> loadText(const qtl::string& file)
 {
 	std::ifstream is(file.c_str());
 	std::string fileData;

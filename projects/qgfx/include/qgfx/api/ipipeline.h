@@ -3,8 +3,6 @@
 
 #include <stdint.h>
 
-#include <qtl/shared_ptr.h>
-
 #include "qgfx/context_handle.h"
 #include "qgfx/typedefs.h"
 

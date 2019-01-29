@@ -22,7 +22,6 @@ static constexpr GLenum getInternalFormat(const ImageFormat format, const ImageD
 			case ImageDataType::Float: return GL_R32F;
 			default: return 0;
 		}
-		break;
 	}
 	case ImageFormat::Green:
 	{
@@ -37,7 +36,6 @@ static constexpr GLenum getInternalFormat(const ImageFormat format, const ImageD
 			case ImageDataType::Float: return GL_R32F;
 			default: return 0;
 		}
-		break;
 	}
 	case ImageFormat::Blue:
 	{
@@ -52,7 +50,6 @@ static constexpr GLenum getInternalFormat(const ImageFormat format, const ImageD
 			case ImageDataType::Float: return GL_R32F;
 			default: return 0;
 		}
-		break;
 	}
 	case ImageFormat::Alpha:
 	{
@@ -67,7 +64,6 @@ static constexpr GLenum getInternalFormat(const ImageFormat format, const ImageD
 			case ImageDataType::Float: return GL_R32F;
 			default: return 0;
 		}
-		break;
 	}
 	case ImageFormat::RGB:
 	{
@@ -82,7 +78,6 @@ static constexpr GLenum getInternalFormat(const ImageFormat format, const ImageD
 			case ImageDataType::Float: return GL_RGB32F;
 			default: return 0;
 		}
-		break;
 	}
 	case ImageFormat::RGBA:
 	{
@@ -101,7 +96,6 @@ static constexpr GLenum getInternalFormat(const ImageFormat format, const ImageD
 			case ImageDataType::UInt10_10_10_2: return GL_RGB10_A2;
 			default: return 0;
 		}
-		break;
 	}
 	case ImageFormat::Luminance:
 	{
@@ -116,7 +110,6 @@ static constexpr GLenum getInternalFormat(const ImageFormat format, const ImageD
 			case ImageDataType::Float: return GL_R32F;
 			default: return 0;
 		}
-		break;
 	}
 	case ImageFormat::LuminanceAlpha:
 	{
@@ -131,7 +124,6 @@ static constexpr GLenum getInternalFormat(const ImageFormat format, const ImageD
 			case ImageDataType::Float: return GL_R32F;
 			default: return 0;
 		}
-		break;
 	}
 	default: return 0;
 	}
@@ -174,13 +166,14 @@ static constexpr GLenum getType(const ImageDataType& type)
 	return 0;
 }
 
-OpenGLImage2D::OpenGLImage2D(ContextHandle * handle)
+OpenGLImage2D::OpenGLImage2D(ContextHandle* handle)
 	: IImage2D(handle), mId(0), mWidth(0), mHeight(0), mBpp(0), mFormat(ImageFormat::Red), mDataType(ImageDataType::Byte)
 {
 }
 
-OpenGLImage2D::OpenGLImage2D(OpenGLImage2D && image) noexcept
-	: IImage2D(mHandle), mId(image.mId), mWidth(image.mWidth), mHeight(image.mHeight), mBpp(image.mBpp), mFormat(image.mFormat), mDataType(image.mDataType)
+OpenGLImage2D::OpenGLImage2D(OpenGLImage2D&& image) noexcept
+	: IImage2D(image.mHandle), mId(image.mId), mWidth(image.mWidth), mHeight(image.mHeight), mBpp(image.mBpp),
+      mFormat(image.mFormat), mDataType(image.mDataType)
 {
 	image.mId = 0;
 }
@@ -194,7 +187,7 @@ OpenGLImage2D::~OpenGLImage2D()
 	mId = 0;
 }
 
-OpenGLImage2D & OpenGLImage2D::operator=(OpenGLImage2D && image) noexcept
+OpenGLImage2D& OpenGLImage2D::operator=(OpenGLImage2D&& image) noexcept
 {
 	mHandle = qtl::move(image.mHandle);
 	mWidth = qtl::move(image.mWidth);
@@ -206,10 +199,10 @@ OpenGLImage2D & OpenGLImage2D::operator=(OpenGLImage2D && image) noexcept
 	return *this;
 }
 
-void OpenGLImage2D::construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat & format, const ImageDataType & type)
+void OpenGLImage2D::construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat& format, const ImageDataType& type)
 {
 	glGenTextures(1, &mId);
-	GLenum glFormat = getInternalFormat(format, type);
+	const GLenum glFormat = getInternalFormat(format, type);
 	QGFX_ASSERT_MSG(glFormat != 0, "Could not determine internal OpenGL format from format and type provided.\n");
 	glTexStorage2D(mId, 1, glFormat, width, height);
 	mWidth = width;
@@ -219,7 +212,7 @@ void OpenGLImage2D::construct(const uint32_t width, const uint32_t height, const
 	mDataType = type;
 }
 
-void OpenGLImage2D::setData(const uint8_t * data, const uint32_t dataSize)
+void OpenGLImage2D::setData(const uint8_t* data, const uint32_t dataSize)
 {
 	glTextureSubImage2D(mId, 0, 0, 0, mWidth, mHeight, getFormat(mFormat), getType(mDataType), data);
 }

@@ -5,7 +5,7 @@
 
 #include <vulkan/vulkan.h>
 
-inline uint32_t findMemoryType(VkPhysicalDevice device, uint32_t typeFilter, VkMemoryPropertyFlags properties)
+inline uint32_t findMemoryType(const VkPhysicalDevice device, const uint32_t typeFilter, const VkMemoryPropertyFlags properties)
 {
 	VkPhysicalDeviceMemoryProperties memoryProperties;
 	vkGetPhysicalDeviceMemoryProperties(device, &memoryProperties);
@@ -22,7 +22,9 @@ inline uint32_t findMemoryType(VkPhysicalDevice device, uint32_t typeFilter, VkM
 	return 0;
 }
 
-inline void createBuffer(VkDevice device, VkPhysicalDevice gpu, VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory) {
+inline void createBuffer(const VkDevice device, const VkPhysicalDevice gpu, const VkDeviceSize size, 
+	const VkBufferUsageFlags usage, const VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory) 
+{
 	VkBufferCreateInfo bufferInfo = {};
 	bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
 	bufferInfo.size = size;

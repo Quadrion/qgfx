@@ -1,25 +1,23 @@
+#if defined(QGFX_VULKAN)
+
 #include <map>
 #include <vector>
 #include <iostream>
 #include <set>
 #include <algorithm>
 #include <cstring>
-#include "qgfx/shader_loader.h"
-
-#if defined(QGFX_VULKAN)
 
 #include "qgfx/vulkan/queue_family.h"
 #include "qgfx/vulkan/vulkan_context_handle.h"
 #include "qgfx/vulkan/vulkan_rasterizer.h"
 #include "qgfx/vulkan/vulkan_pipeline.h"
-#include "qgfx/vulkan/vulkan_shader.h"
 #include "qgfx/vulkan/vulkan_commandpool.h"
 #include "qgfx/vulkan/vulkan_commandbuffer.h"
 #include "qgfx/vulkan/vulkan_window.h"
 #include "GLFW/glfw3.h"
 #include "qgfx/qassert.h"
 
-const int32_t MAX_FRAMES_IN_FLIGHT = 2;
+const int32_t maxFramesInFlight = 2;
 
 const std::vector<const char*> validationLayers = {
 	"VK_LAYER_LUNARG_standard_validation"
@@ -142,7 +140,7 @@ VulkanContextHandle::VulkanContextHandle(Window* window) : IContextHandle(window
 
 VulkanContextHandle::~VulkanContextHandle()
 {
-	for(size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++)
+	for(size_t i = 0; i < maxFramesInFlight; i++)
 	{
 		vkDestroySemaphore(mDevice, mRenderFinishedSemaphore[i], nullptr);
 		vkDestroySemaphore(mDevice, mImageAvailableSemaphore[i], nullptr);
@@ -190,6 +188,8 @@ VulkanContextHandle::~VulkanContextHandle()
 
 VulkanContextHandle::VulkanContextHandle(VulkanContextHandle&& other) noexcept : IContextHandle(other.mWindow)
 {
+	this->mCurrentFrame = other.mCurrentFrame;
+	this->mImageIndex = other.mImageIndex;
 	this->mCallback = other.mCallback; other.mCallback = nullptr;
 	this->mDevice = other.mDevice; other.mDevice = nullptr;
 	this->mGraphicsQueue = other.mGraphicsQueue; other.mGraphicsQueue = nullptr;
@@ -209,7 +209,6 @@ VulkanContextHandle::VulkanContextHandle(VulkanContextHandle&& other) noexcept :
 
 void VulkanContextHandle::initializeGraphics()
 {
-	_createRenderPass();
 	_createGraphicsPipeline();
 }
 
@@ -297,7 +296,7 @@ void VulkanContextHandle::swap()
 
 	vkQueuePresentKHR(getPresentQueue(), &presentInfo);
 
-	mCurrentFrame = (mCurrentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
+	mCurrentFrame = (mCurrentFrame + 1) % maxFramesInFlight;
 }
 
 VkInstance VulkanContextHandle::getInstance() const
@@ -636,11 +635,6 @@ void VulkanContextHandle::_createImageViews()
 	}
 }
 
-void VulkanContextHandle::_createRenderPass()
-{
-
-}
-
 void VulkanContextHandle::_createGraphicsPipeline()
 {
 	mPipeline->construct();
@@ -673,9 +667,9 @@ void VulkanContextHandle::_createFrameBuffers()
 
 void VulkanContextHandle::_createSyncObjects()
 {
-	mImageAvailableSemaphore.resize(MAX_FRAMES_IN_FLIGHT);
-	mRenderFinishedSemaphore.resize(MAX_FRAMES_IN_FLIGHT);
-	mInFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
+	mImageAvailableSemaphore.resize(maxFramesInFlight);
+	mRenderFinishedSemaphore.resize(maxFramesInFlight);
+	mInFlightFences.resize(maxFramesInFlight);
 
 	VkSemaphoreCreateInfo semaphoreInfo = {};
 	semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -684,7 +678,7 @@ void VulkanContextHandle::_createSyncObjects()
 	fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
 	fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 
-	for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
+	for (size_t i = 0; i < maxFramesInFlight; i++) {
 		if (vkCreateSemaphore(mDevice, &semaphoreInfo, nullptr, &mImageAvailableSemaphore[i]) != VK_SUCCESS ||
 			vkCreateSemaphore(mDevice, &semaphoreInfo, nullptr, &mRenderFinishedSemaphore[i]) != VK_SUCCESS ||
 			vkCreateFence(mDevice, &fenceInfo, nullptr, &mInFlightFences[i]) != VK_SUCCESS) {
@@ -694,7 +688,7 @@ void VulkanContextHandle::_createSyncObjects()
 }
 
 VkSurfaceFormatKHR VulkanContextHandle::_chooseSwapSurfaceFormat(
-	const qtl::vector<VkSurfaceFormatKHR>& availableFormats) const
+	const qtl::vector<VkSurfaceFormatKHR>& availableFormats)
 {
 	if(availableFormats.size() == 1 && availableFormats[0].format == VK_FORMAT_UNDEFINED)
 	{
@@ -713,7 +707,7 @@ VkSurfaceFormatKHR VulkanContextHandle::_chooseSwapSurfaceFormat(
 }
 
 VkPresentModeKHR VulkanContextHandle::_chooseSwapPresentMode(
-	const qtl::vector<VkPresentModeKHR>& availablePresentModes) const
+	const qtl::vector<VkPresentModeKHR>& availablePresentModes)
 {
 	VkPresentModeKHR bestMode = VK_PRESENT_MODE_FIFO_KHR;
 
@@ -765,7 +759,7 @@ bool VulkanContextHandle::_isDeviceSuitable(const VkPhysicalDevice device) const
 	return indices.isComplete() && extensionSupported && swapChainAdequate;
 }
 
-bool VulkanContextHandle::_checkDeviceExtensionSupport(const VkPhysicalDevice device) const
+bool VulkanContextHandle::_checkDeviceExtensionSupport(const VkPhysicalDevice device)
 {
 	uint32_t extensionCount;
 	vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);

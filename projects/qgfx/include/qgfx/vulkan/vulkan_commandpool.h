@@ -9,7 +9,7 @@
 class VulkanCommandPool : public ICommandPool
 {
 	public:
-		explicit VulkanCommandPool(ContextHandle* context);
+		explicit VulkanCommandPool(ContextHandle* handle);
 		~VulkanCommandPool();
 
 		CommandBuffer* addCommandBuffer() override;

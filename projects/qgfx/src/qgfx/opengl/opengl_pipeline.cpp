@@ -24,7 +24,7 @@ OpenGLPipeline::~OpenGLPipeline()
 	mShaders.clear();
 }
 
-OpenGLPipeline & OpenGLPipeline::operator=(OpenGLPipeline&& pipeline) noexcept
+OpenGLPipeline& OpenGLPipeline::operator=(OpenGLPipeline&& pipeline) noexcept
 {
 	mHandle = pipeline.mHandle;
 	mShaders = qtl::move(pipeline.mShaders);
@@ -32,9 +32,9 @@ OpenGLPipeline & OpenGLPipeline::operator=(OpenGLPipeline&& pipeline) noexcept
 	return *this;
 }
 
-Shader * OpenGLPipeline::addShader()
+Shader* OpenGLPipeline::addShader()
 {
-	auto shader = new Shader(mHandle);
+	const auto shader = new Shader(mHandle);
 	mShaders.push_back(shader);
 	return shader;
 }

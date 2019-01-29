@@ -4,7 +4,7 @@
 
 #include "qgfx/vulkan/vulkan_image2d.h"
 
-static constexpr VkFormat convertQGFXFormatToVulkan(const ImageFormat format, const ImageDataType type)
+static constexpr VkFormat convertQgfxFormatToVulkan(const ImageFormat format, const ImageDataType type)
 {
 	switch(format)
 	{
@@ -21,52 +21,48 @@ static constexpr VkFormat convertQGFXFormatToVulkan(const ImageFormat format, co
 				case ImageDataType::Float: return VK_FORMAT_R32_SFLOAT;
 				default: return VK_FORMAT_UNDEFINED;
 			}
-			break;
 		}
 		case ImageFormat::Green:
 		{
 			switch (type)
 			{
-			case ImageDataType::Byte: return VK_FORMAT_R8_SINT;
-			case ImageDataType::UByte: return VK_FORMAT_R8_UINT;
-			case ImageDataType::Short: return VK_FORMAT_R16_SINT;
-			case ImageDataType::UShort: return VK_FORMAT_R16_UINT;
-			case ImageDataType::Int: return VK_FORMAT_R32_SINT;
-			case ImageDataType::UInt: return VK_FORMAT_R32_UINT;
-			case ImageDataType::Float: return VK_FORMAT_R32_SFLOAT;
+			    case ImageDataType::Byte: return VK_FORMAT_R8_SINT;
+			    case ImageDataType::UByte: return VK_FORMAT_R8_UINT;
+			    case ImageDataType::Short: return VK_FORMAT_R16_SINT;
+			    case ImageDataType::UShort: return VK_FORMAT_R16_UINT;
+			    case ImageDataType::Int: return VK_FORMAT_R32_SINT;
+			    case ImageDataType::UInt: return VK_FORMAT_R32_UINT;
+			    case ImageDataType::Float: return VK_FORMAT_R32_SFLOAT;
 				default: return VK_FORMAT_UNDEFINED;
 			}
-			break;
 		}
 		case ImageFormat::Blue:
 		{
 			switch (type)
 			{
-			case ImageDataType::Byte: return VK_FORMAT_R8_SINT;
-			case ImageDataType::UByte: return VK_FORMAT_R8_UINT;
-			case ImageDataType::Short: return VK_FORMAT_R16_SINT;
-			case ImageDataType::UShort: return VK_FORMAT_R16_UINT;
-			case ImageDataType::Int: return VK_FORMAT_R32_SINT;
-			case ImageDataType::UInt: return VK_FORMAT_R32_UINT;
-			case ImageDataType::Float: return VK_FORMAT_R32_SFLOAT;
+			    case ImageDataType::Byte: return VK_FORMAT_R8_SINT;
+			    case ImageDataType::UByte: return VK_FORMAT_R8_UINT;
+			    case ImageDataType::Short: return VK_FORMAT_R16_SINT;
+			    case ImageDataType::UShort: return VK_FORMAT_R16_UINT;
+			    case ImageDataType::Int: return VK_FORMAT_R32_SINT;
+			    case ImageDataType::UInt: return VK_FORMAT_R32_UINT;
+			    case ImageDataType::Float: return VK_FORMAT_R32_SFLOAT;
 				default: return VK_FORMAT_UNDEFINED;
 			}
-			break;
 		}
 		case ImageFormat::Alpha:
 		{
 			switch (type)
 			{
-			case ImageDataType::Byte: return VK_FORMAT_R8_SINT;
-			case ImageDataType::UByte: return VK_FORMAT_R8_UINT;
-			case ImageDataType::Short: return VK_FORMAT_R16_SINT;
-			case ImageDataType::UShort: return VK_FORMAT_R16_UINT;
-			case ImageDataType::Int: return VK_FORMAT_R32_SINT;
-			case ImageDataType::UInt: return VK_FORMAT_R32_UINT;
-			case ImageDataType::Float: return VK_FORMAT_R32_SFLOAT;
+			    case ImageDataType::Byte: return VK_FORMAT_R8_SINT;
+			    case ImageDataType::UByte: return VK_FORMAT_R8_UINT;
+			    case ImageDataType::Short: return VK_FORMAT_R16_SINT;
+			    case ImageDataType::UShort: return VK_FORMAT_R16_UINT;
+			    case ImageDataType::Int: return VK_FORMAT_R32_SINT;
+			    case ImageDataType::UInt: return VK_FORMAT_R32_UINT;
+			    case ImageDataType::Float: return VK_FORMAT_R32_SFLOAT;
 				default: return VK_FORMAT_UNDEFINED;
 			}
-			break;
 		}
 		case ImageFormat::RGB:
 		{
@@ -81,7 +77,6 @@ static constexpr VkFormat convertQGFXFormatToVulkan(const ImageFormat format, co
 				case ImageDataType::Float: return VK_FORMAT_R32G32B32_SFLOAT;
 				default: return VK_FORMAT_UNDEFINED;
 			}
-			break;
 		}
 		case ImageFormat::RGBA:
 		{
@@ -100,7 +95,6 @@ static constexpr VkFormat convertQGFXFormatToVulkan(const ImageFormat format, co
 				case ImageDataType::UInt10_10_10_2: return VK_FORMAT_A2R10G10B10_UINT_PACK32;
 				default: return VK_FORMAT_UNDEFINED;
 			}
-			break;
 		}
 		case ImageFormat::Luminance:
 		{
@@ -115,7 +109,6 @@ static constexpr VkFormat convertQGFXFormatToVulkan(const ImageFormat format, co
 				case ImageDataType::Float: return VK_FORMAT_R32_SFLOAT;
 				default: return VK_FORMAT_UNDEFINED;
 			}
-			break;
 		}
 		case ImageFormat::LuminanceAlpha:
 		{
@@ -130,7 +123,6 @@ static constexpr VkFormat convertQGFXFormatToVulkan(const ImageFormat format, co
 				case ImageDataType::Float: return VK_FORMAT_R32G32_SFLOAT;
 				default: return VK_FORMAT_UNDEFINED;
 			}
-			break;
 		}
 		default: return VK_FORMAT_UNDEFINED;
 	}
@@ -158,7 +150,7 @@ void VulkanImage2D::construct(const uint32_t width, const uint32_t height, const
 	mHeight = height;
 	mBpp = bpp;
 
-	mFormat = convertQGFXFormatToVulkan(format, type);
+	mFormat = convertQgfxFormatToVulkan(format, type);
 }
 
 void VulkanImage2D::setData(const uint8_t* data, const uint32_t dataSize)

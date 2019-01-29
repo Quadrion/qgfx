@@ -12,7 +12,7 @@ class IRenderPass
 
 		IRenderPass& operator = (const IRenderPass&) = delete;
 
-		virtual void construct(Pipeline* pipeline);
+		virtual void construct(Pipeline* pipeline) = 0;
 
 	protected:
 		ContextHandle* mHandle;

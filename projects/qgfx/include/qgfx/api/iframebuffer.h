@@ -2,7 +2,6 @@
 #define iframebuffer_h__
 
 #include "qgfx/context_handle.h"
-#include "qgfx/typedefs.h"
 
 class IFrameBuffer
 {

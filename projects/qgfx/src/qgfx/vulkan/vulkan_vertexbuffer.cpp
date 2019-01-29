@@ -4,12 +4,11 @@
 
 #include <array>
 #include "qgfx/qassert.h"
-#include <memory>
 #include <cstring>
 
 #include "qgfx/vulkan/vulkan_memory.h"
 
-VulkanVertexBuffer::VulkanVertexBuffer(ContextHandle* context) : IVertexBuffer(context)
+VulkanVertexBuffer::VulkanVertexBuffer(ContextHandle* handle) : IVertexBuffer(handle)
 {
 	mBuffer = VK_NULL_HANDLE;
 	mMemory = VK_NULL_HANDLE;

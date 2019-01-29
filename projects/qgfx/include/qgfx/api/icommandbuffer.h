@@ -3,8 +3,6 @@
 
 #include "qgfx/context_handle.h"
 
-#include "qgfx/typedefs.h"
-
 class ICommandBuffer
 {
 	public:
