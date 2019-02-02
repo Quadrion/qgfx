@@ -12,6 +12,8 @@ class VulkanImage2D : public IImage2D
 		void construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat& format, const ImageDataType& type, const ImageType& imageType) override;
 		void setData(const uint8_t* data, const uint32_t dataSize) override;
 
+		void* getImageHandle() const override;
+
 	private:
 		VkImage mImage;
 		VkDeviceMemory mMemory;
@@ -20,6 +22,8 @@ class VulkanImage2D : public IImage2D
 
 		uint32_t mWidth, mHeight;
 		uint8_t mBpp;
-}; 
+};
+
+constexpr VkFormat convertQgfxFormatToVulkan(const ImageFormat format, const ImageDataType type);
 
 #endif // vulkan_image2d_h__

@@ -4,7 +4,7 @@
 
 #include "qgfx/vulkan/vulkan_image2d.h"
 
-static constexpr VkFormat convertQgfxFormatToVulkan(const ImageFormat format, const ImageDataType type)
+constexpr VkFormat convertQgfxFormatToVulkan(const ImageFormat format, const ImageDataType type)
 {
 	switch(format)
 	{
@@ -212,6 +212,11 @@ void VulkanImage2D::setData(const uint8_t* data, const uint32_t dataSize)
 	result = vkCreateImage(mHandle->getLogicalDevice(), &imageInfo, nullptr, &mImage);
 
 	QGFX_ASSERT_MSG(result == VK_SUCCESS, "Failed to create image");
+}
+
+void* VulkanImage2D::getImageHandle() const
+{
+	return mImage;
 }
 
 #endif // QGFX_VULKAN

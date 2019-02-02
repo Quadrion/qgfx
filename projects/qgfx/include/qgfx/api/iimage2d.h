@@ -32,10 +32,20 @@ enum class ImageDataType : uint32_t
 
 enum class ImageType : uint32_t
 {
-    Color,
-    Depth,
-    Stencil
+    Color = 0x0001,
+    Depth = 0x0002,
+    Stencil = 0x0004
 };
+
+inline ImageType operator | (ImageType a, ImageType b)
+{
+	return static_cast<ImageType>(static_cast<int>(a) | static_cast<int>(b));
+}
+
+inline ImageType operator & (ImageType a, ImageType b)
+{
+	return static_cast<ImageType>(static_cast<int>(a) & static_cast<int>(b));
+}
 
 class IImage2D
 {
@@ -47,6 +57,8 @@ class IImage2D
 
 		virtual void construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat& format, const ImageDataType& type, const ImageType& imageType) = 0;
 		virtual void setData(const uint8_t* data, const uint32_t dataSize) = 0;
+
+		virtual void* getImageHandle() const = 0;
 
 		ImageFormat getImageFormat() const { return mImageFormat; }
 		ImageDataType getImageDataType() const { return mImageDataType; }
