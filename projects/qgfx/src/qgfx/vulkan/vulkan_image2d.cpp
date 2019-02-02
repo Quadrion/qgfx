@@ -143,12 +143,16 @@ VulkanImage2D::~VulkanImage2D()
 	vkDestroyImage(mHandle->getLogicalDevice(), mImage, nullptr);
 }
 
-void VulkanImage2D::construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat& format, const ImageDataType& type)
+void VulkanImage2D::construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat& format, const ImageDataType& type, const ImageType& imageType)
 {
 	mImageSize = static_cast<VkDeviceSize>(width) * static_cast<VkDeviceSize>(height) * static_cast<VkDeviceSize>(bpp);
 	mWidth = width;
 	mHeight = height;
 	mBpp = bpp;
+
+	mImageFormat = format;
+	mImageDataType = type;
+	mImageType = imageType;
 
 	mFormat = convertQgfxFormatToVulkan(format, type);
 }

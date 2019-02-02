@@ -26,6 +26,7 @@ class VulkanCommandPool;
 class VulkanCommandBuffer;
 class VulkanWindow;
 class VulkanRenderPass;
+class VulkanImage2D;
 
 using Pipeline = VulkanPipeline;
 using Rasterizer = VulkanRasterizer;
@@ -35,6 +36,7 @@ using CommandPool = VulkanCommandPool;
 using CommandBuffer = VulkanCommandBuffer;
 using Window = VulkanWindow;
 using RenderPass = VulkanRenderPass;
+using Image2D = VulkanImage2D;
 #endif
 
 #endif // typedefs_h__

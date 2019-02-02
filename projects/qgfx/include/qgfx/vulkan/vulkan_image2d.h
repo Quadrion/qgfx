@@ -9,7 +9,7 @@ class VulkanImage2D : public IImage2D
 		explicit VulkanImage2D(ContextHandle* handle);
 		~VulkanImage2D();
 
-		void construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat& format, const ImageDataType& type) override;
+		void construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat& format, const ImageDataType& type, const ImageType& imageType) override;
 		void setData(const uint8_t* data, const uint32_t dataSize) override;
 
 	private:

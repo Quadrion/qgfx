@@ -42,6 +42,7 @@
 #include "qgfx/vulkan/vulkan_shader.h"
 #include "qgfx/vulkan/vulkan_vertexbuffer.h"
 #include "qgfx/vulkan/vulkan_window.h"
+#include "qgfx/vulkan/vulkan_image2d.h"
 #endif
 
 #endif // qgfx_h__

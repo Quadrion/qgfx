@@ -30,6 +30,13 @@ enum class ImageDataType : uint32_t
 	UInt10_10_10_2
 };
 
+enum class ImageType : uint32_t
+{
+    Color,
+    Depth,
+    Stencil
+};
+
 class IImage2D
 {
 	public:
@@ -38,11 +45,19 @@ class IImage2D
 
 		IImage2D& operator = (const IImage2D&) = delete;
 
-		virtual void construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat& format, const ImageDataType& type) = 0;
+		virtual void construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat& format, const ImageDataType& type, const ImageType& imageType) = 0;
 		virtual void setData(const uint8_t* data, const uint32_t dataSize) = 0;
+
+		ImageFormat getImageFormat() const { return mImageFormat; }
+		ImageDataType getImageDataType() const { return mImageDataType; }
+		ImageType getImageType() const { return mImageType; }
 
 	protected:
 		ContextHandle* mHandle;
+
+		ImageFormat mImageFormat;
+		ImageDataType mImageDataType;
+		ImageType mImageType;
 };
 
 #endif // iimage_h__
