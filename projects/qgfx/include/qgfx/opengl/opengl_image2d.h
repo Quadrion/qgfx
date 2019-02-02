@@ -15,9 +15,10 @@ class OpenGLImage2D : public IImage2D
 	    OpenGLImage2D& operator=(const OpenGLImage2D&) = delete;
 	    OpenGLImage2D& operator=(OpenGLImage2D&&) noexcept;
 
-	    void construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat& format, const ImageDataType& type) override;
+	    void construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat& format, const ImageDataType& type, const ImageType& imageType) override;
 	    void setData(const uint8_t* data, const uint32_t dataSize) override;
-    private:
+		void* getImageHandle() const override;
+	private:
 	    GLuint mId;
 
 	    uint32_t mWidth, mHeight;
@@ -26,5 +27,9 @@ class OpenGLImage2D : public IImage2D
 	    ImageFormat mFormat;
 	    ImageDataType mDataType;
 };
+
+constexpr GLenum getInternalFormat(const ImageFormat format, const ImageDataType type);
+constexpr GLenum getFormat(const ImageFormat& format);
+constexpr GLenum getType(const ImageDataType& type);
 
 #endif

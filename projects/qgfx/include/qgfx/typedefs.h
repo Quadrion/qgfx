@@ -9,6 +9,7 @@ class OpenGLVertexBuffer;
 class OpenGLCommandPool;
 class OpenGLCommandBuffer;
 class OpenGLWindow;
+class OpenGLImage2D;
 
 using Pipeline = OpenGLPipeline;
 using Rasterizer = OpenGLRasterizer;
@@ -17,6 +18,7 @@ using VertexBuffer = OpenGLVertexBuffer;
 using CommandPool = OpenGLCommandPool;
 using CommandBuffer = OpenGLCommandBuffer;
 using Window = OpenGLWindow;
+using Image2D = OpenGLImage2D;
 #elif defined(QGFX_VULKAN)
 class VulkanPipeline;
 class VulkanRasterizer;

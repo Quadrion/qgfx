@@ -5,7 +5,7 @@
 
 #include "qtl/utility.h"
 
-static constexpr GLenum getInternalFormat(const ImageFormat format, const ImageDataType type)
+constexpr GLenum getInternalFormat(const ImageFormat format, const ImageDataType type)
 {
 	switch (format)
 	{
@@ -129,7 +129,7 @@ static constexpr GLenum getInternalFormat(const ImageFormat format, const ImageD
 	}
 }
 
-static constexpr GLenum getFormat(const ImageFormat& format)
+constexpr GLenum getFormat(const ImageFormat& format)
 {
 	switch (format)
 	{
@@ -146,7 +146,7 @@ static constexpr GLenum getFormat(const ImageFormat& format)
 	return 0;
 }
 
-static constexpr GLenum getType(const ImageDataType& type)
+constexpr GLenum getType(const ImageDataType& type)
 {
 	switch (type)
 	{
@@ -199,7 +199,7 @@ OpenGLImage2D& OpenGLImage2D::operator=(OpenGLImage2D&& image) noexcept
 	return *this;
 }
 
-void OpenGLImage2D::construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat& format, const ImageDataType& type)
+void OpenGLImage2D::construct(const uint32_t width, const uint32_t height, const uint8_t bpp, const ImageFormat& format, const ImageDataType& type, const ImageType& imageType)
 {
 	glGenTextures(1, &mId);
 	const GLenum glFormat = getInternalFormat(format, type);
@@ -210,11 +210,17 @@ void OpenGLImage2D::construct(const uint32_t width, const uint32_t height, const
 	mBpp = bpp;
 	mFormat = format;
 	mDataType = type;
+	mImageType = imageType;
 }
 
 void OpenGLImage2D::setData(const uint8_t* data, const uint32_t dataSize)
 {
 	glTextureSubImage2D(mId, 0, 0, 0, mWidth, mHeight, getFormat(mFormat), getType(mDataType), data);
+}
+
+void* OpenGLImage2D::getImageHandle() const
+{
+	return reinterpret_cast<void*>(mId);
 }
 
 #endif
